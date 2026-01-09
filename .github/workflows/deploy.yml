@@ -1,0 +1,88 @@
+name: 🚀 Deploy Completo (Backend + Frontend Separados)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy Production
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Baixa o código
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+
+      # 2. Configura o PHP
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, pdo_mysql
+
+      # 3. Cache do Composer
+      - name: 💾 Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      # 4. Instala Dependências (Cria a pasta /vendor)
+      - name: 📦 Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress
+
+      # ----------------------------------------------------------------
+      # PARTE 1: Envia o BACKEND (App, Vendor, Config)
+      # ----------------------------------------------------------------
+      - name: 📂 Deploy Backend (App Core)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          
+          # Destino: Pasta protegida do sistema
+          server-dir: /pediatria/
+          
+          # Rastreamento de estado
+          state-name: backend-sync-state.json
+          
+          # Exclui a pasta public daqui (pois ela vai para outro lugar no passo seguinte)
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/tests/**
+            **/storage/*.key
+            **/.env
+            **/README.md
+            **/public/**
+
+      # ----------------------------------------------------------------
+      # PARTE 2: Envia o FRONTEND (CSS, JS, Assets)
+      # ----------------------------------------------------------------
+      - name: 📂 Deploy Frontend (Public Folder)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          
+          # Origem: Sua pasta public local
+          local-dir: public/
+          
+          # Destino: Sua pasta pública no servidor (Subdomínio)
+          server-dir: /pediatria.websiteponto.com.br/
+          
+          # Rastreamento de estado
+          state-name: frontend-sync-state.json
+          
+          # Não excluir index.php - ele precisa ser atualizado
+          exclude: |
+            **/.gitkeep
+
+     
