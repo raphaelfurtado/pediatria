@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app title="Notícias">
     <main class="min-h-screen pb-20">
         <!-- Hero Section -->
         <section class="bg-gradient-to-b from-blue-50 to-surface-light pt-12 pb-20 relative overflow-hidden">
@@ -28,22 +28,22 @@
                     <div class="flex flex-wrap gap-2 justify-center lg:justify-start w-full lg:w-auto">
                         <a href="{{ route('posts.index') }}"
                             class="px-6 py-3 rounded-full {{ !request('category') ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">Todos</a>
-                        <a href="{{ route('posts.index', ['category' => 'Artigos']) }}"
-                            class="px-6 py-3 rounded-full {{ request('category') == 'Artigos' ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">Artigos</a>
-                        <a href="{{ route('posts.index', ['category' => 'Notícias']) }}"
-                            class="px-6 py-3 rounded-full {{ request('category') == 'Notícias' ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">Notícias</a>
-                        <a href="{{ route('posts.index', ['category' => 'Informativos']) }}"
-                            class="px-6 py-3 rounded-full {{ request('category') == 'Informativos' ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">Informativos</a>
-                        <a href="{{ route('posts.index', ['category' => 'Eventos']) }}"
-                            class="px-6 py-3 rounded-full {{ request('category') == 'Eventos' ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">Eventos</a>
+
+                        @foreach($categories as $cat)
+                            <a href="{{ route('posts.index', ['category' => $cat]) }}"
+                                class="px-6 py-3 rounded-full {{ request('category') == $cat ? 'bg-secondary text-white shadow-lg shadow-blue-900/20' : 'bg-slate-50 text-slate-500 hover:bg-blue-50 hover:text-primary hover:border-blue-100' }} font-bold text-sm transition-all border border-transparent">{{ $cat }}</a>
+                        @endforeach
                     </div>
                     <div class="relative w-full lg:w-80">
                         <form action="{{ route('posts.index') }}" method="GET">
                             @if(request('category'))
                                 <input type="hidden" name="category" value="{{ request('category') }}">
                             @endif
-                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined">search</span>
-                            <input name="search" value="{{ request('search') }}" class="w-full pl-12 pr-4 py-3 rounded-full border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-primary/20 transition-all text-sm font-medium placeholder:text-gray-400" placeholder="Buscar publicação..." type="text">
+                            <span
+                                class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined">search</span>
+                            <input name="search" value="{{ request('search') }}"
+                                class="w-full pl-12 pr-4 py-3 rounded-full border-slate-200 bg-slate-50 focus:bg-white focus:border-primary focus:ring-primary/20 transition-all text-sm font-medium placeholder:text-gray-400"
+                                placeholder="Buscar publicação..." type="text">
                         </form>
                     </div>
                 </div>

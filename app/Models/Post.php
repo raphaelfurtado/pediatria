@@ -23,6 +23,27 @@ class Post extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function getPrevious()
+    {
+        return self::published()
+            ->where('published_at', '<', $this->published_at)
+            ->orderBy('published_at', 'desc')
+            ->first();
+    }
+
+    public function getNext()
+    {
+        return self::published()
+            ->where('published_at', '>', $this->published_at)
+            ->orderBy('published_at', 'asc')
+            ->first();
+    }
+
+    public function getTagsArrayAttribute()
+    {
+        return $this->tags ? array_map('trim', explode(',', $this->tags)) : [];
+    }
+
     public function scopePublished(Builder $query)
     {
         return $query->whereNotNull('published_at')->where('published_at', '<=', now());

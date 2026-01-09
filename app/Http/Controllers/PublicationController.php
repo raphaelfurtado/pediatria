@@ -12,4 +12,10 @@ class PublicationController extends Controller
         $publications = Publication::latest()->get()->groupBy('type');
         return view('publications.index', compact('publications'));
     }
+
+    public function show($slug)
+    {
+        $publication = Publication::where('slug', $slug)->firstOrFail();
+        return view('publications.show', compact('publication'));
+    }
 }

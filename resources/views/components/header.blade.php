@@ -50,19 +50,32 @@
                 </div>
             </a>
             <nav class="hidden xl:flex items-center gap-6">
-                <a class="nav-link {{ request()->routeIs('home') ? 'text-primary after:w-1/2' : '' }}"
-                    href="{{ route('home') }}">Home</a>
-                <a class="nav-link {{ request()->routeIs('pages.about') ? 'text-primary after:w-1/2' : '' }}"
-                    href="{{ route('pages.about') }}">Institucional</a>
-                <a class="nav-link {{ request()->routeIs('publications.index') ? 'text-primary after:w-1/2' : '' }}"
-                    href="{{ route('publications.index') }}">Artigos e Projetos</a>
-                <a class="nav-link {{ request()->routeIs('events.index') ? 'text-primary after:w-1/2' : '' }}"
-                    href="{{ route('events.index') }}">Cursos e Eventos</a>
-                <a class="nav-link {{ request()->routeIs('posts.index') ? 'text-primary after:w-1/2' : '' }}"
-                    href="{{ route('posts.index') }}">Notícias</a>
-                <a class="nav-link" href="#">Livros</a>
-                <a class="nav-link" href="#">Links</a>
-                <a class="nav-link" href="#">Contato</a>
+                @php
+                    $menuItems = \App\Models\MenuItem::active()->topLevel()->with('children')->orderBy('order')->get();
+                @endphp
+
+                @foreach($menuItems as $item)
+                    @if($item->children->isNotEmpty())
+                        <div class="relative group h-full flex items-center">
+                            <button class="nav-link flex items-center gap-1">
+                                {{ $item->label }}
+                                <span class="material-symbols-outlined text-xs">keyboard_arrow_down</span>
+                            </button>
+                            <div
+                                class="absolute top-full left-0 mt-2 w-48 bg-white rounded-2xl shadow-xl py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-slate-50">
+                                @foreach($item->children->where('is_active', true) as $child)
+                                    <a href="{{ $child->url ?: '#' }}"
+                                        class="block px-6 py-2 text-sm text-slate-600 hover:text-primary hover:bg-slate-50 transition-colors font-bold">
+                                        {{ $child->label }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <a class="nav-link {{ request()->url() == $item->url ? 'text-primary after:w-1/2' : '' }}"
+                            href="{{ $item->url ?: '#' }}">{{ $item->label }}</a>
+                    @endif
+                @endforeach
             </nav>
             <div class="flex items-center gap-3">
                 <button

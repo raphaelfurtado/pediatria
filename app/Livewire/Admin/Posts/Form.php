@@ -21,6 +21,7 @@ class Form extends Component
     public $status = 'draft';
     public $published_at;
     public $image;
+    public $tags;
     public $existingImage;
 
     public function mount($id = null)
@@ -36,6 +37,7 @@ class Form extends Component
             $this->status = $post->published_at ? 'published' : 'draft';
             $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d') : null;
             $this->existingImage = $post->image_path;
+            $this->tags = $post->tags;
         } else {
             $this->published_at = now()->format('Y-m-d');
         }
@@ -64,6 +66,7 @@ class Form extends Component
             'excerpt' => $this->excerpt,
             'content' => $this->content,
             'category' => $this->category,
+            'tags' => $this->tags,
             'published_at' => $this->status === 'published' ? $this->published_at : null,
         ];
 

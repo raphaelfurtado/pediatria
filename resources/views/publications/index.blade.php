@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app title="Biblioteca">
     <div class="bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
@@ -37,11 +37,13 @@
                                 <p class="text-sm text-gray-500 mt-1">{{ $pub->year }}</p>
                                 <p class="text-sm text-gray-600 mt-2 line-clamp-2">{{ $pub->description }}</p>
                                 <div class="mt-4">
-                                    <span class="text-sm font-medium text-sopape-blue group-hover:underline">
+                                    <a href="{{ route('publications.show', $pub->slug) }}"
+                                        class="text-sm font-medium text-sopape-blue group-hover:underline">
                                         Acessar Documento &rarr;
-                                    </span>
+                                    </a>
                                 </div>
-                                <a href="{{ $pub->external_link ?? '#' }}" class="absolute inset-0 focus:outline-none"></a>
+                                <a href="{{ route('publications.show', $pub->slug) }}"
+                                    class="absolute inset-0 focus:outline-none"></a>
                             </div>
                         @endforeach
                     </div>

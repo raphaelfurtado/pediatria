@@ -141,6 +141,11 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Tags (Separadas por vírgula)</label>
+                        <input wire:model="tags" type="text" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary" placeholder="pediatria, saúde, alerta">
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Data de Publicação</label>
                         <input wire:model="published_at" type="date" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
                         @error('published_at') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror

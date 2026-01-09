@@ -1,45 +1,9 @@
-<x-layouts.app>
+<x-layouts.app title="Home">
     <!-- Hero Section -->
-    @if($featuredPost)
-        <section class="container mx-auto px-4 mt-6 mb-12">
-            <div
-                class="relative w-full rounded-4xl overflow-hidden shadow-2xl bg-secondary aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1]">
-                <img alt="{{ $featuredPost->title }}"
-                    class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay"
-                    src="{{ $featuredPost->image_path ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuBYt4bhG-8o18ZSxIajuWCs4gTbCA72a0m3uGcty3TtI_rgfCSVvL-JY8xB4pyJIqMqwy7K5EsbFBAsC3FgEQgi3ChIIWyhYhxunAffPTP_wNZomjg9K80PCs7cojbUU7KVfbVUV0ojWsRaXPQcJ2LCX6jhztn0jXCzA7gl6fxRtBi4ZINgJ0VFQgrl3WLy6oLUhdwXhOQWIY_OtJfMMRY3d5KsXhOJHlgr1xu9FiItUtB3FTJKZk2nmFFA9WbRp7_BVNvJq-3GdMU' }}">
-                <div class="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/80 to-transparent"></div>
-                <div class="absolute inset-0 flex flex-col justify-center px-8 md:px-16 lg:px-24">
-                    <div class="max-w-3xl space-y-6">
-                        <div
-                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/20 border border-accent/30 backdrop-blur-sm text-accent text-xs font-bold uppercase tracking-wider shadow-lg">
-                            <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-                            Destaque da Semana
-                        </div>
-                        <h1
-                            class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
-                            {{ $featuredPost->title }}
-                        </h1>
-                        <p class="text-blue-100 max-w-xl font-medium leading-relaxed hidden md:block text-lg line-clamp-2">
-                            {{ $featuredPost->excerpt }}
-                        </p>
-                        <div class="flex flex-wrap gap-4 pt-2">
-                            <a class="bg-primary hover:bg-white hover:text-primary text-white px-8 py-3.5 rounded-full font-bold text-sm uppercase tracking-wide shadow-lg shadow-primary/30 transition-all hover:-translate-y-1 flex items-center gap-2"
-                                href="{{ route('posts.show', $featuredPost->slug) }}">
-                                Ler Matéria Completa <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                            </a>
-                            <a class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-6 py-3.5 rounded-full font-bold text-sm uppercase tracking-wide transition-all flex items-center gap-2"
-                                href="{{ route('events.index') }}">
-                                <span class="material-symbols-outlined text-lg">calendar_month</span> Ver Agenda
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
+    <x-hero :slides="$slides" />
 
     <!-- Services Cards -->
-    <section class="relative z-20 pb-16 {{ $featuredPost ? '-mt-20 md:-mt-24' : 'mt-12' }} px-4">
+    <section class="relative z-20 pb-16 px-4">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
@@ -260,7 +224,8 @@
                             </div>
                             <div
                                 class="absolute bottom-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">
-                                {{ ucfirst($event->type) }}</div>
+                                {{ ucfirst($event->type) }}
+                            </div>
                         </div>
                         <div class="p-6">
                             <div class="flex items-center gap-2 text-gray-400 text-xs font-bold uppercase mb-3">
@@ -268,9 +233,10 @@
                             </div>
                             <h3
                                 class="text-xl font-bold text-secondary mb-3 leading-tight group-hover:text-primary transition-colors">
-                                {{ $event->title }}</h3>
+                                {{ $event->title }}
+                            </h3>
                             <a class="inline-flex items-center text-sm font-bold text-primary hover:text-secondary transition-colors mt-2"
-                                href="{{ route('events.index') }}">
+                                href="{{ $event->registration_link ?? route('events.index') }}" target="_blank">
                                 Inscreva-se <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
                             </a>
                         </div>
@@ -298,56 +264,33 @@
     </section>
 
     <!-- Publications Section -->
-    <section class="py-16 bg-white border-t border-slate-100">
-        <div class="container mx-auto px-6 text-center">
-            <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Biblioteca</span>
-            <h2 class="text-3xl font-heading font-extrabold text-secondary mb-4">Publicações em Destaque</h2>
-            <p class="text-gray-500 mb-12 max-w-2xl mx-auto">Livros, manuais e guias essenciais para o dia a dia do
-                pediatra e para a orientação de famílias.</p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative w-3/4 mx-auto aspect-[3/4] transition-all duration-300 transform group-hover:-translate-y-3 group-hover:shadow-2xl shadow-lg rounded-lg overflow-hidden">
-                        <img alt="Book" class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbwdxf98NPyQ1zrCgPEyISZceIiQiLBMqnlx2rYnTULKGROxLyuX3xM-lxscQxnFPwuEYjRQ-apGabDM6iMirv2YXdt-nOUdG06Aj_BbceUFnQsDXu5dl049zKHBigdEoqR0nBg3n-tzblyYuZ0dwfJ_KoLmFf8lQ4g46UiO_6Od2zVWBosD5YZacldDul_v84g9DBtSGBZnyv3QUsok4ozER0IuromdS9QqzYkxEyzVPL49wqJPCBzHSn-Pz3GrPJnn5KtRa4qwM">
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
-                    </div>
-                    <h4 class="mt-5 font-bold text-secondary text-base group-hover:text-primary transition-colors">Peles
-                        Delicadas</h4>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Guia Prático</span>
-                </div>
-                <!-- More static books as requested -->
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative w-3/4 mx-auto aspect-[3/4] transition-all duration-300 transform group-hover:-translate-y-3 group-hover:shadow-2xl shadow-lg rounded-lg overflow-hidden">
-                        <img alt="Book" class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPpejFmL4wDvnciddgdWkT1mvsKrcxLMYJmIUPEO7dLs8Emk8fj2pQidIAEgWJjD8RqgF2j2p4fbb8E07kWXiW7mgPn2aahZ3aSSbqNtvVMaH0GupsCgGYhyJgFTzHBE57RHnC9Nev9FuVZriglQOkwzUjHqWuLdt-whcBoFBYuk6yRJPOj3wQGGAwPxaZjLBsnqVagJt40-0CH7BYJokkVDxCvO8LsnhX3I1qLbj0jGJAPUqMDcQoQnXCzgaAbZfTN_sVhZJKAQo">
-                    </div>
-                    <h4 class="mt-5 font-bold text-secondary text-base group-hover:text-primary transition-colors">
-                        Manual AIDPI Neonatal</h4>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Manual Técnico</span>
-                </div>
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative w-3/4 mx-auto aspect-[3/4] transition-all duration-300 transform group-hover:-translate-y-3 group-hover:shadow-2xl shadow-lg rounded-lg overflow-hidden">
-                        <img alt="Book" class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi1T7BYvwWEydhQVxiOYtgC_wKi9L3Bmb8N8UHgHSE5DGqFNcsx0fNYabKNAwyiIeh4Ex-cZZ7lCFcps6czuPQZlCce0KaIStHU1Cu2cbhvV7M_nQTkWHWf68RK_NarFR9NIwrWchX06MvLA5QyzaRsgn0im2UcC11nwvkng3qON_mqsgeElXH7qoBm8GmxfGHXYvnu-6MQ6OaDrayTtZ8EyYsEIcM8Hx4-n18dmd19dlvbS1M72gJ7zsiDY0Tg6cArW1GUISv8G4">
-                    </div>
-                    <h4 class="mt-5 font-bold text-secondary text-base group-hover:text-primary transition-colors">AIDPI
-                        Participante</h4>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Caderno de Atividades</span>
-                </div>
-                <div class="group cursor-pointer">
-                    <div
-                        class="relative w-3/4 mx-auto aspect-[3/4] transition-all duration-300 transform group-hover:-translate-y-3 group-hover:shadow-2xl shadow-lg rounded-lg overflow-hidden">
-                        <img alt="Book" class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHQeJRbgk3HLM3BCbILIWKLgeVymu2pl9Q217eKnlVzMh2ogXfy5_CO0ShVdDC1RTiGJE5CfWeghcXqqCadJ38TvgEfDwV7ymSPbsilsKk7_INZAZPIijTB0YqnpryO0M6JW5HBAJ1W1Zq_swNy5y-6NZ7tsriYN92vMuyMkf2ZX4Tvh8Xbl_BGe4b3AzvEO9suU8AjeQP6KtfCr6OU4KBe1qj776tO6YIskoL6NV0npdVDEMcIrg1GjtfjUL6rTtiIfcvLUaCaEQ">
-                    </div>
-                    <h4 class="mt-5 font-bold text-secondary text-base group-hover:text-primary transition-colors">
-                        Manual Quadros</h4>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Referência Rápida</span>
+    @if($publications->isNotEmpty())
+        <section class="py-16 bg-white border-t border-slate-100">
+            <div class="container mx-auto px-6 text-center">
+                <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Biblioteca</span>
+                <h2 class="text-3xl font-heading font-extrabold text-secondary mb-4">Publicações em Destaque</h2>
+                <p class="text-gray-500 mb-12 max-w-2xl mx-auto">Livros, manuais e guias essenciais para o dia a dia do
+                    pediatra e para a orientação de famílias.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+                    @foreach($publications as $pub)
+                        <div class="group cursor-pointer">
+                            <a href="{{ route('publications.show', $pub->slug) }}">
+                                <div
+                                    class="relative w-3/4 mx-auto aspect-[3/4] transition-all duration-300 transform group-hover:-translate-y-3 group-hover:shadow-2xl shadow-lg rounded-lg overflow-hidden">
+                                    <img alt="{{ $pub->title }}" class="w-full h-full object-cover"
+                                        src="{{ $pub->cover_image ?? 'https://via.placeholder.com/300x400?text=SOPAPE' }}">
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors"></div>
+                                </div>
+                                <h4 class="mt-5 font-bold text-secondary text-base group-hover:text-primary transition-colors">
+                                    {{ $pub->title }}
+                                </h4>
+                                <span
+                                    class="text-xs font-bold text-gray-400 uppercase tracking-wide">{{ ucfirst($pub->type) }}</span>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 </x-layouts.app>

@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-layouts.app title="Agenda e Eventos">
     <div class="bg-gray-50 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -34,8 +34,15 @@
                                 <p class="text-gray-600 text-sm mb-4">{{ $event->location }}</p>
                             </div>
                             <div class="mt-4">
-                                <a href="#" class="text-sopape-blue font-semibold hover:text-sopape-yellow">
-                                    Mais detalhes &rarr;
+                                @php
+                                    $regUrl = $event->registration_link;
+                                    if ($regUrl && !Str::startsWith($regUrl, ['http://', 'https://', '/'])) {
+                                        $regUrl = 'http://' . $regUrl;
+                                    }
+                                @endphp
+                                <a href="{{ $regUrl ?? '#' }}" target="_blank"
+                                    class="text-secondary font-bold hover:text-accent transition-colors flex items-center gap-2">
+                                    Mais detalhes <span class="material-symbols-outlined text-sm">arrow_forward</span>
                                 </a>
                             </div>
                         </div>

@@ -63,6 +63,14 @@
                     <span class="font-medium">Dashboard</span>
                 </a>
 
+                <div class="pt-4 pb-2 px-4 text-xs font-bold text-blue-300 uppercase tracking-wider">Site</div>
+
+                <a href="{{ route('admin.slides.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.slides.*') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">view_carousel</span>
+                    <span class="font-medium">Destaques (Home)</span>
+                </a>
+
                 <div class="pt-4 pb-2 px-4 text-xs font-bold text-blue-300 uppercase tracking-wider">Conteúdo</div>
 
                 <a href="{{ route('admin.posts.index') }}"
@@ -70,13 +78,30 @@
                     <span class="material-symbols-outlined">article</span>
                     <span class="font-medium">Notícias</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                <a href="{{ route('admin.events.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.events.*') ? 'active-nav' : '' }}">
                     <span class="material-symbols-outlined">event</span>
                     <span class="font-medium">Eventos</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                <a href="{{ route('admin.publications.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.publications.*') ? 'active-nav' : '' }}">
                     <span class="material-symbols-outlined">library_books</span>
                     <span class="font-medium">Publicações</span>
+                </a>
+
+                <div class="pt-4 pb-2 px-4">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Central de Mídia</span>
+                </div>
+
+                <a href="{{ route('admin.albums.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.albums.*') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">photo_library</span>
+                    <span class="font-medium">Galerias</span>
+                </a>
+                <a href="{{ route('admin.videos.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.videos.*') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">movie</span>
+                    <span class="font-medium">Vídeos</span>
                 </a>
 
                 @if(auth()->user()->role === 'admin')
@@ -87,14 +112,20 @@
                         <span class="material-symbols-outlined">group</span>
                         <span class="font-medium">Usuários</span>
                     </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
+                    <a href="{{ route('admin.navigation.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.navigation.*') ? 'active-nav' : '' }}">
+                        <span class="material-symbols-outlined">menu_open</span>
+                        <span class="font-medium">Menu e Navegação</span>
+                    </a>
+                    <a href="{{ route('admin.settings') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.settings') ? 'active-nav' : '' }}">
                         <span class="material-symbols-outlined">settings</span>
                         <span class="font-medium">Configurações</span>
                     </a>
                 @endif
             </nav>
 
-            <div class="mt-auto p-4 border-t border-white/10 md:absolute md:bottom-0 md:w-64">
+            <div class="mt-auto p-4 border-t border-white/10 w-full bg-secondary">
                 <div class="flex items-center gap-3 mb-4 px-2">
                     <div
                         class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
