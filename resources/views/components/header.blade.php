@@ -1,5 +1,7 @@
+<div style="background: red; color: white; padding: 10px; position: fixed; top: 0; left: 0; z-index: 99999;">DEBUG:
+    HEADER LOADED</div>
 @php
-    $menuItems = \App\Models\MenuItem::active()->topLevel()->with('children')->orderBy('order')->get();
+    $menuItems = \App\Models\MenuItem::whereNull('parent_id')->with('children')->orderBy('order')->get();
 @endphp
 
 <div class="bg-gradient-to-r from-secondary to-primary text-white py-2 text-xs font-bold tracking-wide">
@@ -105,6 +107,7 @@
                         <div class="px-6 py-6 border-b border-slate-50 flex items-center justify-between">
                             <span class="font-heading font-extrabold text-2xl text-secondary uppercase">Menu
                                 Principal</span>
+                            <span class="text-red-500 font-bold">Count: {{ count($menuItems) }}</span>
                             <button @click="open = false" class="p-2 text-slate-400">
                                 <span class="material-symbols-outlined text-3xl">close</span>
                             </button>
