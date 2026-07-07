@@ -3,22 +3,30 @@
 namespace App\Livewire\Admin\Slides;
 
 use App\Models\Slide;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
 
 class Form extends Component
 {
     use WithFileUploads;
 
     public $slideId;
+
     public $title;
+
     public $subtitle;
+
     public $button_text;
+
     public $button_link;
+
     public $order = 0;
+
     public $is_active = true;
+
     public $image;
+
     public $existingImage;
 
     public function mount($id = null)

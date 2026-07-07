@@ -3,9 +3,9 @@
 namespace App\Livewire\Admin\Videos;
 
 use App\Models\Video;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
 
 class Index extends Component
 {
@@ -24,12 +24,12 @@ class Index extends Component
     public function render()
     {
         $videos = Video::query()
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where('title', 'like', '%'.$this->search.'%')
             ->latest()
             ->paginate(12);
 
         return view('livewire.admin.videos.index', [
-            'videos' => $videos
+            'videos' => $videos,
         ]);
     }
 }

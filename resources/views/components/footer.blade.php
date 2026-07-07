@@ -1,6 +1,24 @@
 <footer class="bg-secondary text-blue-100 pt-20 pb-10 rounded-t-4xl md:rounded-t-5xl mt-12 overflow-hidden relative">
     <div class="absolute top-0 right-0 w-96 h-96 bg-primary opacity-10 rounded-full blur-3xl -mr-20 -mt-20"></div>
     <div class="container mx-auto px-6 relative z-10">
+        @php
+            $mkTitle = \App\Models\SiteSetting::get('marketing_title', 'Receba novidades');
+            $mkDesc = \App\Models\SiteSetting::get('marketing_description', 'Inscreva-se para receber atualizações da SOPAPE');
+            $mkBtnText = \App\Models\SiteSetting::get('marketing_button_text', 'Inscrever-se');
+            $mkBtnLink = \App\Models\SiteSetting::get('marketing_button_link', '#');
+        @endphp
+        <div
+            class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h3 class="text-2xl font-heading font-bold text-white mb-2">{{ $mkTitle }}</h3>
+                <p class="text-blue-200 text-sm max-w-md">{{ $mkDesc }}</p>
+            </div>
+            <a href="{{ $mkBtnLink }}"
+                class="bg-accent text-secondary font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors flex-shrink-0 text-center whitespace-nowrap">
+                {{ $mkBtnText }}
+            </a>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div class="space-y-6">
                 <div class="flex items-center gap-3">

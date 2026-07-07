@@ -2,28 +2,40 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
 
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'image_path',
+        'category',
+        'author_id',
+        'published_at',
+        'is_featured',
+        'tags',
+    ];
 
     protected $casts = [
         'published_at' => 'datetime',
         'is_featured' => 'boolean',
     ];
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'author_id');
     }
 
-    public function getPrevious()
+    public function getPrevious(): ?self
     {
         return self::published()
             ->where('published_at', '<', $this->published_at)
@@ -31,7 +43,7 @@ class Post extends Model
             ->first();
     }
 
-    public function getNext()
+    public function getNext(): ?self
     {
         return self::published()
             ->where('published_at', '>', $this->published_at)
@@ -39,17 +51,17 @@ class Post extends Model
             ->first();
     }
 
-    public function getTagsArrayAttribute()
+    public function getTagsArrayAttribute(): array
     {
         return $this->tags ? array_map('trim', explode(',', $this->tags)) : [];
     }
 
-    public function scopePublished(Builder $query)
+    public function scopePublished(Builder $query): Builder
     {
         return $query->whereNotNull('published_at')->where('published_at', '<=', now());
     }
 
-    public function scopeFeatured(Builder $query)
+    public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
     }

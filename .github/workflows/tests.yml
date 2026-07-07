@@ -3,8 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
-      - '*.x'
+      - main
   pull_request:
   schedule:
     - cron: '0 0 * * *'
@@ -43,5 +42,8 @@ jobs:
       - name: Generate app key
         run: php artisan key:generate
 
+      - name: Check code style (Pint)
+        run: vendor/bin/pint --test
+
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: php artisan test

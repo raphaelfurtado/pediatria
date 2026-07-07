@@ -2,22 +2,25 @@
 
 namespace App\Livewire\Auth;
 
-use Livewire\Component;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\GenericRule;
+use Livewire\Component;
 
 class Register extends Component
 {
     public $name = '';
+
     public $email = '';
+
     public $password = '';
+
     public $password_confirmation = '';
 
     protected $rules = [
-        'name' => 'required|min:3',
-        'email' => 'required|email|unique:users,email',
+        'name' => 'required|min:3|max:255',
+        'email' => 'required|email|max:255|unique:users,email',
         'password' => 'required|min:8|confirmed',
     ];
 
@@ -29,11 +32,12 @@ class Register extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'role' => 'visitante', // Default role
+            'role' => UserRole::VISITANTE->value,
             'is_active' => true,
         ]);
 
         Auth::login($user);
+        session()->regenerate();
 
         return redirect()->route('home');
     }
