@@ -36,9 +36,9 @@
                             @else
                                 <select wire:change="updateRole({{ $user->id }}, $event.target.value)"
                                     class="bg-slate-50 border-transparent rounded-lg text-xs font-bold uppercase cursor-pointer focus:ring-primary focus:border-primary py-1 pl-2 pr-6">
-                                    <option value="member" {{ $user->role === 'member' ? 'selected' : '' }}>Sócio</option>
-                                    <option value="editor" {{ $user->role === 'editor' ? 'selected' : '' }}>Editor</option>
-                                    <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
+                                    @foreach(\App\Enums\UserRole::cases() as $roleOption)
+                                        <option value="{{ $roleOption->value }}" {{ $user->role === $roleOption->value ? 'selected' : '' }}>{{ $roleOption->label() }}</option>
+                                    @endforeach
                                 </select>
                             @endif
                         </td>
