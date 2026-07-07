@@ -20,31 +20,7 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: "#0096C7",
-                        secondary: "#023E8A",
-                        accent: "#FFB703",
-                        "surface-light": "#F8FAFC",
-                    },
-                    fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        heading: ['Poppins', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .active-nav {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #FFB703;
-        }
-    </style>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 
