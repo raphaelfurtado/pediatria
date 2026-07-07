@@ -30,10 +30,14 @@
 
                 <div class="h-3 w-px bg-white/30"></div>
                 <div class="flex gap-3">
-                    <a class="hover:text-accent transition" href="#"><span
-                            class="material-symbols-outlined text-sm">facebook</span></a>
-                    <a class="hover:text-accent transition" href="#"><span
-                            class="material-symbols-outlined text-sm">photo_camera</span></a>
+                    @if($fb = \App\Models\SiteSetting::get('facebook'))
+                        <a class="hover:text-accent transition" href="{{ $fb }}" target="_blank" title="Facebook"><span
+                                class="material-symbols-outlined text-sm">facebook</span></a>
+                    @endif
+                    @if($ig = \App\Models\SiteSetting::get('instagram'))
+                        <a class="hover:text-accent transition" href="{{ $ig }}" target="_blank" title="Instagram"><span
+                                class="material-symbols-outlined text-sm">photo_camera</span></a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -9,8 +9,7 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="p-6">
-            <p class="text-slate-500 mb-6 italic">Arraste para reordenar (Simulação: Ordem manual via ID/Botão por
-                enquanto)</p>
+            <p class="text-slate-500 mb-6 italic">Use as setas para reordenar os itens principais do menu.</p>
 
             <div class="space-y-4">
                 @foreach($menuItems as $item)
@@ -30,6 +29,14 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2">
+                                <button wire:click="moveUp({{ $item->id }})"
+                                    class="text-slate-400 hover:text-primary transition-colors" title="Mover para cima">
+                                    <span class="material-symbols-outlined">keyboard_arrow_up</span>
+                                </button>
+                                <button wire:click="moveDown({{ $item->id }})"
+                                    class="text-slate-400 hover:text-primary transition-colors" title="Mover para baixo">
+                                    <span class="material-symbols-outlined">keyboard_arrow_down</span>
+                                </button>
                                 <button wire:click="toggleStatus({{ $item->id }})"
                                     class="{{ $item->is_active ? 'text-primary' : 'text-slate-300' }} hover:text-accent transition-colors"
                                     title="{{ $item->is_active ? 'Desativar' : 'Ativar' }}">

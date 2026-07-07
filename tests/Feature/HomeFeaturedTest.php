@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Event;
 use App\Models\Post;
 use App\Models\Video;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -57,5 +58,24 @@ class HomeFeaturedTest extends TestCase
         $this->get('/')
             ->assertOk()
             ->assertSee('NOTICIA EM DESTAQUE PRINCIPAL');
+    }
+
+    public function test_featured_event_is_listed_before_a_sooner_common_event(): void
+    {
+        // Common event happens sooner, featured event later — featured must still come first.
+        Event::factory()->create([
+            'title' => 'EVENTO COMUM AGENDA',
+            'is_featured' => false,
+            'date_start' => now()->addDays(2),
+        ]);
+        Event::factory()->create([
+            'title' => 'EVENTO EM DESTAQUE AGENDA',
+            'is_featured' => true,
+            'date_start' => now()->addDays(10),
+        ]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSeeInOrder(['EVENTO EM DESTAQUE AGENDA', 'EVENTO COMUM AGENDA']);
     }
 }

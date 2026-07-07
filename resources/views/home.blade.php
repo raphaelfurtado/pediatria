@@ -222,6 +222,12 @@
                                 <span
                                     class="block text-xs uppercase font-bold text-slate-500">{{ $event->date_start->format('M') }}</span>
                             </div>
+                            @if($event->is_featured)
+                                <div
+                                    class="absolute top-4 right-4 bg-accent text-secondary text-xs font-bold px-3 py-1 rounded-full shadow">
+                                    Destaque
+                                </div>
+                            @endif
                             <div
                                 class="absolute bottom-4 right-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full">
                                 {{ ucfirst($event->type) }}
