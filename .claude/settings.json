@@ -1,0 +1,17 @@
+{
+  "language": "english",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/aiox-default-mode.cjs\"",
+            "timeout": 10,
+            "statusMessage": "AIOX default mode"
+          }
+        ]
+      }
+    ]
+  }
+}

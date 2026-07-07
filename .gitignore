@@ -22,3 +22,31 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Environment & Secrets (AIOX)
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Dependencies (AIOX)
+node_modules/
+
+# Build & Logs (AIOX)
+dist/
+build/
+logs/
+
+# IDE & OS (AIOX)
+.idea/
+*.swp
+
+# AIOX Local (AIOX)
+.claude/settings.local.json
+.aiox/install-log.txt
+
+# AIOX framework engine (~53MB / 8k+ files) — NOT versioned.
+# Each dev materializes it locally with: npx aiox-core install
+# (To lock the team standard, uncomment the line below to keep the project config.)
+.aiox-core/*
+# !.aiox-core/core-config.yaml
