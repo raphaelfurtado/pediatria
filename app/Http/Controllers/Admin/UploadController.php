@@ -11,8 +11,9 @@ class UploadController extends Controller
     {
         if ($request->hasFile('file')) {
             $path = $request->file('file')->store('uploads', 'public');
+
             return response()->json([
-                'url' => asset('storage/' . $path)
+                'url' => asset('storage/'.$path),
             ]);
         }
 

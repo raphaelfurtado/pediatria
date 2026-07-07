@@ -3,25 +3,35 @@
 namespace App\Livewire\Admin\Publications;
 
 use App\Models\Publication;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
 
 class Form extends Component
 {
     use WithFileUploads;
 
     public $publicationId;
+
     public $title;
+
     public $slug;
+
     public $description;
+
     public $type = 'livro';
+
     public $year;
+
     public $external_link;
+
     public $cover;
+
     public $file;
+
     public $existingCover;
+
     public $existingFile;
 
     public function mount($id = null)
@@ -42,7 +52,7 @@ class Form extends Component
 
     public function updatedTitle($value)
     {
-        if (!$this->publicationId) {
+        if (! $this->publicationId) {
             $this->slug = Str::slug($value);
         }
     }
@@ -51,7 +61,7 @@ class Form extends Component
     {
         $this->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|unique:publications,slug,' . $this->publicationId,
+            'slug' => 'required|unique:publications,slug,'.$this->publicationId,
             'type' => 'required|string',
             'cover' => $this->publicationId ? 'nullable|image|max:2048' : 'nullable|image|max:2048',
             'file' => 'nullable|mimes:pdf,doc,docx|max:10240',
@@ -68,12 +78,12 @@ class Form extends Component
 
         if ($this->cover) {
             $path = $this->cover->store('publications/covers', 'public');
-            $data['cover_image'] = '/storage/' . $path;
+            $data['cover_image'] = '/storage/'.$path;
         }
 
         if ($this->file) {
             $path = $this->file->store('publications/files', 'public');
-            $data['file_path'] = '/storage/' . $path;
+            $data['file_path'] = '/storage/'.$path;
         }
 
         if ($this->publicationId) {

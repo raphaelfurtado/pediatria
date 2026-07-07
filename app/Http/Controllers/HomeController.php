@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Post;
 use App\Models\Event;
-use App\Models\Slide;
+use App\Models\Post;
 use App\Models\Publication;
+use App\Models\Slide;
 
 class HomeController extends Controller
 {

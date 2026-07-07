@@ -3,9 +3,9 @@
 namespace App\Livewire\Admin\Events;
 
 use App\Models\Event;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
 
 class Index extends Component
 {
@@ -24,12 +24,12 @@ class Index extends Component
     public function render()
     {
         $events = Event::query()
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where('title', 'like', '%'.$this->search.'%')
             ->latest('date_start')
             ->paginate(10);
 
         return view('livewire.admin.events.index', [
-            'events' => $events
+            'events' => $events,
         ]);
     }
 }

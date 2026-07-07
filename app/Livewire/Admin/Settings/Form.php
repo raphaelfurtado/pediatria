@@ -2,20 +2,26 @@
 
 namespace App\Livewire\Admin\Settings;
 
-use Livewire\Component;
-
 use App\Models\SiteSetting;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 class Form extends Component
 {
     public $facebook;
+
     public $instagram;
+
     public $twitter;
+
     public $whatsapp;
+
     public $marketing_title;
+
     public $marketing_description;
+
     public $marketing_button_text;
+
     public $marketing_button_link;
 
     public function mount()

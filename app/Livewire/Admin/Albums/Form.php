@@ -2,25 +2,33 @@
 
 namespace App\Livewire\Admin\Albums;
 
-use App\Models\PhotoAlbum;
 use App\Models\Photo;
+use App\Models\PhotoAlbum;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
 
 class Form extends Component
 {
     use WithFileUploads;
 
     public $albumId;
+
     public $title;
+
     public $slug;
+
     public $description;
+
     public $is_active = true;
+
     public $cover;
+
     public $photos = [];
+
     public $existingCover;
+
     public $existingPhotos = [];
 
     public function mount($id = null)
@@ -39,7 +47,7 @@ class Form extends Component
 
     public function updatedTitle($value)
     {
-        if (!$this->albumId) {
+        if (! $this->albumId) {
             $this->slug = Str::slug($value);
         }
     }
@@ -55,7 +63,7 @@ class Form extends Component
     {
         $this->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|unique:photo_albums,slug,' . $this->albumId,
+            'slug' => 'required|unique:photo_albums,slug,'.$this->albumId,
             'cover' => $this->albumId ? 'nullable|image|max:2048' : 'nullable|image|max:2048',
             'photos.*' => 'image|max:5120',
         ]);
@@ -69,7 +77,7 @@ class Form extends Component
 
         if ($this->cover) {
             $path = $this->cover->store('albums/covers', 'public');
-            $data['cover_image'] = '/storage/' . $path;
+            $data['cover_image'] = '/storage/'.$path;
         }
 
         if ($this->albumId) {
@@ -79,17 +87,18 @@ class Form extends Component
             $album = PhotoAlbum::create($data);
         }
 
-        if (!empty($this->photos)) {
+        if (! empty($this->photos)) {
             foreach ($this->photos as $photoFile) {
-                $path = $photoFile->store('albums/photos/' . $album->id, 'public');
+                $path = $photoFile->store('albums/photos/'.$album->id, 'public');
                 Photo::create([
                     'photo_album_id' => $album->id,
-                    'image_path' => '/storage/' . $path,
+                    'image_path' => '/storage/'.$path,
                 ]);
             }
         }
 
         session()->flash('notify', 'Álbum salvo com sucesso!');
+
         return redirect()->route('admin.albums.index');
     }
 

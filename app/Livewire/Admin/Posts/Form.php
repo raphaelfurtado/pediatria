@@ -3,25 +3,35 @@
 namespace App\Livewire\Admin\Posts;
 
 use App\Models\Post;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
 
 class Form extends Component
 {
     use WithFileUploads;
 
     public $postId;
+
     public $title;
+
     public $slug;
+
     public $excerpt;
+
     public $content;
+
     public $category;
+
     public $status = 'draft';
+
     public $published_at;
+
     public $image;
+
     public $tags;
+
     public $existingImage;
 
     public function mount($id = null)
@@ -45,7 +55,7 @@ class Form extends Component
 
     public function updatedTitle($value)
     {
-        if (!$this->postId) {
+        if (! $this->postId) {
             $this->slug = Str::slug($value);
         }
     }
@@ -54,7 +64,7 @@ class Form extends Component
     {
         $this->validate([
             'title' => 'required',
-            'slug' => 'required|unique:posts,slug,' . $this->postId,
+            'slug' => 'required|unique:posts,slug,'.$this->postId,
             'content' => 'required',
             'category' => 'required',
             'published_at' => 'required_if:status,published',
@@ -71,13 +81,13 @@ class Form extends Component
         ];
 
         // Only set author on creation
-        if (!$this->postId) {
+        if (! $this->postId) {
             $data['author_id'] = auth()->id();
         }
 
         if ($this->image) {
             $path = $this->image->store('posts', 'public');
-            $data['image_path'] = '/storage/' . $path;
+            $data['image_path'] = '/storage/'.$path;
         }
 
         if ($this->postId) {

@@ -3,26 +3,37 @@
 namespace App\Livewire\Admin\Events;
 
 use App\Models\Event;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attributes\Layout;
-use Illuminate\Support\Str;
 
 class Form extends Component
 {
     use WithFileUploads;
 
     public $eventId;
+
     public $title;
+
     public $slug;
+
     public $description;
+
     public $date_start;
+
     public $date_end;
+
     public $location;
+
     public $type = 'presencial';
+
     public $registration_link;
+
     public $is_featured = false;
+
     public $image;
+
     public $existingImage;
 
     public function mount($id = null)
@@ -45,7 +56,7 @@ class Form extends Component
 
     public function updatedTitle($value)
     {
-        if (!$this->eventId) {
+        if (! $this->eventId) {
             $this->slug = Str::slug($value);
         }
     }
@@ -54,7 +65,7 @@ class Form extends Component
     {
         $this->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|unique:events,slug,' . $this->eventId,
+            'slug' => 'required|unique:events,slug,'.$this->eventId,
             'date_start' => 'required',
             'location' => 'required|string',
             'type' => 'required|in:presencial,online,hibrido',
@@ -75,7 +86,7 @@ class Form extends Component
 
         if ($this->image) {
             $path = $this->image->store('events', 'public');
-            $data['image_path'] = '/storage/' . $path;
+            $data['image_path'] = '/storage/'.$path;
         }
 
         if ($this->eventId) {
