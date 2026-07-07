@@ -10,7 +10,18 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'slug',
+        'description',
+        'date_start',
+        'date_end',
+        'location',
+        'image_path',
+        'type',
+        'registration_link',
+        'is_featured',
+    ];
 
     protected $casts = [
         'date_start' => 'datetime',
@@ -18,12 +29,12 @@ class Event extends Model
         'is_featured' => 'boolean',
     ];
 
-    public function scopeUpcoming(Builder $query)
+    public function scopeUpcoming(Builder $query): Builder
     {
         return $query->where('date_start', '>=', now())->orderBy('date_start');
     }
 
-    public function scopeFeatured(Builder $query)
+    public function scopeFeatured(Builder $query): Builder
     {
         return $query->where('is_featured', true);
     }
