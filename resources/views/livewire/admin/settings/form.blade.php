@@ -37,6 +37,26 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined">contact_mail</span> Contato
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">E-mail de Contato</label>
+                        <input wire:model="contact_email" type="email"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                            placeholder="atendimento@exemplo.com">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Telefone exibido</label>
+                        <input wire:model="contact_phone" type="text"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                            placeholder="(91) 99999-9999">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Marketing Sidebar -->

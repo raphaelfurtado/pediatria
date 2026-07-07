@@ -48,6 +48,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/slides/create', \App\Livewire\Admin\Slides\Form::class)->name('slides.create');
     Route::get('/slides/{id}/edit', \App\Livewire\Admin\Slides\Form::class)->name('slides.edit');
 
+    Route::get('/cards', \App\Livewire\Admin\ServiceCards\Index::class)->name('service-cards.index');
+    Route::get('/cards/create', \App\Livewire\Admin\ServiceCards\Form::class)->name('service-cards.create');
+    Route::get('/cards/{id}/edit', \App\Livewire\Admin\ServiceCards\Form::class)->name('service-cards.edit');
+
     Route::get('/events', \App\Livewire\Admin\Events\Index::class)->name('events.index');
     Route::get('/events/create', \App\Livewire\Admin\Events\Form::class)->name('events.create');
     Route::get('/events/{id}/edit', \App\Livewire\Admin\Events\Form::class)->name('events.edit');

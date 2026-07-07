@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             MenuItemSeeder::class,
+            ServiceCardSeeder::class,
             PostSeeder::class,
             EventSeeder::class,
             PublicationSeeder::class,

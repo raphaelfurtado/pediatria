@@ -163,6 +163,15 @@
         }
     }
 
+    /* Hide side arrows on mobile — they overlap the slide text; swipe + dots remain. */
+    @media (max-width: 767px) {
+
+        .heroSwiper .swiper-button-next,
+        .heroSwiper .swiper-button-prev {
+            display: none !important;
+        }
+    }
+
     .swiper-pagination-bullet {
         width: 12px;
         height: 12px;
