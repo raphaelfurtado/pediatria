@@ -101,8 +101,8 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Featured News (Left) -->
-                @if($latestPosts->isNotEmpty())
-                    @php $mainPost = $latestPosts->shift(); @endphp
+                @php $mainPost = $featuredPost ?? ($latestPosts->isNotEmpty() ? $latestPosts->shift() : null); @endphp
+                @if($mainPost)
                     <article
                         class="lg:col-span-1 bg-white rounded-3xl shadow-lg hover:shadow-hover border border-slate-100 overflow-hidden group cursor-pointer flex flex-col h-full">
                         <div class="relative h-64 lg:h-1/2 overflow-hidden">
@@ -262,6 +262,55 @@
             </div>
         </div>
     </section>
+
+    <!-- Featured Videos Section -->
+    @if($featuredVideos->isNotEmpty())
+        <section class="py-16 bg-surface-light border-t border-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <span class="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Canal SOPAPE</span>
+                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold text-secondary">Vídeos em Destaque</h2>
+                    </div>
+                    <a class="hidden md:flex items-center gap-2 text-sm font-bold text-gray-400 hover:text-primary transition-colors bg-gray-50 px-4 py-2 rounded-full hover:bg-blue-50"
+                        href="{{ route('videos.index') }}">
+                        Ver todos os vídeos <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($featuredVideos as $video)
+                        <article
+                            class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col hover:-translate-y-1">
+                            <a href="https://www.youtube.com/watch?v={{ $video->youtube_id }}" target="_blank"
+                                rel="noopener noreferrer"
+                                class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5 block">
+                                <img alt="{{ $video->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    src="https://img.youtube.com/vi/{{ $video->youtube_id }}/hqdefault.jpg">
+                                <div
+                                    class="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                    <div
+                                        class="w-16 h-16 bg-accent text-secondary rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                                        <span class="material-symbols-outlined text-3xl font-bold fill-1">play_arrow</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="px-2 flex flex-col flex-1">
+                                <h3
+                                    class="text-lg font-heading font-bold text-secondary mb-2 leading-snug group-hover:text-primary transition-colors line-clamp-2">
+                                    {{ $video->title }}
+                                </h3>
+                                @if($video->description)
+                                    <p class="text-slate-500 text-sm line-clamp-2 leading-relaxed">{{ $video->description }}</p>
+                                @endif
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
     <!-- Publications Section -->
     @if($publications->isNotEmpty())
