@@ -78,6 +78,13 @@
                 @apply w-1/2;
             }
         </style>
+    <style>
+        /* Evita rolagem horizontal / faixa vazia à direita no mobile (overflow-x: clip preserva o header sticky) */
+        html,
+        body {
+            overflow-x: clip;
+        }
+    </style>
     @livewireStyles
 </head>
 
