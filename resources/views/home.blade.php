@@ -6,78 +6,36 @@
     <section class="relative z-20 pb-16 px-4">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
-                    href="{{ route('register') }}">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="relative z-10">
+                @php
+                    $themes = [
+                        'primary' => ['icon' => 'bg-primary text-white shadow-primary/20', 'corner' => 'bg-blue-50', 'link' => 'text-primary'],
+                        'accent' => ['icon' => 'bg-accent text-secondary shadow-accent/20', 'corner' => 'bg-yellow-50', 'link' => 'text-tertiary'],
+                        'rose' => ['icon' => 'bg-rose text-white shadow-rose/20', 'corner' => 'bg-red-50', 'link' => 'text-rose'],
+                        'success' => ['icon' => 'bg-success text-white shadow-success/20', 'corner' => 'bg-teal-50', 'link' => 'text-success'],
+                    ];
+                @endphp
+                @foreach($serviceCards as $card)
+                    @php $t = $themes[$card->color] ?? $themes['primary']; @endphp
+                    <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
+                        href="{{ $card->link ?: '#' }}">
                         <div
-                            class="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center mb-6 shadow-md shadow-primary/20 group-hover:scale-110 transition-transform">
-                            <span class="material-symbols-outlined text-3xl">badge</span>
+                            class="absolute top-0 right-0 w-24 h-24 {{ $t['corner'] }} rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110">
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-secondary mb-2">Seja um Sócio</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">Benefícios exclusivos para sua carreira e
-                            acesso à comunidade.</p>
-                        <span
-                            class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">Saiba
-                            mais <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </a>
-                <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
-                    href="#">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-yellow-50 rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="w-14 h-14 bg-accent text-secondary rounded-2xl flex items-center justify-center mb-6 shadow-md shadow-accent/20 group-hover:scale-110 transition-transform">
-                            <span class="material-symbols-outlined text-3xl">calendar_month</span>
+                        <div class="relative z-10">
+                            <div
+                                class="w-14 h-14 {{ $t['icon'] }} rounded-2xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-3xl">{{ $card->icon }}</span>
+                            </div>
+                            <h3 class="text-xl font-heading font-bold text-secondary mb-2">{{ $card->title }}</h3>
+                            <p class="text-sm text-gray-500 mb-4 font-medium">{{ $card->description }}</p>
+                            @if($card->cta_text)
+                                <span
+                                    class="text-xs font-bold {{ $t['link'] }} uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">{{ $card->cta_text }}
+                                    <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
+                            @endif
                         </div>
-                        <h3 class="text-xl font-heading font-bold text-secondary mb-2">Calendário Vacinal</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">Datas atualizadas para proteger seus pacientes
-                            e familiares.</p>
-                        <span
-                            class="text-xs font-bold text-tertiary uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">Ver
-                            calendário <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </a>
-                <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
-                    href="#">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-red-50 rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="w-14 h-14 bg-rose text-white rounded-2xl flex items-center justify-center mb-6 shadow-md shadow-rose/20 group-hover:scale-110 transition-transform">
-                            <span class="material-symbols-outlined text-3xl">school</span>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-secondary mb-2">Cursos UNA-SUS</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">Educação continuada e cursos online gratuitos
-                            disponíveis.</p>
-                        <span
-                            class="text-xs font-bold text-rose uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">Acessar
-                            cursos <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </a>
-                <a class="group bg-white p-8 rounded-3xl shadow-lg hover:shadow-hover transition-all duration-300 border border-slate-100 hover:-translate-y-2 relative overflow-hidden"
-                    href="#">
-                    <div
-                        class="absolute top-0 right-0 w-24 h-24 bg-teal-50 rounded-bl-[4rem] -mr-4 -mt-4 transition-transform group-hover:scale-110">
-                    </div>
-                    <div class="relative z-10">
-                        <div
-                            class="w-14 h-14 bg-success text-white rounded-2xl flex items-center justify-center mb-6 shadow-md shadow-success/20 group-hover:scale-110 transition-transform">
-                            <span class="material-symbols-outlined text-3xl">chat_bubble</span>
-                        </div>
-                        <h3 class="text-xl font-heading font-bold text-secondary mb-2">Fale com Pediatra</h3>
-                        <p class="text-sm text-gray-500 mb-4 font-medium">Canal direto de comunicação para
-                            esclarecimento de dúvidas.</p>
-                        <span
-                            class="text-xs font-bold text-success uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">Iniciar
-                            conversa <span class="material-symbols-outlined text-sm">arrow_forward</span></span>
-                    </div>
-                </a>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Post;
 use App\Models\Publication;
+use App\Models\ServiceCard;
 use App\Models\Slide;
 use App\Models\Video;
 
@@ -13,6 +14,7 @@ class HomeController extends Controller
     public function index()
     {
         $slides = Slide::where('is_active', true)->orderBy('order')->get();
+        $serviceCards = ServiceCard::where('is_active', true)->orderBy('order')->get();
         $featuredPost = Post::published()->featured()->latest()->first();
 
         $latestPostsQuery = Post::published()->latest();
@@ -35,6 +37,7 @@ class HomeController extends Controller
 
         return view('home', compact(
             'slides',
+            'serviceCards',
             'featuredPost',
             'latestPosts',
             'upcomingEvents',

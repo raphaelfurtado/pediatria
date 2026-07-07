@@ -8,9 +8,9 @@
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-6">
                 <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span>
-                    atendimento.sopape@gmail.com</span>
+                    {{ \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com') }}</span>
                 <span class="hidden md:flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span>
-                    (91) 99999-9999</span>
+                    {{ \App\Models\SiteSetting::get('contact_phone', '(91) 99999-9999') }}</span>
             </div>
             <div class="flex items-center gap-4">
                 @auth
@@ -23,12 +23,8 @@
                         <button type="submit" class="hover:text-accent transition flex items-center gap-1"><span
                                 class="material-symbols-outlined text-sm">logout</span> Sair</button>
                     </form>
-                @else
-                    <a class="hover:text-accent transition-colors flex items-center gap-1" href="{{ route('login') }}"><span
-                            class="material-symbols-outlined text-sm">lock</span> Área do Associado</a>
+                    <div class="h-3 w-px bg-white/30"></div>
                 @endauth
-
-                <div class="h-3 w-px bg-white/30"></div>
                 <div class="flex gap-3">
                     @if($fb = \App\Models\SiteSetting::get('facebook'))
                         <a class="hover:text-accent transition" href="{{ $fb }}" target="_blank" title="Facebook"><span
@@ -169,12 +165,8 @@
             <div class="p-6 border-t border-slate-100 bg-slate-50">
                 @guest
                     <a href="{{ route('register') }}"
-                        class="w-full bg-accent text-secondary py-4 rounded-2xl text-center font-bold shadow-lg block mb-3">
+                        class="w-full bg-accent text-secondary py-4 rounded-2xl text-center font-bold shadow-lg block">
                         Seja Sócio
-                    </a>
-                    <a href="{{ route('login') }}"
-                        class="w-full bg-white border border-slate-200 text-secondary py-4 rounded-2xl text-center font-bold shadow-sm block">
-                        Área do Associado
                     </a>
                 @else
                     <a href="{{ route('member.dashboard') }}"

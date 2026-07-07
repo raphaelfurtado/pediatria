@@ -70,6 +70,11 @@
                     <span class="material-symbols-outlined">view_carousel</span>
                     <span class="font-medium">Destaques (Home)</span>
                 </a>
+                <a href="{{ route('admin.service-cards.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.service-cards.*') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">dashboard_customize</span>
+                    <span class="font-medium">Cards da Home</span>
+                </a>
 
                 <div class="pt-4 pb-2 px-4 text-xs font-bold text-blue-300 uppercase tracking-wider">Conteúdo</div>
 

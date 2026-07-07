@@ -97,14 +97,14 @@
                             class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-accent">
                             <span class="material-symbols-outlined text-sm">mail</span>
                         </div>
-                        <span class="break-all">atendimento.sopape@gmail.com</span>
+                        <span class="break-all">{{ \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com') }}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <div
                             class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-accent">
                             <span class="material-symbols-outlined text-sm">call</span>
                         </div>
-                        <span>(91) 99999-9999</span>
+                        <span>{{ \App\Models\SiteSetting::get('contact_phone', '(91) 99999-9999') }}</span>
                     </li>
                 </ul>
             </div>
