@@ -21,7 +21,11 @@ class HomeController extends Controller
         }
         $latestPosts = $latestPostsQuery->take(3)->get();
 
-        $upcomingEvents = Event::upcoming()->take(5)->get();
+        $upcomingEvents = Event::where('date_start', '>=', now())
+            ->orderByDesc('is_featured')
+            ->orderBy('date_start')
+            ->take(5)
+            ->get();
         $publications = Publication::latest()->take(4)->get();
         $featuredVideos = Video::where('is_active', true)
             ->where('is_featured', true)
