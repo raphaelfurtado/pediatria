@@ -9,13 +9,14 @@ class UploadController extends Controller
 {
     public function store(Request $request)
     {
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('uploads', 'public');
-            return response()->json([
-                'url' => asset('storage/' . $path)
-            ]);
-        }
+        $validated = $request->validate([
+            'file' => ['required', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
+        ]);
 
-        return response()->json(['error' => 'No file uploaded'], 400);
+        $path = $validated['file']->store('uploads', 'public');
+
+        return response()->json([
+            'url' => asset('storage/'.$path),
+        ]);
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Livewire\Admin\Publications;
 
 use App\Models\Publication;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
 
 class Index extends Component
 {
@@ -24,12 +24,12 @@ class Index extends Component
     public function render()
     {
         $publications = Publication::query()
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where('title', 'like', '%'.$this->search.'%')
             ->latest()
             ->paginate(10);
 
         return view('livewire.admin.publications.index', [
-            'publications' => $publications
+            'publications' => $publications,
         ]);
     }
 }

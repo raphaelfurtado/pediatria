@@ -25,12 +25,9 @@
                         class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col hover:-translate-y-1">
                         <div class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5">
                             @php
-                                // Extract Video ID from URL if it's a YouTube link
-                                $videoId = '';
-                                if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/', $video->video_url, $matches)) {
-                                    $videoId = $matches[1];
-                                }
-                                $thumb = $videoId ? "https://img.youtube.com/vi/{$videoId}/maxresdefault.jpg" : 'https://via.placeholder.com/800x450';
+                                $thumb = $video->youtube_id
+                                    ? "https://img.youtube.com/vi/{$video->youtube_id}/hqdefault.jpg"
+                                    : 'https://via.placeholder.com/800x450';
                             @endphp
                             <img alt="{{ $video->title }}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -57,12 +54,11 @@
                                 <span
                                     class="text-xs text-slate-400 font-medium">{{ $video->created_at->format('d/m/Y') }}</span>
                                 @php
-                                    $vUrl = $video->video_url;
-                                    if ($vUrl && !Str::startsWith($vUrl, ['http://', 'https://', '/'])) {
-                                        $vUrl = 'http://' . $vUrl;
-                                    }
+                                    $vUrl = $video->youtube_id
+                                        ? "https://www.youtube.com/watch?v={$video->youtube_id}"
+                                        : '#';
                                 @endphp
-                                <a href="{{ $vUrl }}" target="_blank"
+                                <a href="{{ $vUrl }}" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center gap-2 text-secondary hover:text-accent font-bold text-sm group-hover:gap-3 transition-all">
                                     Assistir no YouTube <span class="material-symbols-outlined text-lg">open_in_new</span>
                                 </a>

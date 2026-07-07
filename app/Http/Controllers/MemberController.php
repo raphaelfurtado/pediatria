@@ -10,6 +10,7 @@ class MemberController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
+
         return view('member.dashboard', compact('user'));
     }
 

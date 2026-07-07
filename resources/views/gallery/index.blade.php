@@ -25,7 +25,7 @@
                         class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col hover:-translate-y-1">
                         <div class="relative h-64 rounded-[1.5rem] overflow-hidden mb-5">
                             @php
-                                $cover = $album->photos->first()?->image_path ?? 'https://via.placeholder.com/800x600?text=SOPAPE+Galeria';
+                                $cover = $album->coverPhoto?->image_path ?? 'https://via.placeholder.com/800x600?text=SOPAPE+Galeria';
                             @endphp
                             <img alt="{{ $album->title }}"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
