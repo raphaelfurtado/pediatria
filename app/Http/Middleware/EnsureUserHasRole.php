@@ -22,19 +22,21 @@ class EnsureUserHasRole
 
         $user = Auth::user();
 
-        // If no roles passed, just check if authenticated (already done above)
+        // Deactivated accounts lose access immediately.
+        if (! $user->is_active) {
+            Auth::logout();
+
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Sua conta está desativada.']);
+        }
+
+        // No roles required — authenticated is enough.
         if (empty($roles)) {
             return $next($request);
         }
 
-        // Check if user has one of the allowed roles
-        // Assuming 'role' column exists on users table
-        if (in_array($user->role, $roles)) {
-            return $next($request);
-        }
-
-        // Allow admin to access everything
-        if ($user->role === 'admin') {
+        // Admins can access everything; otherwise the role must be allowed.
+        if ($user->role === 'admin' || in_array($user->role, $roles, true)) {
             return $next($request);
         }
 
