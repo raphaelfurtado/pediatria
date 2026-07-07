@@ -36,6 +36,17 @@ jobs:
       - name: 📦 Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader --prefer-dist --no-progress
 
+      # 4b. Build dos assets do frontend (Vite + Tailwind) -> gera public/build
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 🎨 Build Frontend Assets
+        run: |
+          npm ci
+          npm run build
+
       # ----------------------------------------------------------------
       # PARTE 1: Envia o BACKEND (App, Vendor, Config)
       # ----------------------------------------------------------------
