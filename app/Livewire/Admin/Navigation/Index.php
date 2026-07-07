@@ -3,8 +3,8 @@
 namespace App\Livewire\Admin\Navigation;
 
 use App\Models\MenuItem;
-use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 class Index extends Component
 {
@@ -18,7 +18,7 @@ class Index extends Component
     public function toggleStatus($id)
     {
         $item = MenuItem::findOrFail($id);
-        $item->is_active = !$item->is_active;
+        $item->is_active = ! $item->is_active;
         $item->save();
     }
 
@@ -35,7 +35,7 @@ class Index extends Component
         $menuItems = MenuItem::topLevel()->with('children')->orderBy('order')->get();
 
         return view('livewire.admin.navigation.index', [
-            'menuItems' => $menuItems
+            'menuItems' => $menuItems,
         ]);
     }
 }

@@ -1,15 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\VideoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\VideoController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
+use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');

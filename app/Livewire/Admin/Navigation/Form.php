@@ -3,16 +3,21 @@
 namespace App\Livewire\Admin\Navigation;
 
 use App\Models\MenuItem;
-use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 class Form extends Component
 {
     public $itemId;
+
     public $label;
+
     public $url;
+
     public $parent_id;
+
     public $order = 0;
+
     public $is_active = true;
 
     public function mount($id = null)
@@ -61,11 +66,11 @@ class Form extends Component
     public function render()
     {
         $parentItems = MenuItem::topLevel()
-            ->when($this->itemId, fn($q) => $q->where('id', '!=', $this->itemId))
+            ->when($this->itemId, fn ($q) => $q->where('id', '!=', $this->itemId))
             ->get();
 
         return view('livewire.admin.navigation.form', [
-            'parentItems' => $parentItems
+            'parentItems' => $parentItems,
         ]);
     }
 }

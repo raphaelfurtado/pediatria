@@ -3,9 +3,9 @@
 namespace App\Livewire\Admin\Slides;
 
 use App\Models\Slide;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Layout;
 
 class Index extends Component
 {
@@ -24,12 +24,12 @@ class Index extends Component
     public function render()
     {
         $slides = Slide::query()
-            ->where('title', 'like', '%' . $this->search . '%')
+            ->where('title', 'like', '%'.$this->search.'%')
             ->orderBy('order')
             ->paginate(10);
 
         return view('livewire.admin.slides.index', [
-            'slides' => $slides
+            'slides' => $slides,
         ]);
     }
 }

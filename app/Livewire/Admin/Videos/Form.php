@@ -3,16 +3,21 @@
 namespace App\Livewire\Admin\Videos;
 
 use App\Models\Video;
-use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 class Form extends Component
 {
     public $videoId;
+
     public $title;
+
     public $youtube_id;
+
     public $description;
+
     public $is_featured = false;
+
     public $is_active = true;
 
     public function mount($id = null)
