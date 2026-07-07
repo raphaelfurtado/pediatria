@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="SOPAPE">
+  <defs>
+    <linearGradient id="sopapeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#023E8A"/>
+      <stop offset="1" stop-color="#0096C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#sopapeGrad)"/>
+  <path d="M16 26 C 16 26 4 18.5 4 11.5 C 4 8 6.8 5.5 10 5.5 C 12.5 5.5 14.8 7 16 9 C 17.2 7 19.5 5.5 22 5.5 C 25.2 5.5 28 8 28 11.5 C 28 18.5 16 26 16 26 Z" fill="#ffffff"/>
+  <circle cx="23.5" cy="8.5" r="2.4" fill="#FFB703"/>
+</svg>
