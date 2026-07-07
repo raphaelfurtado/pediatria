@@ -67,7 +67,22 @@
 
                     <style>
                         /* Robust Content Styling for News */
+                        .prose img,
+                        .prose video,
+                        .prose iframe {
+                            max-width: 100%;
+                            height: auto;
+                        }
+
+                        .prose table,
+                        .prose pre {
+                            display: block;
+                            max-width: 100%;
+                            overflow-x: auto;
+                        }
+
                         .prose {
+                            overflow-wrap: break-word;
                             color: #334155;
                             /* slate-700 */
                         }

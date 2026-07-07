@@ -7,7 +7,7 @@
     <div class="bg-gradient-to-r from-secondary to-primary text-white py-2 text-xs font-bold tracking-wide">
         <div class="container mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-6">
-                <span class="flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span>
+                <span class="hidden sm:flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span>
                     {{ \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com') }}</span>
                 <span class="hidden md:flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span>
                     {{ \App\Models\SiteSetting::get('contact_phone', '(91) 99999-9999') }}</span>
