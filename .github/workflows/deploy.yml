@@ -72,6 +72,14 @@ jobs:
             **/.env
             **/README.md
             **/public/**
+            **/node_modules/**
+            **/.claude/**
+            **/.cursor/**
+            **/.gemini/**
+            **/.codex/**
+            **/.kimi/**
+            **/.antigravity/**
+            **/CLAUDE.md
 
       # ----------------------------------------------------------------
       # PARTE 2: Envia o FRONTEND (CSS, JS, Assets)
