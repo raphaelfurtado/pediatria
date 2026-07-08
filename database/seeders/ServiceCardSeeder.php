@@ -15,7 +15,7 @@ class ServiceCardSeeder extends Seeder
                 'description' => 'Benefícios exclusivos para sua carreira e acesso à comunidade.',
                 'icon' => 'badge',
                 'color' => 'primary',
-                'link' => '/register',
+                'link' => '#',
                 'cta_text' => 'Saiba mais',
                 'order' => 1,
             ],

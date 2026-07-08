@@ -9,8 +9,13 @@ class PageController extends Controller
         return view('pages.about');
     }
 
-    public function contact()
+    public function privacy()
     {
-        return view('pages.contact');
+        return view('pages.privacy');
+    }
+
+    public function terms()
+    {
+        return view('pages.terms');
     }
 }

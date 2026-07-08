@@ -5,10 +5,7 @@
                 Entre na sua conta
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
-                Ou
-                <a href="{{ route('register') }}" class="font-medium text-sopape-blue hover:text-sopape-yellow">
-                    registre-se gratuitamente
-                </a>
+                Acesso restrito a sócios e à equipe da SOPAPE.
             </p>
         </div>
         <form class="mt-8 space-y-6" wire:submit.prevent="login">
@@ -40,7 +37,8 @@
                 </div>
 
                 <div class="text-sm">
-                    <a href="#" class="font-medium text-sopape-blue hover:text-sopape-yellow">
+                    <a href="{{ route('password.request') }}"
+                        class="font-medium text-sopape-blue hover:text-sopape-yellow">
                         Esqueceu sua senha?
                     </a>
                 </div>

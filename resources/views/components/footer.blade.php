@@ -78,7 +78,8 @@
                     <li><a class="hover:text-accent transition-colors flex items-center gap-2"
                             href="{{ route('posts.index') }}"><span
                                 class="material-symbols-outlined text-xs">chevron_right</span> Notícias</a></li>
-                    <li><a class="hover:text-accent transition-colors flex items-center gap-2" href="#"><span
+                    <li><a class="hover:text-accent transition-colors flex items-center gap-2"
+                            href="{{ route('pages.contact') }}"><span
                                 class="material-symbols-outlined text-xs">chevron_right</span> Contato</a></li>
                 </ul>
             </div>
@@ -124,8 +125,9 @@
             class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-blue-300">
             <p>© 2025 Sociedade Paraense de Pediatria. Todos os direitos reservados.</p>
             <div class="flex gap-6">
-                <a class="hover:text-white transition-colors" href="#">Política de Privacidade</a>
-                <a class="hover:text-white transition-colors" href="#">Termos de Uso</a>
+                <a class="hover:text-white transition-colors" href="{{ route('pages.privacy') }}">Política de
+                    Privacidade</a>
+                <a class="hover:text-white transition-colors" href="{{ route('pages.terms') }}">Termos de Uso</a>
             </div>
         </div>
     </div>

@@ -8,7 +8,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\VideoController;
 use App\Livewire\Auth\Login;
-use App\Livewire\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -22,12 +21,15 @@ Route::get('/galeria', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/galeria/{id}', [GalleryController::class, 'show'])->name('gallery.show');
 Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
 Route::get('/sobre', [App\Http\Controllers\PageController::class, 'about'])->name('pages.about');
-// Route::get('/contato', [App\Http\Controllers\PageController::class, 'contact'])->name('pages.contact');
+Route::get('/politica-de-privacidade', [App\Http\Controllers\PageController::class, 'privacy'])->name('pages.privacy');
+Route::get('/termos-de-uso', [App\Http\Controllers\PageController::class, 'terms'])->name('pages.terms');
+Route::get('/contato', \App\Livewire\Contact\Form::class)->name('pages.contact');
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
-    Route::get('/register', Register::class)->name('register');
+    Route::get('/esqueci-senha', \App\Livewire\Auth\ForgotPassword::class)->name('password.request');
+    Route::get('/redefinir-senha/{token}', \App\Livewire\Auth\ResetPassword::class)->name('password.reset');
 });
 
 // Authenticated Routes
@@ -71,6 +73,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/videos/{id}/edit', \App\Livewire\Admin\Videos\Form::class)->name('videos.edit');
     Route::get('/settings', App\Livewire\Admin\Settings\Form::class)->name('settings');
     Route::get('/pagina-sobre', \App\Livewire\Admin\About\Form::class)->name('about');
+    Route::get('/mensagens', \App\Livewire\Admin\Messages\Index::class)->name('messages.index');
 
     Route::get('/navegacao', \App\Livewire\Admin\Navigation\Index::class)->name('navigation.index');
     Route::get('/navegacao/novo', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.create');
