@@ -89,6 +89,21 @@
                 </div>
             </div>
 
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined">code</span> Scripts &amp; Analytics
+                </h3>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Código no &lt;head&gt; (ex.: Google
+                        Analytics)</label>
+                    <textarea wire:model="head_scripts" rows="6"
+                        class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary font-mono text-xs"
+                        placeholder="Cole aqui o snippet do Google Analytics (gtag.js) ou outro script para o <head>."></textarea>
+                    <p class="text-xs text-slate-400 mt-2">Inserido no &lt;head&gt; de todas as páginas públicas. Cole o
+                        snippet completo (as duas tags &lt;script&gt; do Google Analytics).</p>
+                </div>
+            </div>
+
             <div class="flex justify-end">
                 <button type="submit"
                     class="bg-primary hover:bg-primaryLight text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-transform hover:-translate-y-0.5 flex items-center gap-2">

@@ -21,6 +21,9 @@
     <!-- Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+
+    {{-- Scripts personalizados (Google Analytics, etc.) definidos em Configurações --}}
+    {!! \App\Models\SiteSetting::get('head_scripts') !!}
 </head>
 
 <body class="font-sans antialiased bg-slate-50 text-slate-800">

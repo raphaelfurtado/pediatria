@@ -65,9 +65,10 @@
                             @endif
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h4
-                                class="text-sm font-bold text-slate-700 truncate hover:text-primary transition-colors cursor-pointer">
-                                {{ $post->title }}</h4>
+                            <a href="{{ $post->published_at ? route('posts.show', $post->slug) : route('admin.posts.edit', $post->id) }}"
+                                @if($post->published_at) target="_blank" @endif
+                                class="block text-sm font-bold text-slate-700 truncate hover:text-primary transition-colors">
+                                {{ $post->title }}</a>
                             <span
                                 class="text-xs text-slate-400">{{ $post->published_at ? $post->published_at->diffForHumans() : 'Rascunho' }}</span>
                         </div>
@@ -87,7 +88,7 @@
                     <div class="flex items-center gap-4 py-2 border-b border-slate-50 last:border-0">
                         <div
                             class="w-12 h-12 rounded-lg bg-blue-50 flex flex-col items-center justify-center text-primary border border-blue-100">
-                            <span class="text-xs font-bold uppercase">{{ $event->date_start->format('M') }}</span>
+                            <span class="text-xs font-bold uppercase">{{ $event->date_start->translatedFormat('M') }}</span>
                             <span class="text-lg font-bold leading-none">{{ $event->date_start->format('d') }}</span>
                         </div>
                         <div class="flex-1 min-w-0">

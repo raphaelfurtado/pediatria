@@ -5,7 +5,7 @@
         <div class="flex items-start justify-between mb-4">
             <div class="text-center bg-gray-100 rounded-lg p-2 min-w-[60px]">
                 <span
-                    class="block text-xs font-bold text-gray-500 uppercase">{{ $event->date_start->format('M') }}</span>
+                    class="block text-xs font-bold text-gray-500 uppercase">{{ $event->date_start->translatedFormat('M') }}</span>
                 <span class="block text-2xl font-bold text-sopape-blue">{{ $event->date_start->format('d') }}</span>
             </div>
             <span

@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor'])->group(function () {
     Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
     Route::get('/users', \App\Livewire\Admin\Users\Index::class)->name('users.index')->middleware('role:admin');
+    Route::get('/users/create', \App\Livewire\Admin\Users\Form::class)->name('users.create')->middleware('role:admin');
+    Route::get('/users/{id}/edit', \App\Livewire\Admin\Users\Form::class)->name('users.edit')->middleware('role:admin');
     Route::get('/posts', \App\Livewire\Admin\Posts\Index::class)->name('posts.index');
     Route::get('/posts/create', \App\Livewire\Admin\Posts\Form::class)->name('posts.create');
     Route::get('/posts/{id}/edit', \App\Livewire\Admin\Posts\Form::class)->name('posts.edit');
@@ -68,6 +70,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/videos/create', \App\Livewire\Admin\Videos\Form::class)->name('videos.create');
     Route::get('/videos/{id}/edit', \App\Livewire\Admin\Videos\Form::class)->name('videos.edit');
     Route::get('/settings', App\Livewire\Admin\Settings\Form::class)->name('settings');
+    Route::get('/pagina-sobre', \App\Livewire\Admin\About\Form::class)->name('about');
 
     Route::get('/navegacao', \App\Livewire\Admin\Navigation\Index::class)->name('navigation.index');
     Route::get('/navegacao/novo', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.create');
