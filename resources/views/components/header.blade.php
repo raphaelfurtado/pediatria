@@ -89,12 +89,7 @@
                         class="w-10 h-10 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors flex items-center justify-center">
                         <span class="material-symbols-outlined">search</span>
                     </button>
-                    @guest
-                        <a class="hidden md:flex bg-accent hover:bg-yellow-400 text-secondary px-6 py-2.5 rounded-full text-sm font-bold shadow-lg shadow-yellow-500/20 transition-all hover:-translate-y-0.5 items-center gap-2"
-                            href="{{ route('register') }}">
-                            <span class="material-symbols-outlined text-lg">star</span> Seja Sócio
-                        </a>
-                    @endguest
+                    {{-- Registro de sócio é feito no site da SBP (Sociedade Brasileira de Pediatria). --}}
                     <button @click="open = !open" class="xl:hidden p-2 text-secondary">
                         <span class="material-symbols-outlined text-3xl">menu</span>
                     </button>
@@ -163,17 +158,12 @@
 
             <!-- Mobile Auth Actions -->
             <div class="p-6 border-t border-slate-100 bg-slate-50">
-                @guest
-                    <a href="{{ route('register') }}"
-                        class="w-full bg-accent text-secondary py-4 rounded-2xl text-center font-bold shadow-lg block">
-                        Seja Sócio
-                    </a>
-                @else
+                @auth
                     <a href="{{ route('member.dashboard') }}"
                         class="w-full bg-secondary text-white py-4 rounded-2xl text-center font-bold shadow-lg block">
                         Minha Conta
                     </a>
-                @endguest
+                @endauth
             </div>
         </div>
     </div>
