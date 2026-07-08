@@ -17,7 +17,7 @@ class MenuItemSeeder extends Seeder
             ['label' => 'Notícias', 'url' => '/noticias', 'order' => 5],
             ['label' => 'Galeria', 'url' => '/galeria', 'order' => 6],
             ['label' => 'Vídeos', 'url' => '/videos', 'order' => 7],
-            ['label' => 'Contato', 'url' => '#', 'order' => 8],
+            ['label' => 'Contato', 'url' => '/contato', 'order' => 8],
         ];
 
         foreach ($items as $item) {
