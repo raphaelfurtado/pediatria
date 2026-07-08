@@ -104,4 +104,18 @@ jobs:
           exclude: |
             **/.gitkeep
 
+      # ----------------------------------------------------------------
+      # PARTE 3: Manifest/assets do Vite no caminho que o Laravel LÊ (app/public/build)
+      # (host split: app em /pediatria, webroot em /pediatria.websiteponto.com.br)
+      # ----------------------------------------------------------------
+      - name: 📂 Deploy Vite build (app public/build)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: public/build/
+          server-dir: /pediatria/public/build/
+          state-name: build-sync-state.json
+
      
