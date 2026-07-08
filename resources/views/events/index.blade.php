@@ -18,7 +18,7 @@
                         <div
                             class="md:w-1/3 bg-sopape-blue text-white p-6 flex flex-col justify-center items-center text-center">
                             <span class="text-4xl font-bold">{{ $event->date_start->format('d') }}</span>
-                            <span class="uppercase font-semibold tracking-wide">{{ $event->date_start->format('M') }}</span>
+                            <span class="uppercase font-semibold tracking-wide">{{ $event->date_start->translatedFormat('M') }}</span>
                             <span class="text-sm opacity-80 mt-1">{{ $event->date_start->format('Y') }}</span>
                         </div>
                         <div class="p-6 flex-1 flex flex-col justify-between">

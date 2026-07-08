@@ -19,7 +19,7 @@
                         <span
                             class="bg-white px-4 py-2 rounded-full border border-slate-100 shadow-sm text-sm font-bold text-slate-600 flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary text-sm">calendar_today</span>
-                            {{ $album->created_at->format('d \d\e F, Y') }}
+                            {{ $album->created_at->translatedFormat('d \d\e F, Y') }}
                         </span>
                         <span
                             class="bg-white px-4 py-2 rounded-full border border-slate-100 shadow-sm text-sm font-bold text-slate-600 flex items-center gap-2">

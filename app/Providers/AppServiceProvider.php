@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Força pt_BR independente do APP_LOCALE do .env (datas, diffForHumans, <html lang>).
+        \Illuminate\Support\Facades\App::setLocale('pt_BR');
+        \Carbon\Carbon::setLocale('pt_BR');
     }
 }

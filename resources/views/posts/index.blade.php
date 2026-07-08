@@ -70,7 +70,7 @@
                             <div
                                 class="flex items-center gap-2 text-primary text-xs font-bold mb-3 uppercase tracking-wider">
                                 <span class="material-symbols-outlined text-sm">calendar_today</span>
-                                {{ $post->published_at->format('d M, Y') }}
+                                {{ $post->published_at->translatedFormat('d M, Y') }}
                             </div>
                             <h3
                                 class="text-xl font-heading font-bold text-secondary mb-3 leading-snug group-hover:text-primary transition-colors">

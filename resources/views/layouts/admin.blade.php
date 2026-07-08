@@ -55,6 +55,11 @@
                     <span class="material-symbols-outlined">dashboard_customize</span>
                     <span class="font-medium">Cards da Home</span>
                 </a>
+                <a href="{{ route('admin.about') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.about') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">info</span>
+                    <span class="font-medium">Página Sobre</span>
+                </a>
 
                 <div class="pt-4 pb-2 px-4 text-xs font-bold text-blue-300 uppercase tracking-wider">Conteúdo</div>
 

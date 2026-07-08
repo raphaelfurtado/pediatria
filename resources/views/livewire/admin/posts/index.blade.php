@@ -57,6 +57,12 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-2">
+                                @if($post->published_at && $post->published_at->isPast())
+                                    <a href="{{ route('posts.show', $post->slug) }}" target="_blank"
+                                        class="text-slate-400 hover:text-primary transition-colors" title="Ver matéria">
+                                        <span class="material-symbols-outlined text-lg">visibility</span>
+                                    </a>
+                                @endif
                                 <a href="{{ route('admin.posts.edit', $post->id) }}" class="text-blue-400 hover:text-blue-600 transition-colors" title="Editar">
                                     <span class="material-symbols-outlined text-lg">edit</span>
                                 </a>

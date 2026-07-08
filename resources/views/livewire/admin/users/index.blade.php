@@ -4,6 +4,10 @@
         <div class="flex gap-2">
             <input wire:model.live.debounce.300ms="search" type="text" placeholder="Buscar por nome ou email..."
                 class="bg-white border-slate-200 rounded-full px-4 py-2 text-sm focus:ring-primary focus:border-primary">
+            <a href="{{ route('admin.users.create') }}"
+                class="bg-primary hover:bg-primaryLight text-white font-bold py-2 px-6 rounded-full shadow-lg transition-transform hover:-translate-y-0.5 flex items-center gap-2 whitespace-nowrap">
+                <span class="material-symbols-outlined text-lg">add</span> Novo Usuário
+            </a>
         </div>
     </div>
 
@@ -44,13 +48,19 @@
                         </td>
                         <td class="px-6 py-4 text-slate-400 text-xs">{{ $user->created_at->format('d/m/Y H:i') }}</td>
                         <td class="px-6 py-4 text-right">
-                            @if($user->id !== auth()->id())
-                                <button wire:confirm="Tem certeza que deseja excluir este usuário?"
-                                    wire:click="delete({{ $user->id }})"
-                                    class="text-red-400 hover:text-red-600 transition-colors">
-                                    <span class="material-symbols-outlined text-lg">delete</span>
-                                </button>
-                            @endif
+                            <div class="flex items-center justify-end gap-2">
+                                <a href="{{ route('admin.users.edit', $user->id) }}"
+                                    class="text-blue-400 hover:text-blue-600 transition-colors" title="Editar">
+                                    <span class="material-symbols-outlined text-lg">edit</span>
+                                </a>
+                                @if($user->id !== auth()->id())
+                                    <button wire:confirm="Tem certeza que deseja excluir este usuário?"
+                                        wire:click="delete({{ $user->id }})"
+                                        class="text-red-400 hover:text-red-600 transition-colors" title="Excluir">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @endforeach

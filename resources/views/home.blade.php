@@ -75,7 +75,7 @@
                         <div class="p-8 flex-1 flex flex-col">
                             <div class="text-gray-400 text-xs font-bold mb-3 flex items-center gap-2">
                                 <span class="material-symbols-outlined text-sm">calendar_today</span>
-                                {{ $mainPost->published_at->format('d M, Y') }}
+                                {{ $mainPost->published_at->translatedFormat('d M, Y') }}
                             </div>
                             <h3
                                 class="text-2xl font-heading font-bold text-secondary mb-4 leading-tight group-hover:text-primary transition-colors">
@@ -105,7 +105,7 @@
                                 <div>
                                     <span
                                         class="text-xs font-bold text-success uppercase mb-1 block">{{ $post->category }}</span>
-                                    <span class="text-xs text-gray-400">{{ $post->published_at->format('d M, Y') }}</span>
+                                    <span class="text-xs text-gray-400">{{ $post->published_at->translatedFormat('d M, Y') }}</span>
                                 </div>
                             </div>
                             <h4
@@ -178,7 +178,7 @@
                                 <span
                                     class="block text-2xl font-bold text-primary">{{ $event->date_start->format('d') }}</span>
                                 <span
-                                    class="block text-xs uppercase font-bold text-slate-500">{{ $event->date_start->format('M') }}</span>
+                                    class="block text-xs uppercase font-bold text-slate-500">{{ $event->date_start->translatedFormat('M') }}</span>
                             </div>
                             @if($event->is_featured)
                                 <div
