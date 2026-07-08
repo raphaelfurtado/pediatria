@@ -1,10 +1,11 @@
+@props(['title' => null])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ isset($title) ? $title . ' | ' . config('app.name', 'SOPAPE') : config('app.name', 'SOPAPE') }}</title>
+    <title>{{ $title ? $title . ' | SOPAPE' : 'SOPAPE — Sociedade Paraense de Pediatria' }}</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
