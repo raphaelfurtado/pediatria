@@ -148,13 +148,22 @@
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Data de Publicação</label>
                         <input wire:model="published_at" type="date" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
+                        <p class="text-xs text-slate-400 mt-1">Dica: com status <strong>Publicado</strong> e uma data
+                            <strong>futura</strong>, a notícia fica <strong>agendada</strong> e aparece sozinha no site
+                            na data escolhida.</p>
                         @error('published_at') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="pt-4 border-t border-slate-100">
+                    <div class="pt-4 border-t border-slate-100 space-y-2">
                          <button type="submit" class="w-full bg-primary hover:bg-primaryLight text-white font-bold py-3 px-4 rounded-lg shadow-lg transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined">save</span> Salvar Notícia
                         </button>
+                        @if($postId)
+                            <a href="{{ route('admin.posts.preview', $postId) }}" target="_blank"
+                                class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-lg">preview</span> Pré-visualizar
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

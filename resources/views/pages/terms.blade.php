@@ -1,4 +1,4 @@
-<x-layouts.app title="Termos de Uso">
+<x-layouts.app title="Termos de Uso" description="Termos de Uso do site da Sociedade Paraense de Pediatria (SOPAPE).">
     <div class="bg-white py-16 px-4 sm:px-6 lg:px-8 lg:py-24">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-12">

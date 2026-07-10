@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ $album->title }}">
+<x-layouts.app :title="$album->title" description="Galeria de fotos da Sociedade Paraense de Pediatria (SOPAPE)." og-type="article">
     <main class="min-h-screen pb-20">
         <!-- Hero Section -->
         <section class="bg-gradient-to-b from-blue-50 to-surface-light pt-12 pb-20 relative overflow-hidden">

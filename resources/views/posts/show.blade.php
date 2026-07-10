@@ -1,4 +1,37 @@
-<x-layouts.app :title="$post->title">
+<x-layouts.app :title="$post->title" :description="$post->excerpt" :image="$post->image_path" og-type="article">
+    <x-slot:seoJsonLd>
+        @php
+            $articleImage = $post->image_path;
+            if ($articleImage && ! \Illuminate\Support\Str::startsWith($articleImage, ['http://', 'https://'])) {
+                $articleImage = url($articleImage);
+            }
+            $articleLd = array_filter([
+                '@context' => 'https://schema.org',
+                '@type' => 'NewsArticle',
+                'headline' => $post->title,
+                'description' => (string) \Illuminate\Support\Str::of(strip_tags($post->excerpt ?? ''))->squish()->limit(180),
+                'image' => $articleImage ?: null,
+                'datePublished' => optional($post->published_at)->toIso8601String(),
+                'dateModified' => optional($post->updated_at)->toIso8601String(),
+                'author' => ['@type' => 'Person', 'name' => $post->author->name ?? 'SOPAPE'],
+                'publisher' => [
+                    '@type' => 'Organization',
+                    'name' => 'SOPAPE — Sociedade Paraense de Pediatria',
+                    'logo' => ['@type' => 'ImageObject', 'url' => url('favicon.svg')],
+                ],
+                'mainEntityOfPage' => url()->current(),
+                'articleSection' => $post->category,
+            ], fn ($v) => ! is_null($v) && $v !== '');
+        @endphp
+        <script type="application/ld+json">{!! json_encode($articleLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    </x-slot:seoJsonLd>
+    @if($preview ?? false)
+        <div class="bg-amber-400 text-amber-950 text-sm font-bold px-4 py-3 text-center flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-lg">visibility</span>
+            Modo pré-visualização — esta é a aparência da matéria. Ela
+            {{ $post->published_at && $post->published_at->isFuture() ? 'será publicada em '.$post->published_at->translatedFormat('d/m/Y') : 'ainda não está publicada' }}.
+        </div>
+    @endif
     <div class="bg-gray-50/50 min-h-screen py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -35,7 +68,7 @@
                                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                                         </path>
                                     </svg>
-                                    {{ $post->published_at->translatedFormat('d \d\e F, Y') }}
+                                    {{ optional($post->published_at)->translatedFormat('d \d\e F, Y') ?? 'Rascunho (sem data)' }}
                                 </span>
                                 <span class="flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

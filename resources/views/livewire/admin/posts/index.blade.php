@@ -46,6 +46,10 @@
                                 <span
                                     class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1"><span
                                         class="w-1.5 h-1.5 rounded-full bg-green-600"></span> Publicado</span>
+                            @elseif($post->published_at && $post->published_at->isFuture())
+                                <span
+                                    class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1"><span
+                                        class="w-1.5 h-1.5 rounded-full bg-blue-600"></span> Agendado</span>
                             @else
                                 <span
                                     class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1"><span
@@ -61,6 +65,11 @@
                                     <a href="{{ route('posts.show', $post->slug) }}" target="_blank"
                                         class="text-slate-400 hover:text-primary transition-colors" title="Ver matéria">
                                         <span class="material-symbols-outlined text-lg">visibility</span>
+                                    </a>
+                                @else
+                                    <a href="{{ route('admin.posts.preview', $post->id) }}" target="_blank"
+                                        class="text-amber-500 hover:text-amber-600 transition-colors" title="Pré-visualizar (rascunho/agendado)">
+                                        <span class="material-symbols-outlined text-lg">preview</span>
                                     </a>
                                 @endif
                                 <a href="{{ route('admin.posts.edit', $post->id) }}" class="text-blue-400 hover:text-blue-600 transition-colors" title="Editar">

@@ -42,4 +42,23 @@ class PostController extends Controller
 
         return view('posts.show', compact('post', 'relatedPosts', 'categories'));
     }
+
+    /**
+     * Admin-only preview of a post regardless of its published state
+     * (drafts and scheduled posts). Guarded by the admin route middleware.
+     */
+    public function preview($id)
+    {
+        $post = Post::findOrFail($id);
+        $relatedPosts = Post::published()
+            ->where('category', $post->category)
+            ->where('id', '!=', $post->id)
+            ->latest()
+            ->take(3)
+            ->get();
+        $categories = Post::published()->distinct()->pluck('category');
+
+        return view('posts.show', compact('post', 'relatedPosts', 'categories'))
+            ->with('preview', true);
+    }
 }

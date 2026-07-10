@@ -1,4 +1,4 @@
-<x-layouts.app title="Biblioteca">
+<x-layouts.app title="Biblioteca" description="Biblioteca de publicações, artigos e materiais científicos da SOPAPE.">
     <div class="bg-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">

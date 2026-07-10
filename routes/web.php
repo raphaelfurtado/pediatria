@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\SeoController;
 use App\Http\Controllers\VideoController;
 use App\Livewire\Auth\Login;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,11 @@ Route::get('/sobre', [App\Http\Controllers\PageController::class, 'about'])->nam
 Route::get('/politica-de-privacidade', [App\Http\Controllers\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/termos-de-uso', [App\Http\Controllers\PageController::class, 'terms'])->name('pages.terms');
 Route::get('/contato', \App\Livewire\Contact\Form::class)->name('pages.contact');
+
+// SEO / descoberta de conteúdo
+Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/feed', [SeoController::class, 'feed'])->name('feed');
+Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 
 // Guest Routes
 Route::middleware('guest')->group(function () {
@@ -47,6 +53,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/posts', \App\Livewire\Admin\Posts\Index::class)->name('posts.index');
     Route::get('/posts/create', \App\Livewire\Admin\Posts\Form::class)->name('posts.create');
     Route::get('/posts/{id}/edit', \App\Livewire\Admin\Posts\Form::class)->name('posts.edit');
+    Route::get('/posts/{id}/preview', [PostController::class, 'preview'])->name('posts.preview');
     Route::post('/upload', [\App\Http\Controllers\Admin\UploadController::class, 'store'])->name('upload');
     Route::get('/slides', \App\Livewire\Admin\Slides\Index::class)->name('slides.index');
     Route::get('/slides/create', \App\Livewire\Admin\Slides\Form::class)->name('slides.create');
@@ -76,6 +83,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/mensagens', \App\Livewire\Admin\Messages\Index::class)->name('messages.index');
     Route::get('/manual', \App\Livewire\Admin\Manual::class)->name('manual');
     Route::get('/perfil', \App\Livewire\Profile\Edit::class)->name('profile');
+
+    // Sistema (admin only)
+    Route::get('/atividades', \App\Livewire\Admin\Activities\Index::class)->name('activities.index')->middleware('role:admin');
+    Route::get('/backups', \App\Livewire\Admin\Backups\Index::class)->name('backups.index')->middleware('role:admin');
+    Route::get('/backups/{name}/download', [\App\Http\Controllers\Admin\BackupController::class, 'download'])->name('backups.download')->middleware('role:admin');
 
     Route::get('/navegacao', \App\Livewire\Admin\Navigation\Index::class)->name('navigation.index');
     Route::get('/navegacao/novo', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.create');

@@ -1,4 +1,4 @@
-<x-layouts.app title="Home">
+<x-layouts.app description="Sociedade Paraense de Pediatria (SOPAPE): notícias, eventos, publicações e defesa da saúde da criança e do adolescente no Pará.">
     <!-- Hero Section -->
     <x-hero :slides="$slides" />
 

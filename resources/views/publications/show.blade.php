@@ -1,4 +1,4 @@
-<x-layouts.app :title="$publication->title">
+<x-layouts.app :title="$publication->title" :description="$publication->description" :image="$publication->cover_image" og-type="article">
     <section class="py-12 bg-surface-light">
         <div class="container mx-auto px-6">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">

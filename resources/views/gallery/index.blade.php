@@ -1,4 +1,4 @@
-<x-layouts.app title="Galeria de Fotos">
+<x-layouts.app title="Galeria de Fotos" description="Galeria de fotos dos eventos e ações da Sociedade Paraense de Pediatria (SOPAPE).">
     <main class="min-h-screen pb-20">
         <!-- Hero Section -->
         <section class="bg-gradient-to-b from-blue-50 to-surface-light pt-12 pb-20 relative overflow-hidden">

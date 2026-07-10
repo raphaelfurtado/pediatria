@@ -1,4 +1,4 @@
-<x-layouts.app title="Galeria de Vídeos">
+<x-layouts.app title="Galeria de Vídeos" description="Vídeos, palestras e conteúdos educativos em pediatria da SOPAPE.">
     <main class="min-h-screen pb-20">
         <!-- Hero Section -->
         <section class="bg-gradient-to-b from-blue-50 to-surface-light pt-12 pb-20 relative overflow-hidden">

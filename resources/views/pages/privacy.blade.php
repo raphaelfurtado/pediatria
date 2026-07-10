@@ -1,4 +1,4 @@
-<x-layouts.app title="Política de Privacidade">
+<x-layouts.app title="Política de Privacidade" description="Política de Privacidade da SOPAPE: como tratamos seus dados conforme a LGPD.">
     <div class="bg-white py-16 px-4 sm:px-6 lg:px-8 lg:py-24">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-12">
