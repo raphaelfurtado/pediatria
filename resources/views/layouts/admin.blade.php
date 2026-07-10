@@ -141,6 +141,10 @@
                         <div class="text-xs text-blue-300 truncate">{{ ucfirst(auth()->user()->role) }}</div>
                     </div>
                 </div>
+                <a href="{{ route('admin.profile') }}"
+                    class="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/20 text-white py-2 rounded-lg transition-colors text-sm font-bold mb-2 {{ request()->routeIs('admin.profile') ? 'bg-white/20' : '' }}">
+                    <span class="material-symbols-outlined text-sm">manage_accounts</span> Meu Perfil
+                </a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit"
