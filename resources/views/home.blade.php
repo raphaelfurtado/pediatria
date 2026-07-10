@@ -119,26 +119,31 @@
                     @endforeach
 
                     <!-- CTA Box -->
-                    <article
-                        class="md:col-span-2 bg-gradient-to-br from-secondary to-blue-900 rounded-3xl p-8 relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16">
-                        </div>
-                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                            <div>
-                                <div class="flex items-center gap-2 text-accent text-xs font-bold uppercase mb-2">
-                                    <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> Oportunidade
-                                </div>
-                                <h3 class="text-2xl font-bold text-white mb-2">Quer publicar seu artigo?</h3>
-                                <p class="text-blue-200 text-sm max-w-md">
-                                    A Revista SOPAPE está com edital aberto para submissão de artigos científicos.
-                                </p>
+                    @if(\App\Models\SiteSetting::get('article_cta_enabled', '1') !== '0')
+                        <article
+                            class="md:col-span-2 bg-gradient-to-br from-secondary to-blue-900 rounded-3xl p-8 relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16">
                             </div>
-                            <button
-                                class="bg-white text-secondary hover:bg-accent hover:text-secondary font-bold py-3 px-6 rounded-full shadow-lg transition-colors flex-shrink-0">
-                                Submeter Artigo
-                            </button>
-                        </div>
-                    </article>
+                            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                                <div>
+                                    <div class="flex items-center gap-2 text-accent text-xs font-bold uppercase mb-2">
+                                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                                        {{ \App\Models\SiteSetting::get('article_cta_label', 'Oportunidade') }}
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">
+                                        {{ \App\Models\SiteSetting::get('article_cta_title', 'Quer publicar seu artigo?') }}
+                                    </h3>
+                                    <p class="text-blue-200 text-sm max-w-md">
+                                        {{ \App\Models\SiteSetting::get('article_cta_description', 'A Revista SOPAPE está com edital aberto para submissão de artigos científicos.') }}
+                                    </p>
+                                </div>
+                                <a href="{{ \App\Models\SiteSetting::get('article_cta_button_link', '#') ?: '#' }}"
+                                    class="bg-white text-secondary hover:bg-accent hover:text-secondary font-bold py-3 px-6 rounded-full shadow-lg transition-colors flex-shrink-0 text-center whitespace-nowrap">
+                                    {{ \App\Models\SiteSetting::get('article_cta_button_text', 'Submeter Artigo') }}
+                                </a>
+                            </div>
+                        </article>
+                    @endif
                 </div>
             </div>
         </div>

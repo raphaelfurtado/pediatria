@@ -90,6 +90,51 @@
             </div>
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-secondary flex items-center gap-2">
+                        <span class="material-symbols-outlined">campaign</span> Banner "Publique seu artigo" (Home)
+                    </h3>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" wire:model="article_cta_enabled" class="sr-only peer">
+                        <div
+                            class="w-11 h-6 bg-slate-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                        </div>
+                        <span class="ms-2 text-xs font-bold text-slate-500">Exibir</span>
+                    </label>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Rótulo</label>
+                        <input wire:model="article_cta_label" type="text"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Título</label>
+                        <input wire:model="article_cta_title" type="text"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Descrição</label>
+                        <textarea wire:model="article_cta_description" rows="2"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Texto do Botão</label>
+                            <input wire:model="article_cta_button_text" type="text"
+                                class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-2">Link do Botão</label>
+                            <input wire:model="article_cta_button_link" type="text"
+                                class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                                placeholder="Ex: /biblioteca ou https://...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
                     <span class="material-symbols-outlined">code</span> Scripts &amp; Analytics
                 </h3>
