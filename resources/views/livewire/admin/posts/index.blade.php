@@ -57,7 +57,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-slate-400 text-xs">
-                            {{ $post->published_at ? $post->published_at->format('d/m/Y') : '-' }}
+                            {{ $post->published_at ? $post->published_at->format('d/m/Y H:i') : '-' }}
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-2">
