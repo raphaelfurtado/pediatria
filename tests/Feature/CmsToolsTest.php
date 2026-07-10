@@ -56,6 +56,26 @@ class CmsToolsTest extends TestCase
             ->assertSee('será publicada em');
     }
 
+    public function test_scheduling_is_precise_to_the_hour(): void
+    {
+        // Publicada há 5 minutos → visível.
+        $live = Post::factory()->create([
+            'title' => 'NOTICIA JA NO AR',
+            'slug' => 'noticia-no-ar',
+            'published_at' => now()->subMinutes(5),
+        ]);
+
+        // Agendada para daqui a 2 horas → ainda oculta.
+        $soon = Post::factory()->create([
+            'title' => 'NOTICIA DAQUI A DUAS HORAS',
+            'slug' => 'noticia-2h',
+            'published_at' => now()->addHours(2),
+        ]);
+
+        $this->get('/noticias/'.$live->slug)->assertOk();
+        $this->get('/noticias/'.$soon->slug)->assertNotFound();
+    }
+
     // --- Backup ------------------------------------------------------------
 
     public function test_backup_creates_gzip_and_keeps_only_recent(): void

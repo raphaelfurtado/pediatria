@@ -45,11 +45,11 @@ class Form extends Component
             $this->content = $post->content;
             $this->category = $post->category;
             $this->status = $post->published_at ? 'published' : 'draft';
-            $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d') : null;
+            $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : null;
             $this->existingImage = $post->image_path;
             $this->tags = $post->tags;
         } else {
-            $this->published_at = now()->format('Y-m-d');
+            $this->published_at = now()->format('Y-m-d\TH:i');
         }
     }
 

@@ -146,11 +146,11 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Data de Publicação</label>
-                        <input wire:model="published_at" type="date" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
-                        <p class="text-xs text-slate-400 mt-1">Dica: com status <strong>Publicado</strong> e uma data
-                            <strong>futura</strong>, a notícia fica <strong>agendada</strong> e aparece sozinha no site
-                            na data escolhida.</p>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Data e hora de publicação</label>
+                        <input wire:model="published_at" type="datetime-local" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
+                        <p class="text-xs text-slate-400 mt-1">Horário de Brasília. Dica: com status
+                            <strong>Publicado</strong> e uma data/hora <strong>futura</strong>, a notícia fica
+                            <strong>agendada</strong> e aparece sozinha no site no horário escolhido.</p>
                         @error('published_at') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
                     </div>
 
