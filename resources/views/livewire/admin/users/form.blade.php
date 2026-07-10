@@ -32,9 +32,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
                     <label class="text-sm font-bold text-slate-700">Senha</label>
-                    <input wire:model="password" type="password"
+                    <x-password-input wire:model="password"
                         class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary @error('password') border-red-500 @enderror"
-                        placeholder="Mínimo 8 caracteres">
+                        placeholder="Mínimo 8 caracteres" />
                     @if($userId)
                         <p class="text-xs text-slate-400">Deixe em branco para manter a senha atual.</p>
                     @endif

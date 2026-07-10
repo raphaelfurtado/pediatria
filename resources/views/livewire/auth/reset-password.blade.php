@@ -14,14 +14,14 @@
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Nova senha</label>
-                <input wire:model="password" type="password" required
-                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sopape-blue focus:border-sopape-blue sm:text-sm">
+                <x-password-input wire:model="password" required
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sopape-blue focus:border-sopape-blue sm:text-sm" />
                 @error('password') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Confirmar nova senha</label>
-                <input wire:model="password_confirmation" type="password" required
-                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sopape-blue focus:border-sopape-blue sm:text-sm">
+                <x-password-input wire:model="password_confirmation" required
+                    class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sopape-blue focus:border-sopape-blue sm:text-sm" />
             </div>
             <button type="submit"
                 class="w-full flex justify-center items-center py-2 px-4 rounded-md text-white bg-sopape-blue hover:bg-opacity-90 font-medium text-sm mt-2">

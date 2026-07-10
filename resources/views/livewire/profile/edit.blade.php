@@ -36,21 +36,21 @@
         </h2>
         <div class="space-y-2">
             <label class="text-sm font-bold text-slate-700">Senha atual</label>
-            <input wire:model="current_password" type="password" autocomplete="current-password"
-                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary @error('current_password') border-red-500 @enderror">
+            <x-password-input wire:model="current_password" autocomplete="current-password"
+                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary @error('current_password') border-red-500 @enderror" />
             @error('current_password') <span class="text-red-500 text-xs font-bold">{{ $message }}</span> @enderror
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div class="space-y-2">
                 <label class="text-sm font-bold text-slate-700">Nova senha</label>
-                <input wire:model="password" type="password" autocomplete="new-password"
-                    class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary @error('password') border-red-500 @enderror">
+                <x-password-input wire:model="password" autocomplete="new-password"
+                    class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary @error('password') border-red-500 @enderror" />
                 @error('password') <span class="text-red-500 text-xs font-bold">{{ $message }}</span> @enderror
             </div>
             <div class="space-y-2">
                 <label class="text-sm font-bold text-slate-700">Confirmar nova senha</label>
-                <input wire:model="password_confirmation" type="password" autocomplete="new-password"
-                    class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary">
+                <x-password-input wire:model="password_confirmation" autocomplete="new-password"
+                    class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary" />
             </div>
         </div>
         <div class="flex justify-end">
