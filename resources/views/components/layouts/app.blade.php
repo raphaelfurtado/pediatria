@@ -1,11 +1,87 @@
-@props(['title' => null])
+@props([
+    'title' => null,
+    'description' => null,
+    'image' => null,
+    'ogType' => 'website',
+    'canonical' => null,
+])
+@php
+    $siteName = 'SOPAPE — Sociedade Paraense de Pediatria';
+    $fullTitle = $title ? $title . ' | SOPAPE' : $siteName;
+
+    $defaultDescription = \App\Models\SiteSetting::get(
+        'seo_description',
+        'Sociedade Paraense de Pediatria (SOPAPE): notícias, eventos, publicações e ações voltadas à saúde da criança e do adolescente no Pará.'
+    );
+    $metaDescription = (string) \Illuminate\Support\Str::of(strip_tags($description ?: $defaultDescription))
+        ->squish()
+        ->limit(180);
+
+    // Resolve absolute share image (falls back to the site-wide default in Configurações).
+    $shareImage = $image ?: \App\Models\SiteSetting::get('seo_image');
+    if ($shareImage && ! \Illuminate\Support\Str::startsWith($shareImage, ['http://', 'https://'])) {
+        $shareImage = url($shareImage);
+    }
+
+    $canonicalUrl = $canonical ?: url()->current();
+
+    // Site-wide Organization structured data (built from Configurações).
+    $sameAs = collect([
+        \App\Models\SiteSetting::get('facebook'),
+        \App\Models\SiteSetting::get('instagram'),
+        \App\Models\SiteSetting::get('twitter'),
+    ])->filter()->values()->all();
+
+    $organizationLd = array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'MedicalOrganization',
+        'name' => 'SOPAPE — Sociedade Paraense de Pediatria',
+        'alternateName' => 'SOPAPE',
+        'url' => url('/'),
+        'logo' => url('favicon.svg'),
+        'sameAs' => $sameAs ?: null,
+        'email' => \App\Models\SiteSetting::get('contact_email') ?: null,
+        'telephone' => \App\Models\SiteSetting::get('contact_phone') ?: null,
+    ], fn ($v) => ! is_null($v));
+@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ? $title . ' | SOPAPE' : 'SOPAPE — Sociedade Paraense de Pediatria' }}</title>
+    <title>{{ $fullTitle }}</title>
+
+    {{-- SEO --}}
+    <meta name="description" content="{{ $metaDescription }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta name="robots" content="index, follow">
+
+    {{-- Open Graph (WhatsApp, Facebook, LinkedIn) --}}
+    <meta property="og:site_name" content="SOPAPE">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:type" content="{{ $ogType }}">
+    <meta property="og:title" content="{{ $fullTitle }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    @if($shareImage)
+        <meta property="og:image" content="{{ $shareImage }}">
+    @endif
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="{{ $shareImage ? 'summary_large_image' : 'summary' }}">
+    <meta name="twitter:title" content="{{ $fullTitle }}">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    @if($shareImage)
+        <meta name="twitter:image" content="{{ $shareImage }}">
+    @endif
+
+    {{-- Structured data --}}
+    <script type="application/ld+json">{!! json_encode($organizationLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    {{ $seoJsonLd ?? '' }}
+
+    {{-- Descoberta de conteúdo --}}
+    <link rel="alternate" type="application/rss+xml" title="SOPAPE — Notícias" href="{{ route('feed') }}">
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">

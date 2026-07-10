@@ -37,6 +37,10 @@ class Post extends Model
 
     public function getPrevious(): ?self
     {
+        if (! $this->published_at) {
+            return null; // drafts have no position in the published timeline
+        }
+
         return self::published()
             ->where('published_at', '<', $this->published_at)
             ->orderBy('published_at', 'desc')
@@ -45,6 +49,10 @@ class Post extends Model
 
     public function getNext(): ?self
     {
+        if (! $this->published_at) {
+            return null;
+        }
+
         return self::published()
             ->where('published_at', '>', $this->published_at)
             ->orderBy('published_at', 'asc')

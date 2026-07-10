@@ -127,6 +127,16 @@
                         <span class="material-symbols-outlined">settings</span>
                         <span class="font-medium">Configurações</span>
                     </a>
+                    <a href="{{ route('admin.activities.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.activities.*') ? 'active-nav' : '' }}">
+                        <span class="material-symbols-outlined">history</span>
+                        <span class="font-medium">Atividades</span>
+                    </a>
+                    <a href="{{ route('admin.backups.index') }}"
+                        class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.backups.*') ? 'active-nav' : '' }}">
+                        <span class="material-symbols-outlined">backup</span>
+                        <span class="font-medium">Backups</span>
+                    </a>
                 @endif
             </nav>
 

@@ -1,4 +1,4 @@
-<x-layouts.app title="Agenda e Eventos">
+<x-layouts.app title="Agenda e Eventos" description="Agenda de eventos, cursos e congressos de pediatria da SOPAPE no Pará.">
     <div class="bg-gray-50 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">

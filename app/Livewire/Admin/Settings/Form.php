@@ -22,6 +22,10 @@ class Form extends Component
 
     public $head_scripts;
 
+    public $seo_description;
+
+    public $seo_image;
+
     public $marketing_title;
 
     public $marketing_description;
@@ -51,6 +55,8 @@ class Form extends Component
         $this->contact_email = SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com');
         $this->contact_phone = SiteSetting::get('contact_phone', '(91) 99999-9999');
         $this->head_scripts = SiteSetting::get('head_scripts');
+        $this->seo_description = SiteSetting::get('seo_description', 'Sociedade Paraense de Pediatria (SOPAPE): notícias, eventos, publicações e ações voltadas à saúde da criança e do adolescente no Pará.');
+        $this->seo_image = SiteSetting::get('seo_image');
         $this->marketing_title = SiteSetting::get('marketing_title', 'Receba novidades');
         $this->marketing_description = SiteSetting::get('marketing_description', 'Inscreva-se para receber atualizações da SOPAPE');
         $this->marketing_button_text = SiteSetting::get('marketing_button_text', 'Inscrever-se');
@@ -73,6 +79,8 @@ class Form extends Component
         SiteSetting::set('contact_email', $this->contact_email);
         SiteSetting::set('contact_phone', $this->contact_phone);
         SiteSetting::set('head_scripts', $this->head_scripts);
+        SiteSetting::set('seo_description', $this->seo_description);
+        SiteSetting::set('seo_image', $this->seo_image);
         SiteSetting::set('marketing_title', $this->marketing_title);
         SiteSetting::set('marketing_description', $this->marketing_description);
         SiteSetting::set('marketing_button_text', $this->marketing_button_text);

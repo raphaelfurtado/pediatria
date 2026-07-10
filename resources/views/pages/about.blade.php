@@ -1,4 +1,4 @@
-<x-layouts.app title="Sobre">
+<x-layouts.app title="Sobre" description="Conheça a Sociedade Paraense de Pediatria (SOPAPE): missão, história e atuação na saúde da criança e do adolescente.">
     <div class="bg-white py-16 px-4 overflow-hidden sm:px-6 lg:px-8 lg:py-24">
         <div class="relative max-w-xl mx-auto">
             <div class="text-center">

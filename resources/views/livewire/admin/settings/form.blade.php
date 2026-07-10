@@ -136,6 +136,35 @@
 
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined">travel_explore</span> SEO &amp; Compartilhamento
+                </h3>
+                <p class="text-xs text-slate-400 mb-4">Usado pelo Google e ao compartilhar links no WhatsApp, Facebook e
+                    Instagram. Cada notícia usa o próprio resumo e imagem; os campos abaixo são o padrão do site.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Descrição padrão do site</label>
+                        <textarea wire:model="seo_description" rows="3" maxlength="180"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                            placeholder="Frase curta que descreve a SOPAPE (até ~180 caracteres)."></textarea>
+                        <p class="text-xs text-slate-400 mt-2">Aparece no Google e como descrição ao compartilhar a página
+                            inicial.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Imagem de compartilhamento (URL)</label>
+                        <input wire:model="seo_image" type="text"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                            placeholder="https://.../imagem.jpg (recomendado 1200×630)">
+                        <p class="text-xs text-slate-400 mt-2">Imagem exibida quando o link é compartilhado nas redes.
+                            Deixe em branco para não usar imagem padrão.</p>
+                        @if($seo_image)
+                            <img src="{{ $seo_image }}" alt="Prévia" class="mt-3 max-h-32 rounded-lg border border-slate-100">
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
                     <span class="material-symbols-outlined">code</span> Scripts &amp; Analytics
                 </h3>
                 <div>
