@@ -42,6 +42,11 @@
                     <span class="material-symbols-outlined">dashboard</span>
                     <span class="font-medium">Dashboard</span>
                 </a>
+                <a href="{{ route('admin.manual') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.manual') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="font-medium">Manual de Uso</span>
+                </a>
 
                 <div class="pt-4 pb-2 px-4 text-xs font-bold text-blue-300 uppercase tracking-wider">Site</div>
 
@@ -155,6 +160,7 @@
             </div>
 
             <div class="container mx-auto px-6 py-8">
+                <x-admin.route-help />
                 {{ $slot }}
             </div>
         </main>

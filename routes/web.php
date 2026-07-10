@@ -74,6 +74,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/settings', App\Livewire\Admin\Settings\Form::class)->name('settings');
     Route::get('/pagina-sobre', \App\Livewire\Admin\About\Form::class)->name('about');
     Route::get('/mensagens', \App\Livewire\Admin\Messages\Index::class)->name('messages.index');
+    Route::get('/manual', \App\Livewire\Admin\Manual::class)->name('manual');
 
     Route::get('/navegacao', \App\Livewire\Admin\Navigation\Index::class)->name('navigation.index');
     Route::get('/navegacao/novo', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.create');
