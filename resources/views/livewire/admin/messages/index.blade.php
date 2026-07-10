@@ -29,8 +29,19 @@
                             <span
                                 class="material-symbols-outlined text-lg">{{ $msg->is_read ? 'mark_email_unread' : 'mark_email_read' }}</span>
                         </button>
-                        <a href="mailto:{{ $msg->email }}?subject=Re: {{ $msg->subject }}"
-                            class="text-blue-400 hover:text-blue-600 transition-colors" title="Responder">
+                        @php
+                            $replyFrom = \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com');
+                            $replyFirstName = $msg->name ? \Illuminate\Support\Str::of($msg->name)->trim()->explode(' ')->first() : '';
+                            $replyBody = "Olá {$replyFirstName},\n\nRecebemos sua mensagem e agradecemos o contato.\n\n\nAtenciosamente,\nEquipe SOPAPE";
+                            $replyUrl = 'https://mail.google.com/mail/?authuser='.urlencode($replyFrom)
+                                .'&view=cm&fs=1'
+                                .'&to='.urlencode($msg->email)
+                                .'&su='.urlencode('Re: '.($msg->subject ?: 'sua mensagem'))
+                                .'&body='.urlencode($replyBody);
+                        @endphp
+                        <a href="{{ $replyUrl }}" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400 hover:text-blue-600 transition-colors"
+                            title="Responder pelo Gmail ({{ $replyFrom }})">
                             <span class="material-symbols-outlined text-lg">reply</span>
                         </a>
                         <button wire:confirm="Excluir esta mensagem?" wire:click="delete({{ $msg->id }})"
