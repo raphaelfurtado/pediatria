@@ -1,4 +1,5 @@
-<x-layouts.app :title="$post->title" :description="$post->excerpt" :image="$post->image_path" og-type="article">
+<x-layouts.app :title="$post->title" :description="$post->excerpt" :image="$post->image_path" og-type="article"
+    :edit-url="route('admin.posts.edit', $post->id)">
     <x-slot:seoJsonLd>
         @php
             $articleImage = $post->image_path;

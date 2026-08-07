@@ -4,6 +4,7 @@
     'image' => null,
     'ogType' => 'website',
     'canonical' => null,
+    'editUrl' => null,
 ])
 @php
     $siteName = 'SOPAPE — Sociedade Paraense de Pediatria';
@@ -125,6 +126,7 @@
         [aria-disabled="true"] {
             cursor: not-allowed;
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 
@@ -158,6 +160,9 @@
             </div>
         </div>
     </div>
+
+    {{-- Barra de administração (visível apenas para admin/editor logado) --}}
+    <x-admin-bar :edit-url="$editUrl" />
 
     @livewireScripts
     @stack('scripts')
