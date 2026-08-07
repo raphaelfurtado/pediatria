@@ -105,7 +105,7 @@ class Form extends Component
         SiteSetting::set('article_cta_button_text', $this->article_cta_button_text);
         SiteSetting::set('article_cta_button_link', $this->article_cta_button_link);
 
-        session()->flash('notify', 'Configurações atualizadas com sucesso!');
+        $this->dispatch('notify', 'Configurações atualizadas com sucesso!');
     }
 
     /**

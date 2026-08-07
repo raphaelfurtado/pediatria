@@ -12,7 +12,7 @@ class Index extends Component
     {
         $item = MenuItem::findOrFail($id);
         $item->delete();
-        session()->flash('notify', 'Item de menu excluído com sucesso!');
+        $this->dispatch('notify', 'Item de menu excluído com sucesso!');
     }
 
     public function toggleStatus($id)
@@ -58,7 +58,7 @@ class Index extends Component
             MenuItem::where('id', $mid)->update(['order' => $index]);
         }
 
-        session()->flash('notify', 'Ordem do menu atualizada.');
+        $this->dispatch('notify', 'Ordem do menu atualizada.');
     }
 
     #[Layout('layouts.admin')]

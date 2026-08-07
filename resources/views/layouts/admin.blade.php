@@ -234,6 +234,21 @@
             margin-top: 6px;
         }
         [x-cloak] { display: none !important; }
+
+        /* Cursor de "mãozinha" em elementos clicáveis */
+        button:not(:disabled),
+        [role="button"],
+        summary,
+        select,
+        label:has(> input[type="checkbox"]),
+        label:has(> input[type="radio"]),
+        [wire\:click]:not(:disabled) {
+            cursor: pointer;
+        }
+        button:disabled,
+        [aria-disabled="true"] {
+            cursor: not-allowed;
+        }
     </style>
 
     {{-- Barra flutuante de formatação: aparece ao selecionar texto no editor --}}

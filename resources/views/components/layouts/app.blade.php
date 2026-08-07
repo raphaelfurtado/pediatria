@@ -113,6 +113,18 @@
         .article-content a:hover {
             color: #023E8A;
         }
+
+        /* Cursor de "mãozinha" em elementos clicáveis */
+        button:not(:disabled),
+        [role="button"],
+        summary,
+        select {
+            cursor: pointer;
+        }
+        button:disabled,
+        [aria-disabled="true"] {
+            cursor: not-allowed;
+        }
     </style>
 </head>
 

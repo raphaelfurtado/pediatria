@@ -2,15 +2,24 @@
     $menuItems = \App\Models\MenuItem::active()->topLevel()->with('children')->orderBy('order')->get();
 @endphp
 
-<div x-data="{ open: false }" @keydown.escape.window="open = false" class="relative">
+<div x-data="{ open: false, searchOpen: false }" @keydown.escape.window="open = false; searchOpen = false" class="relative">
     <!-- Top Bar -->
     <div class="bg-gradient-to-r from-secondary to-primary text-white py-2 text-xs font-bold tracking-wide">
         <div class="container mx-auto px-6 flex justify-between items-center">
+            @php
+                $cEmail = \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com');
+                $cPhone = \App\Models\SiteSetting::get('contact_phone', '(91) 99999-9999');
+                $cPhoneDigits = preg_replace('/\D/', '', $cPhone);
+            @endphp
             <div class="flex items-center gap-6">
-                <span class="hidden sm:flex items-center gap-2"><span class="material-symbols-outlined text-sm">mail</span>
-                    {{ \App\Models\SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com') }}</span>
-                <span class="hidden md:flex items-center gap-2"><span class="material-symbols-outlined text-sm">call</span>
-                    {{ \App\Models\SiteSetting::get('contact_phone', '(91) 99999-9999') }}</span>
+                <a href="mailto:{{ $cEmail }}"
+                    class="hidden sm:flex items-center gap-2 hover:text-accent transition-colors"><span
+                        class="material-symbols-outlined text-sm">mail</span>
+                    {{ $cEmail }}</a>
+                <a href="tel:+55{{ $cPhoneDigits }}"
+                    class="hidden md:flex items-center gap-2 hover:text-accent transition-colors"><span
+                        class="material-symbols-outlined text-sm">call</span>
+                    {{ $cPhone }}</a>
             </div>
             <div class="flex items-center gap-4">
                 @auth
@@ -85,10 +94,24 @@
 
                 <!-- Actions -->
                 <div class="flex items-center gap-3">
-                    <button
-                        class="w-10 h-10 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors flex items-center justify-center">
-                        <span class="material-symbols-outlined">search</span>
-                    </button>
+                    <div class="relative">
+                        <button type="button"
+                            @click="searchOpen = !searchOpen; $nextTick(() => searchOpen && $refs.searchInput.focus())"
+                            class="w-10 h-10 rounded-full border border-gray-200 hover:bg-gray-50 text-gray-500 transition-colors flex items-center justify-center">
+                            <span class="material-symbols-outlined">search</span>
+                        </button>
+                        <div x-show="searchOpen" x-transition @click.outside="searchOpen = false" style="display:none;"
+                            class="absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-xl p-3 z-50 border border-slate-100">
+                            <form action="{{ route('posts.index') }}" method="GET" class="flex items-center gap-2">
+                                <input x-ref="searchInput" name="search" type="text" placeholder="Buscar notícias..."
+                                    class="flex-1 bg-slate-50 border-slate-200 rounded-full px-4 py-2 text-sm text-slate-700 focus:ring-primary focus:border-primary">
+                                <button type="submit"
+                                    class="bg-primary hover:bg-secondary text-white w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-lg">search</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     {{-- Registro de sócio é feito no site da SBP (Sociedade Brasileira de Pediatria). --}}
                     <button @click="open = !open" class="xl:hidden p-2 text-secondary">
                         <span class="material-symbols-outlined text-3xl">menu</span>
