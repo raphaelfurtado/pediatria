@@ -127,13 +127,42 @@
             cursor: not-allowed;
         }
         [x-cloak] { display: none !important; }
+
+        /* Acessibilidade: foco visível na navegação por teclado */
+        :focus-visible {
+            outline: 3px solid #0096C7;
+            outline-offset: 2px;
+            border-radius: 3px;
+        }
+        /* Alto contraste (ativado no widget de acessibilidade) */
+        html.hc { filter: contrast(1.15) saturate(1.15); }
+        html.hc a, html.hc .prose a { text-decoration: underline; }
+        /* Respeita quem prefere menos movimento */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+        /* VLibras: botão de acesso acima do WhatsApp (canto direito) */
+        div[vw-access-button] {
+            bottom: 96px !important;
+            right: 18px !important;
+            top: auto !important;
+        }
     </style>
 </head>
 
 <body class="font-sans antialiased bg-slate-50 text-slate-800">
+    <a href="#main"
+        class="sr-only focus:not-sr-only focus:absolute focus:z-[200] focus:top-3 focus:left-3 focus:bg-secondary focus:text-white focus:font-bold focus:px-4 focus:py-2 focus:rounded-lg">
+        Pular para o conteúdo
+    </a>
     @include('components.header')
 
-    <main>
+    <main id="main" tabindex="-1" class="focus:outline-none">
         {{ $slot }}
     </main>
 
@@ -141,7 +170,7 @@
 
     {{-- Consentimento de cookies (LGPD) --}}
     <div x-data="{ show: false }" x-init="show = ! localStorage.getItem('cookie_consent')" x-show="show"
-        style="display: none;" class="fixed bottom-0 inset-x-0 z-[60] p-4">
+        style="display: none;" class="fixed bottom-0 inset-x-0 z-[95] p-4">
         <div
             class="container mx-auto max-w-4xl bg-secondary text-white rounded-2xl shadow-2xl p-5 flex flex-col md:flex-row md:items-center gap-4">
             <p class="text-sm text-blue-100 flex-1">
@@ -160,6 +189,10 @@
             </div>
         </div>
     </div>
+
+    {{-- Ações flutuantes e acessibilidade --}}
+    <x-whatsapp-button />
+    <x-accessibility />
 
     {{-- Barra de administração (visível apenas para admin/editor logado) --}}
     <x-admin-bar :edit-url="$editUrl" />
