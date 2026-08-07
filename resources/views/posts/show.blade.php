@@ -98,6 +98,11 @@
 
                     </div>
 
+                    {{-- Compartilhar --}}
+                    <div class="mt-10 pt-6 border-t border-gray-100">
+                        <x-share-buttons :url="route('posts.show', $post->slug)" :title="$post->title" />
+                    </div>
+
                     <style>
                         /* Robust Content Styling for News */
                         .prose img,
