@@ -62,7 +62,7 @@ class Form extends Component
         ];
 
         if ($this->image) {
-            $path = $this->image->store('slides', 'public');
+            $path = \App\Services\ImageOptimizer::store($this->image, 'slides');
             $data['image_path'] = $path;
         }
 

@@ -13,7 +13,7 @@ class UploadController extends Controller
             'file' => ['required', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120'],
         ]);
 
-        $path = $validated['file']->store('uploads', 'public');
+        $path = \App\Services\ImageOptimizer::store($validated['file'], 'uploads');
 
         return response()->json([
             'url' => asset('storage/'.$path),

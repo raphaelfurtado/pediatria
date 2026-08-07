@@ -85,7 +85,7 @@ class Form extends Component
         ];
 
         if ($this->image) {
-            $path = $this->image->store('events', 'public');
+            $path = \App\Services\ImageOptimizer::store($this->image, 'events');
             $data['image_path'] = '/storage/'.$path;
         }
 
