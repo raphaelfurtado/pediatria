@@ -15,13 +15,16 @@ class HomeController extends Controller
     {
         $slides = Slide::where('is_active', true)->orderBy('order')->get();
         $serviceCards = ServiceCard::where('is_active', true)->orderBy('order')->get();
-        $featuredPost = Post::published()->featured()->latest()->first();
+        // Card grande = post marcado como "Destaque na Home" (mais recente);
+        // se nenhum estiver marcado, cai para a notícia publicada mais recente.
+        $featuredPost = Post::published()->featured()->latest('published_at')->first()
+            ?? Post::published()->latest('published_at')->first();
 
-        $latestPostsQuery = Post::published()->latest();
-        if ($featuredPost) {
-            $latestPostsQuery->where('id', '!=', $featuredPost->id);
-        }
-        $latestPosts = $latestPostsQuery->take(3)->get();
+        $latestPosts = Post::published()
+            ->when($featuredPost, fn ($q) => $q->where('id', '!=', $featuredPost->id))
+            ->latest('published_at')
+            ->take(3)
+            ->get();
 
         $upcomingEvents = Event::where('date_start', '>=', now())
             ->orderByDesc('is_featured')

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Admin;
 
 use App\Livewire\Admin\Posts\Form as PostForm;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -18,14 +19,18 @@ class PostManagementTest extends TestCase
 
         $this->actingAs($editor);
 
-        Livewire::test(PostForm::class)
+        // "Salvar e continuar" (padrão): cria e vai para a edição, sem voltar à lista.
+        $component = Livewire::test(PostForm::class)
             ->set('title', 'Nova Notícia de Teste')
             ->set('slug', 'nova-noticia-de-teste')
             ->set('content', '<p>Conteúdo da notícia.</p>')
             ->set('category', 'Notícias')
             ->set('status', 'draft')
-            ->call('save')
-            ->assertRedirect(route('admin.posts.index'));
+            ->call('save');
+
+        $post = Post::where('slug', 'nova-noticia-de-teste')->firstOrFail();
+
+        $component->assertRedirect(route('admin.posts.edit', $post->id));
 
         $this->assertDatabaseHas('posts', [
             'slug' => 'nova-noticia-de-teste',

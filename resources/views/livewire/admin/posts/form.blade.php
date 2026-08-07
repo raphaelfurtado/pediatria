@@ -128,6 +128,17 @@
                         </select>
                     </div>
 
+                    <div class="bg-amber-50 border border-amber-100 rounded-lg p-3">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" wire:model="is_featured" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent"></div>
+                            <span class="ms-3 text-sm font-bold text-slate-700">Destaque na Home</span>
+                        </label>
+                        <p class="text-xs text-slate-400 mt-2">A notícia em destaque aparece em <strong>tamanho grande</strong>
+                            no bloco de notícias da página inicial. Se nenhuma estiver marcada, a mais recente entra
+                            automaticamente.</p>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Categoria</label>
                         <select wire:model="category" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary">
@@ -156,11 +167,17 @@
 
                     <div class="pt-4 border-t border-slate-100 space-y-2">
                          <button type="submit" class="w-full bg-primary hover:bg-primaryLight text-white font-bold py-3 px-4 rounded-lg shadow-lg transition-transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined">save</span> Salvar Notícia
+                            <span wire:loading.remove wire:target="save" class="material-symbols-outlined">save</span>
+                            <span wire:loading wire:target="save" class="animate-spin material-symbols-outlined">sync</span>
+                            Salvar e continuar
+                        </button>
+                        <button type="button" wire:click="save(true)"
+                            class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-lg">check</span> Salvar e voltar à lista
                         </button>
                         @if($postId)
                             <a href="{{ route('admin.posts.preview', $postId) }}" target="_blank"
-                                class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
+                                class="w-full bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold py-2.5 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-lg">preview</span> Pré-visualizar
                             </a>
                         @endif

@@ -32,6 +32,8 @@ class Form extends Component
 
     public $tags;
 
+    public $is_featured = false;
+
     public $existingImage;
 
     public function mount($id = null)
@@ -48,6 +50,7 @@ class Form extends Component
             $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : null;
             $this->existingImage = $post->image_path;
             $this->tags = $post->tags;
+            $this->is_featured = (bool) $post->is_featured;
         } else {
             $this->published_at = now()->format('Y-m-d\TH:i');
         }
@@ -60,7 +63,7 @@ class Form extends Component
         }
     }
 
-    public function save()
+    public function save($exit = false)
     {
         $this->validate([
             'title' => 'required',
@@ -77,6 +80,7 @@ class Form extends Component
             'content' => $this->content,
             'category' => $this->category,
             'tags' => $this->tags,
+            'is_featured' => (bool) $this->is_featured,
             'published_at' => $this->status === 'published' ? $this->published_at : null,
         ];
 
@@ -93,13 +97,32 @@ class Form extends Component
         if ($this->postId) {
             $post = Post::find($this->postId);
             $post->update($data);
-            session()->flash('notify', 'Notícia atualizada com sucesso!');
+            $message = 'Notícia salva com sucesso!';
         } else {
-            Post::create($data);
-            session()->flash('notify', 'Notícia criada com sucesso!');
+            $post = Post::create($data);
+            $message = 'Notícia criada com sucesso!';
         }
 
-        return redirect()->route('admin.posts.index');
+        // "Salvar e voltar à lista"
+        if ($exit) {
+            session()->flash('notify', $message);
+
+            return redirect()->route('admin.posts.index');
+        }
+
+        // Recém-criada: entra no modo de edição para continuar na mesma página.
+        if (! $this->postId) {
+            session()->flash('notify', $message.' Continue editando.');
+
+            return redirect()->route('admin.posts.edit', $post->id);
+        }
+
+        // Edição: permanece na página, atualiza o preview da imagem e avisa.
+        if ($this->image) {
+            $this->existingImage = $data['image_path'];
+            $this->image = null;
+        }
+        $this->dispatch('notify', $message);
     }
 
     #[Layout('layouts.admin')]
