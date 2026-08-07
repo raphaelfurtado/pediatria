@@ -7,17 +7,19 @@
             $mkBtnText = \App\Models\SiteSetting::get('marketing_button_text', 'Inscrever-se');
             $mkBtnLink = \App\Models\SiteSetting::get('marketing_button_link', '#');
         @endphp
-        <div
-            class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-                <h3 class="text-2xl font-heading font-bold text-white mb-2">{{ $mkTitle }}</h3>
-                <p class="text-blue-200 text-sm max-w-md">{{ $mkDesc }}</p>
+        @if(\App\Models\SiteSetting::get('marketing_enabled', '0') === '1')
+            <div
+                class="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-10 mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-2">{{ $mkTitle }}</h3>
+                    <p class="text-blue-200 text-sm max-w-md">{{ $mkDesc }}</p>
+                </div>
+                <a href="{{ $mkBtnLink }}"
+                    class="bg-accent text-secondary font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors flex-shrink-0 text-center whitespace-nowrap">
+                    {{ $mkBtnText }}
+                </a>
             </div>
-            <a href="{{ $mkBtnLink }}"
-                class="bg-accent text-secondary font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white transition-colors flex-shrink-0 text-center whitespace-nowrap">
-                {{ $mkBtnText }}
-            </a>
-        </div>
+        @endif
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div class="space-y-6">
@@ -112,12 +114,9 @@
             <div>
                 <h5 class="text-white font-bold mb-6 text-lg tracking-tight">Localização</h5>
                 <div
-                    class="w-full h-40 bg-slate-800 rounded-2xl flex items-center justify-center border border-white/10 overflow-hidden relative group cursor-pointer">
-                    <img alt="Map Placeholder"
-                        class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVx6Nb14DZk126asGbTXn9i_VLwBJTUJO3NhRh5QihNcMIXQ6VkeMpDZkNeDPo9XduyGwrAbz4Pakr1Oylrf4mPQs89Bjt7sBYiI13yIhX_rk-E9h-kW6FdhycT3Su0SSqUcLa2-Ap6Ofz9IjHXX1Eyk3U4dSJSMT6WplYClBnIOWdzEzoGbwL5RLmIJQaMYhEpX9lqo7VikyNo-fxYuxZWo5pQckLM4SH4M0WRkimYuxxcrwWC6Ff0vjniVjNDWUqfWtyJebIZ9g"
-                        style="background-color: #334155;" />
-                    <span class="material-symbols-outlined text-4xl text-white relative z-10 drop-shadow-md">map</span>
+                    class="w-full h-40 bg-gradient-to-br from-slate-800 to-secondary rounded-2xl flex flex-col items-center justify-center gap-2 border border-white/10 overflow-hidden relative">
+                    <span class="material-symbols-outlined text-4xl text-white/90 relative z-10 drop-shadow-md">location_on</span>
+                    <span class="text-xs text-blue-200 relative z-10">Belém - PA</span>
                 </div>
             </div>
         </div>

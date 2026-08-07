@@ -26,6 +26,8 @@ class Form extends Component
 
     public $seo_image;
 
+    public $marketing_enabled = false;
+
     public $marketing_title;
 
     public $marketing_description;
@@ -57,6 +59,7 @@ class Form extends Component
         $this->head_scripts = SiteSetting::get('head_scripts');
         $this->seo_description = SiteSetting::get('seo_description', 'Sociedade Paraense de Pediatria (SOPAPE): notícias, eventos, publicações e ações voltadas à saúde da criança e do adolescente no Pará.');
         $this->seo_image = SiteSetting::get('seo_image');
+        $this->marketing_enabled = SiteSetting::get('marketing_enabled', '0') === '1';
         $this->marketing_title = SiteSetting::get('marketing_title', 'Receba novidades');
         $this->marketing_description = SiteSetting::get('marketing_description', 'Inscreva-se para receber atualizações da SOPAPE');
         $this->marketing_button_text = SiteSetting::get('marketing_button_text', 'Inscrever-se');
@@ -81,6 +84,7 @@ class Form extends Component
         SiteSetting::set('head_scripts', $this->head_scripts);
         SiteSetting::set('seo_description', $this->seo_description);
         SiteSetting::set('seo_image', $this->seo_image);
+        SiteSetting::set('marketing_enabled', $this->marketing_enabled ? '1' : '0');
         SiteSetting::set('marketing_title', $this->marketing_title);
         SiteSetting::set('marketing_description', $this->marketing_description);
         SiteSetting::set('marketing_button_text', $this->marketing_button_text);
