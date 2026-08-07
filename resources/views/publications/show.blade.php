@@ -1,4 +1,5 @@
-<x-layouts.app :title="$publication->title" :description="$publication->description" :image="$publication->cover_image" og-type="article">
+<x-layouts.app :title="$publication->title" :description="$publication->description" :image="$publication->cover_image" og-type="article"
+    :edit-url="route('admin.publications.edit', $publication->id)">
     <section class="py-12 bg-surface-light">
         <div class="container mx-auto px-6">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
