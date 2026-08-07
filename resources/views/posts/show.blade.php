@@ -120,6 +120,17 @@
                             /* slate-700 */
                         }
 
+                        /* Links visíveis na matéria (azul + sublinhado) */
+                        .prose a {
+                            color: #0096C7;
+                            text-decoration: underline;
+                            font-weight: 600;
+                        }
+
+                        .prose a:hover {
+                            color: #023E8A;
+                        }
+
                         /* 1. Enhanced Blockquote (Yellow Card Style) */
                         .prose blockquote {
                             background-color: #FFFBEB;
