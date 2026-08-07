@@ -76,7 +76,7 @@ class Form extends Component
         ];
 
         if ($this->cover) {
-            $path = $this->cover->store('albums/covers', 'public');
+            $path = \App\Services\ImageOptimizer::store($this->cover, 'albums/covers');
             $data['cover_image'] = '/storage/'.$path;
         }
 
@@ -89,7 +89,7 @@ class Form extends Component
 
         if (! empty($this->photos)) {
             foreach ($this->photos as $photoFile) {
-                $path = $photoFile->store('albums/photos/'.$album->id, 'public');
+                $path = \App\Services\ImageOptimizer::store($photoFile, 'albums/photos/'.$album->id);
                 Photo::create([
                     'photo_album_id' => $album->id,
                     'image_path' => '/storage/'.$path,

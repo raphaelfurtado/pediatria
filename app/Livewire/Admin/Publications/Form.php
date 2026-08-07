@@ -77,7 +77,7 @@ class Form extends Component
         ];
 
         if ($this->cover) {
-            $path = $this->cover->store('publications/covers', 'public');
+            $path = \App\Services\ImageOptimizer::store($this->cover, 'publications/covers');
             $data['cover_image'] = '/storage/'.$path;
         }
 
