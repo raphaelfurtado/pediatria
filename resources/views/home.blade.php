@@ -251,12 +251,18 @@
                     @foreach($featuredVideos as $video)
                         <article
                             class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col hover:-translate-y-1">
-                            <a href="https://www.youtube.com/watch?v={{ $video->youtube_id }}" target="_blank"
+                            <a href="{{ $video->watchUrl() }}" target="_blank"
                                 rel="noopener noreferrer"
-                                class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5 block">
-                                <img alt="{{ $video->title }}"
-                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    src="https://img.youtube.com/vi/{{ $video->youtube_id }}/hqdefault.jpg">
+                                class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5 block bg-secondary/10">
+                                @if($video->thumbUrl())
+                                    <img alt="{{ $video->title }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        src="{{ $video->thumbUrl() }}">
+                                @else
+                                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary to-primary">
+                                        <span class="material-symbols-outlined text-white/80 text-6xl">smart_display</span>
+                                    </div>
+                                @endif
                                 <div
                                     class="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
                                     <div

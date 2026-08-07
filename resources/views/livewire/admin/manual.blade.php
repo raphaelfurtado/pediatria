@@ -83,7 +83,7 @@
                 'A primeira foto do álbum vira a capa.',
             ]],
             ['videos', 'movie', 'Vídeos', [
-                'Adicione vídeos do YouTube usando o <b>ID</b> do vídeo (o código depois de "watch?v=").',
+                'Adicione vídeos colando o <b>link</b> do YouTube ou do Vimeo — o sistema detecta e incorpora sozinho.',
                 '<b>Vídeo Ativo</b>: aparece na página /videos.',
                 '<b>Destaque na Home</b>: aparece também na seção de vídeos da página inicial.',
             ]],
