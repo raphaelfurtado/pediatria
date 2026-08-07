@@ -210,6 +210,94 @@
         <span class="material-symbols-outlined">check_circle</span>
         <span x-text="message"></span>
     </div>
+
+    {{-- Aparência de link dentro do editor + diálogo do Trix visível --}}
+    <style>
+        trix-editor.trix-content a {
+            color: #0096C7;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        trix-toolbar .trix-dialog {
+            background: #ffffff;
+            padding: 10px;
+            box-shadow: 0 10px 25px -10px rgba(2, 62, 138, .35);
+            border-radius: 10px;
+        }
+        trix-toolbar .trix-input--dialog {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+        trix-toolbar .trix-button-group--dialog {
+            margin-top: 6px;
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+
+    {{-- Barra flutuante de formatação: aparece ao selecionar texto no editor --}}
+    <div x-data="trixLinkToolbar" x-cloak x-show="show" @mousedown.prevent
+        :style="`position:fixed; top:${y}px; left:${x}px; z-index:70;`"
+        class="flex items-center gap-1 bg-secondary text-white rounded-xl shadow-2xl px-1.5 py-1">
+        <button type="button" @click="toggle('bold')" class="w-8 h-8 rounded-lg hover:bg-white/15 font-bold" title="Negrito">B</button>
+        <button type="button" @click="toggle('italic')" class="w-8 h-8 rounded-lg hover:bg-white/15 italic" title="Itálico">I</button>
+        <span class="w-px h-5 bg-white/20 mx-0.5"></span>
+        <button type="button" @click="makeLink()" class="px-2 h-8 rounded-lg hover:bg-white/15 flex items-center gap-1 text-sm font-bold" title="Inserir link">
+            <span class="material-symbols-outlined text-base">link</span> Link
+        </button>
+        <button type="button" @click="unlink()" class="w-8 h-8 rounded-lg hover:bg-white/15 flex items-center justify-center" title="Remover link">
+            <span class="material-symbols-outlined text-base">link_off</span>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('trixLinkToolbar', () => ({
+                show: false, x: 0, y: 0, editorEl: null,
+                init() {
+                    document.addEventListener('selectionchange', () => this.onSelection());
+                    window.addEventListener('scroll', () => { this.show = false; }, true);
+                },
+                onSelection() {
+                    const sel = window.getSelection();
+                    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) { this.show = false; return; }
+                    let node = sel.anchorNode;
+                    node = node && (node.nodeType === 1 ? node : node.parentElement);
+                    const editorEl = node ? node.closest('trix-editor') : null;
+                    if (!editorEl) { this.show = false; return; }
+                    const rect = sel.getRangeAt(0).getBoundingClientRect();
+                    if (!rect.width) { this.show = false; return; }
+                    this.editorEl = editorEl;
+                    this.x = Math.max(8, rect.left + (rect.width / 2) - 95);
+                    this.y = Math.max(8, rect.top - 50);
+                    this.show = true;
+                },
+                editor() { return this.editorEl.editor; },
+                toggle(attr) {
+                    const e = this.editor();
+                    e.setSelectedRange(e.getSelectedRange());
+                    e.attributeIsActive(attr) ? e.deactivateAttribute(attr) : e.activateAttribute(attr);
+                },
+                makeLink() {
+                    const e = this.editor();
+                    const range = e.getSelectedRange();
+                    const current = e.attributeIsActive('href') ? '' : 'https://';
+                    const url = window.prompt('Cole o endereço do link (URL):', current);
+                    this.show = false;
+                    if (url === null) return;
+                    e.setSelectedRange(range);
+                    url.trim() === '' ? e.deactivateAttribute('href') : e.activateAttribute('href', url.trim());
+                },
+                unlink() {
+                    const e = this.editor();
+                    e.setSelectedRange(e.getSelectedRange());
+                    e.deactivateAttribute('href');
+                    this.show = false;
+                },
+            }));
+        });
+    </script>
 </body>
 
 </html>

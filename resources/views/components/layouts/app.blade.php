@@ -100,6 +100,20 @@
 
     {{-- Scripts personalizados (Google Analytics, etc.) definidos em Configurações --}}
     {!! \App\Models\SiteSetting::get('head_scripts') !!}
+
+    {{-- Links dentro de conteúdo editorial (notícias, /sobre, etc.): azul + sublinhado --}}
+    <style>
+        .prose a,
+        .article-content a {
+            color: #0096C7;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .prose a:hover,
+        .article-content a:hover {
+            color: #023E8A;
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased bg-slate-50 text-slate-800">
