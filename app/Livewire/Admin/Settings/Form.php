@@ -20,6 +20,10 @@ class Form extends Component
 
     public $contact_phone;
 
+    public $contact_address;
+
+    public $map_embed_url;
+
     public $head_scripts;
 
     public $seo_description;
@@ -56,6 +60,8 @@ class Form extends Component
         $this->whatsapp = SiteSetting::get('whatsapp');
         $this->contact_email = SiteSetting::get('contact_email', 'atendimento.sopape@gmail.com');
         $this->contact_phone = SiteSetting::get('contact_phone', '(91) 99999-9999');
+        $this->contact_address = SiteSetting::get('contact_address', "Rua dos Pariquis, 2999 - A\nSala 1304, Belém - PA");
+        $this->map_embed_url = SiteSetting::get('map_embed_url');
         $this->head_scripts = SiteSetting::get('head_scripts');
         $this->seo_description = SiteSetting::get('seo_description', 'Sociedade Paraense de Pediatria (SOPAPE): notícias, eventos, publicações e ações voltadas à saúde da criança e do adolescente no Pará.');
         $this->seo_image = SiteSetting::get('seo_image');
@@ -81,6 +87,8 @@ class Form extends Component
         SiteSetting::set('whatsapp', $this->whatsapp);
         SiteSetting::set('contact_email', $this->contact_email);
         SiteSetting::set('contact_phone', $this->contact_phone);
+        SiteSetting::set('contact_address', $this->contact_address);
+        SiteSetting::set('map_embed_url', $this->normalizeMapUrl($this->map_embed_url));
         SiteSetting::set('head_scripts', $this->head_scripts);
         SiteSetting::set('seo_description', $this->seo_description);
         SiteSetting::set('seo_image', $this->seo_image);
@@ -98,6 +106,29 @@ class Form extends Component
         SiteSetting::set('article_cta_button_link', $this->article_cta_button_link);
 
         session()->flash('notify', 'Configurações atualizadas com sucesso!');
+    }
+
+    /**
+     * Aceita a URL de incorporação OU o código <iframe> inteiro do Google Maps,
+     * extrai o src e só mantém se for de fato um embed do Google Maps (segurança).
+     */
+    protected function normalizeMapUrl(?string $value): ?string
+    {
+        $value = trim((string) $value);
+
+        if ($value === '') {
+            return null;
+        }
+
+        if (preg_match('/src="([^"]+)"/i', $value, $m)) {
+            $value = $m[1];
+        }
+
+        if (! preg_match('~^https://(www\.google\.com/maps/embed|maps\.google\.com/maps)~i', $value)) {
+            return null;
+        }
+
+        return $value;
     }
 
     #[Layout('layouts.admin')]

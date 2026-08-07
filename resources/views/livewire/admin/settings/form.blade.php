@@ -55,6 +55,21 @@
                             class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
                             placeholder="(91) 99999-9999">
                     </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Endereço</label>
+                        <textarea wire:model="contact_address" rows="2"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"
+                            placeholder="Rua, número, sala&#10;Bairro, Cidade - UF"></textarea>
+                        <p class="text-xs text-slate-400 mt-1">Aparece no rodapé em "Fale Conosco". Pode usar duas linhas.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Mapa (Google Maps)</label>
+                        <textarea wire:model="map_embed_url" rows="2"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary font-mono text-xs"
+                            placeholder='Cole o código &lt;iframe&gt; ou a URL de incorporação do Google Maps'></textarea>
+                        <p class="text-xs text-slate-400 mt-1">No Google Maps: <strong>Compartilhar → Incorporar um mapa →
+                            Copiar HTML</strong> e cole aqui. Deixe em branco para mostrar só o marcador de localização.</p>
+                    </div>
                 </div>
             </div>
         </div>
