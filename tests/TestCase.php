@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Cache;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -12,5 +13,8 @@ abstract class TestCase extends BaseTestCase
 
         // Tests must not depend on a built Vite manifest.
         $this->withoutVite();
+
+        // Isola o cache entre testes (SiteSetting usa rememberForever).
+        Cache::flush();
     }
 }

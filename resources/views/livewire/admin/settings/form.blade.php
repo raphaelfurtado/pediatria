@@ -63,9 +63,18 @@
         <div class="space-y-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <h3 class="font-bold text-secondary mb-4 flex items-center gap-2">
-                    <span class="material-symbols-outlined">campaign</span> Marketing Sidebar (Blog)
+                    <span class="material-symbols-outlined">campaign</span> Card de Newsletter (nas notícias)
                 </h3>
                 <div class="space-y-4">
+                    <div class="bg-slate-50 border border-slate-100 rounded-lg p-3">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" wire:model="marketing_enabled" class="sr-only peer">
+                            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                            <span class="ms-3 text-sm font-bold text-slate-700">Mostrar card de newsletter</span>
+                        </label>
+                        <p class="text-xs text-slate-400 mt-2">Aparece na barra lateral das notícias. Deixe
+                            <strong>desligado</strong> enquanto não houver newsletter.</p>
+                    </div>
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Título do Card</label>
                         <input wire:model="marketing_title" type="text"

@@ -64,9 +64,8 @@
                     <article
                         class="lg:col-span-1 bg-white rounded-3xl shadow-lg hover:shadow-hover border border-slate-100 overflow-hidden group cursor-pointer flex flex-col h-full">
                         <div class="relative h-64 lg:h-1/2 overflow-hidden">
-                            <img alt="{{ $mainPost->title }}"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                src="{{ $mainPost->image_path ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuBmw_ZFpf2CDj0pVHvRoYRrApxj0TcKAsZwwX9QZToLUqHQhDc7F2qAKdTiFdy_75qvML0ruYT4zIGDNi-ao4GJb1j3QlGX9tB1ryIKiHgCGcBFaLjtDjb3R1m6fb7oynfnDuo-TloDuHX-xNM9AQkn4dgzzEUoZMXRZ6gcsjiZGXd4C9CF3Es7iwj3gixlf5mOOj4O_QAdWYMR_my-CrhTwZqz9VVkBd9crWK-9crzKCUb0z6Uu1gGXFIhPEiM80eVXtZVSX2w-RM' }}">
+                            <x-content-image :src="$mainPost->image_path" :alt="$mainPost->title"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             <div class="absolute top-4 left-4">
                                 <span
                                     class="bg-tertiary text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">{{ $mainPost->category }}</span>
@@ -98,9 +97,9 @@
                         <article
                             class="bg-white rounded-3xl shadow-md hover:shadow-lg border border-slate-100 p-6 group cursor-pointer">
                             <div class="flex items-start gap-4 mb-4">
-                                <div class="w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
-                                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform"
-                                        src="{{ $post->image_path ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuAdpI5GzXBkhOzQ_J_ISGV6P24CPBD3MzFYVjAEmDvD-w14JCkzmby_imyVEglgriRlTHJoCZX-Q8VsUBKsGNGZ2FSngLl5KDAfS3kk6Oua2C_LddPLTibmNoHUUia9peB05Zbgt0iadndRi5XCw0l80PwbzIlAQGJvxZMzBNlYqy4FYBJUeotKAO6sbbhIIbUDEF1ytxBxjAVB1agWTRmeDkXbF-I4g2tn6cc2of6qB5BKfgueobSCDK35vJarErdhAQmH-LdYIbY' }}">
+                                <div class="relative w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
+                                    <x-content-image :src="$post->image_path" :alt="$post->title" :label="false"
+                                        class="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                                 </div>
                                 <div>
                                     <span
@@ -175,9 +174,8 @@
                     <div
                         class="group bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100">
                         <div class="h-52 overflow-hidden relative">
-                            <img alt="{{ $event->title }}"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                src="{{ $event->image_path ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuCxY3OrFYRKXa4yLpTZRhZJbJ5YjoX4iiQ8lBPEZBnehAH7O5-qmFCummmzCK_eAMtpI5-YIFw_xJBQ02aLb93PMGfnLCb8pQtGRUTkZw6d5k66tOPXJkP4fOIiPhptunptgJmLTlX7izV1JvFE0-jrPNCH-hJz_vkbZy2B6XIif4sQTxK-_Hy_xeyotw7xsR7tSk2LCTc0EQ-EWHBL5JIejoKOQUFJ9gVl3KBRk-BvepvJwLWOzHV0H9l9YAM-S996RnV_OPlT85Q' }}">
+                            <x-content-image :src="$event->image_path" :alt="$event->title"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                             <div
                                 class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl border border-white/50 text-center shadow-lg">
                                 <span

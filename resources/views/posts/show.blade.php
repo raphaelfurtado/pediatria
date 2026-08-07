@@ -82,10 +82,9 @@
                     </div>
 
                     <!-- Featured Image -->
-                    <div class="mb-10 rounded-2xl overflow-hidden shadow-sm">
-                        <img class="w-full object-cover"
-                            src="{{ $post->image_path ?? 'https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80' }}"
-                            alt="{{ $post->title }}">
+                    <div class="relative aspect-video mb-10 rounded-2xl overflow-hidden shadow-sm">
+                        <x-content-image :src="$post->image_path" :alt="$post->title"
+                            class="w-full h-full object-cover" />
                     </div>
 
                     <!-- Article Content -->
@@ -386,10 +385,9 @@
                         <div class="space-y-6">
                             @foreach($relatedPosts as $rel)
                                 <div class="flex items-start group">
-                                    <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
-                                        <img class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
-                                            src="{{ $rel->image_path ?? 'https://via.placeholder.com/150' }}"
-                                            alt="{{ $rel->title }}">
+                                    <div class="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
+                                        <x-content-image :src="$rel->image_path" :alt="$rel->title" :label="false"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition duration-300" />
                                     </div>
                                     <div class="ml-4">
                                         <span
@@ -417,7 +415,8 @@
                         </div>
                     </div>
 
-                    <!-- Newsletter Widget -->
+                    <!-- Newsletter Widget (liga/desliga em Configurações → Newsletter) -->
+                    @if(\App\Models\SiteSetting::get('marketing_enabled', '0') === '1')
                     <div class="bg-sopape-yellow p-8 rounded-2xl text-center shadow-lg relative overflow-hidden">
                         <div class="relative z-10">
                             <div
@@ -439,6 +438,7 @@
                         <div class="absolute -top-12 -right-12 w-32 h-32 bg-white opacity-20 rounded-full"></div>
                         <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-white opacity-20 rounded-full"></div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

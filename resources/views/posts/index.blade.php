@@ -57,9 +57,8 @@
                     <article
                         class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col h-full hover:-translate-y-1">
                         <div class="relative h-60 rounded-[1.5rem] overflow-hidden mb-5">
-                            <img alt="{{ $post->title }}"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                src="{{ $post->image_path ?? 'https://lh3.googleusercontent.com/aida-public/AB6AXuBmw_ZFpf2CDj0pVHvRoYRrApxj0TcKAsZwwX9QZToLUqHQhDc7F2qAKdTiFdy_75qvML0ruYT4zIGDNi-ao4GJb1j3QlGX9tB1ryIKiHgCGcBFaLjtDjb3R1m6fb7oynfnDuo-TloDuHX-xNM9AQkn4dgzzEUoZMXRZ6gcsjiZGXd4C9CF3Es7iwj3gixlf5mOOj4O_QAdWYMR_my-CrhTwZqz9VVkBd9crWK-9crzKCUb0z6Uu1gGXFIhPEiM80eVXtZVSX2w-RM' }}">
+                            <x-content-image :src="$post->image_path" :alt="$post->title"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60"></div>
                             <div
                                 class="absolute top-4 left-4 bg-white/95 backdrop-blur text-secondary text-xs font-bold px-3 py-1.5 rounded-full shadow-md uppercase tracking-wide border border-slate-100">
