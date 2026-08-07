@@ -33,7 +33,7 @@ class Form extends Component
         SiteSetting::set('about_subtitle', $this->subtitle);
         SiteSetting::set('about_content', $this->content);
 
-        session()->flash('notify', 'Página "Sobre" atualizada com sucesso!');
+        $this->dispatch('notify', 'Página "Sobre" atualizada com sucesso!');
     }
 
     /**

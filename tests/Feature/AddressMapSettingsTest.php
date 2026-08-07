@@ -54,4 +54,13 @@ class AddressMapSettingsTest extends TestCase
 
         $this->assertNull(SiteSetting::get('map_embed_url'));
     }
+
+    public function test_saving_settings_shows_a_notification(): void
+    {
+        $this->actingAs(User::factory()->create(['role' => 'admin']));
+
+        Livewire::test(SettingsForm::class)
+            ->call('save')
+            ->assertDispatched('notify');
+    }
 }
