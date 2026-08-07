@@ -93,7 +93,7 @@
                             class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 text-accent">
                             <span class="material-symbols-outlined text-sm">location_on</span>
                         </div>
-                        <span class="mt-1">Rua dos Pariquis, 2999 - A<br />Sala 1304, Belém - PA</span>
+                        <span class="mt-1">{!! nl2br(e(\App\Models\SiteSetting::get('contact_address', "Rua dos Pariquis, 2999 - A\nSala 1304, Belém - PA"))) !!}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <div
@@ -113,10 +113,17 @@
             </div>
             <div>
                 <h5 class="text-white font-bold mb-6 text-lg tracking-tight">Localização</h5>
-                <div
-                    class="w-full h-40 bg-gradient-to-br from-slate-800 to-secondary rounded-2xl flex flex-col items-center justify-center gap-2 border border-white/10 overflow-hidden relative">
-                    <span class="material-symbols-outlined text-4xl text-white/90 relative z-10 drop-shadow-md">location_on</span>
-                    <span class="text-xs text-blue-200 relative z-10">Belém - PA</span>
+                @php $mapEmbed = \App\Models\SiteSetting::get('map_embed_url'); @endphp
+                <div class="w-full h-40 rounded-2xl overflow-hidden border border-white/10 relative">
+                    @if($mapEmbed)
+                        <iframe src="{{ $mapEmbed }}" class="w-full h-full" style="border:0;" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade" allowfullscreen title="Localização SOPAPE"></iframe>
+                    @else
+                        <div class="w-full h-full bg-gradient-to-br from-slate-800 to-secondary flex flex-col items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-4xl text-white/90 drop-shadow-md">location_on</span>
+                            <span class="text-xs text-blue-200">Belém - PA</span>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
