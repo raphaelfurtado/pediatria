@@ -11,7 +11,7 @@
         'admin.events.index' => ['Eventos e cursos.', 'Marque "Destaque" para o evento aparecer primeiro na agenda da home.'],
         'admin.publications.index' => ['Biblioteca: livros, manuais, guias e revistas, com capa e link ou arquivo.'],
         'admin.albums.index' => ['Álbuns de fotos exibidos na Galeria do site.'],
-        'admin.videos.index' => ['Vídeos do YouTube.', 'Use o ID do vídeo (o código depois de "watch?v=").', '"Vídeo Ativo" mostra em /videos; "Destaque na Home" coloca o vídeo na página inicial.'],
+        'admin.videos.index' => ['Vídeos do YouTube ou Vimeo.', 'Cole o link completo do vídeo — o sistema detecta e incorpora sozinho.', '"Vídeo Ativo" mostra em /videos; "Destaque na Home" coloca o vídeo na página inicial.'],
         'admin.users.index' => ['Usuários do painel.', 'Administrador acessa tudo; Editor gerencia apenas conteúdo.', 'Use "Novo Usuário" para cadastrar e definir a função.'],
         'admin.navigation.index' => ['Itens do menu do site.', 'Edite o texto e a URL de cada item, ative/desative e use as setas para reordenar.'],
         'admin.settings' => ['Aqui ficam: redes sociais, contato (e-mail/telefone exibidos), banner "Publique seu artigo", bloco do rodapé e o campo do Google Analytics.'],

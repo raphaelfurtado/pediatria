@@ -14,12 +14,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         @foreach($videos as $video)
             <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 group">
-                <div class="aspect-video relative overflow-hidden">
-                    <img src="https://img.youtube.com/vi/{{ $video->youtube_id }}/mqdefault.jpg"
-                        class="w-full h-full object-cover">
+                <div class="aspect-video relative overflow-hidden bg-secondary/10">
+                    @if($video->thumbUrl())
+                        <img src="{{ $video->thumbUrl() }}" class="w-full h-full object-cover">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary to-primary">
+                            <span class="material-symbols-outlined text-white/80 text-5xl">smart_display</span>
+                        </div>
+                    @endif
                     <div
                         class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <span class="material-symbols-outlined text-4xl text-white">play_circle</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="bg-black/60 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">{{ $video->provider_name }}</span>
                     </div>
                     @if($video->is_featured)
                         <div class="absolute top-2 left-2">

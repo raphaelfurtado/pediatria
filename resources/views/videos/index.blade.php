@@ -23,15 +23,17 @@
                 @forelse($videos as $video)
                     <article
                         class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col hover:-translate-y-1">
-                        <div class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5">
-                            @php
-                                $thumb = $video->youtube_id
-                                    ? "https://img.youtube.com/vi/{$video->youtube_id}/hqdefault.jpg"
-                                    : 'https://via.placeholder.com/800x450';
-                            @endphp
-                            <img alt="{{ $video->title }}"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                src="{{ $thumb }}">
+                        <a href="{{ $video->watchUrl() }}" target="_blank" rel="noopener noreferrer"
+                            class="relative aspect-video rounded-[1.5rem] overflow-hidden mb-5 block bg-secondary/10">
+                            @if($video->thumbUrl())
+                                <img alt="{{ $video->title }}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    src="{{ $video->thumbUrl() }}">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary to-primary">
+                                    <span class="material-symbols-outlined text-white/80 text-6xl">smart_display</span>
+                                </div>
+                            @endif
                             <div
                                 class="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/20 transition-colors">
                                 <div
@@ -39,7 +41,7 @@
                                     <span class="material-symbols-outlined text-3xl font-bold fill-1">play_arrow</span>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         <div class="px-2 flex flex-col flex-1">
                             <h3
                                 class="text-xl font-heading font-bold text-secondary mb-3 leading-snug group-hover:text-primary transition-colors">
@@ -53,14 +55,9 @@
                             <div class="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
                                 <span
                                     class="text-xs text-slate-400 font-medium">{{ $video->created_at->format('d/m/Y') }}</span>
-                                @php
-                                    $vUrl = $video->youtube_id
-                                        ? "https://www.youtube.com/watch?v={$video->youtube_id}"
-                                        : '#';
-                                @endphp
-                                <a href="{{ $vUrl }}" target="_blank" rel="noopener noreferrer"
+                                <a href="{{ $video->watchUrl() }}" target="_blank" rel="noopener noreferrer"
                                     class="inline-flex items-center gap-2 text-secondary hover:text-accent font-bold text-sm group-hover:gap-3 transition-all">
-                                    Assistir no YouTube <span class="material-symbols-outlined text-lg">open_in_new</span>
+                                    Assistir no {{ $video->provider_name }} <span class="material-symbols-outlined text-lg">open_in_new</span>
                                 </a>
                             </div>
                         </div>

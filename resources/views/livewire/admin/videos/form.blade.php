@@ -3,7 +3,7 @@
         <div>
             <h1 class="text-2xl font-headings font-bold text-secondary">{{ $videoId ? 'Editar Vídeo' : 'Novo Vídeo' }}
             </h1>
-            <p class="text-slate-500 text-sm">Integração com YouTube para a videoteca.</p>
+            <p class="text-slate-500 text-sm">Cole o link de um vídeo do YouTube ou Vimeo.</p>
         </div>
         <a href="{{ route('admin.videos.index') }}"
             class="text-slate-500 hover:text-secondary flex items-center gap-1 font-bold text-sm">
@@ -23,19 +23,13 @@
                 </div>
 
                 <div class="space-y-2 col-span-2">
-                    <label class="text-sm font-bold text-slate-700">YouTube ID</label>
-                    <div class="flex gap-2">
-                        <div class="flex-1">
-                            <input wire:model.live="youtube_id" type="text"
-                                class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary transition-all @error('youtube_id') border-red-500 @enderror"
-                                placeholder="Ex: dQw4w9WgXcQ">
-                        </div>
-                        <div
-                            class="bg-slate-100 px-4 flex items-center border border-slate-200 rounded-2xl text-[10px] text-slate-400 font-bold max-w-[200px]">
-                            youtube.com/watch?v=<b>[ID]</b>
-                        </div>
-                    </div>
-                    @error('youtube_id') <span class="text-red-500 text-xs font-bold italic">{{ $message }}</span>
+                    <label class="text-sm font-bold text-slate-700">Link do vídeo (YouTube ou Vimeo)</label>
+                    <input wire:model.live.debounce.500ms="video_link" type="text"
+                        class="w-full bg-slate-50 border-slate-200 rounded-2xl px-4 py-3 focus:ring-primary focus:border-primary transition-all @error('video_link') border-red-500 @enderror"
+                        placeholder="Ex: https://www.youtube.com/watch?v=... ou https://vimeo.com/...">
+                    <p class="text-xs text-slate-400">Cole o endereço completo do vídeo. Funciona com
+                        <b>youtube.com</b>, <b>youtu.be</b> e <b>vimeo.com</b>. O sistema detecta e incorpora sozinho.</p>
+                    @error('video_link') <span class="text-red-500 text-xs font-bold italic">{{ $message }}</span>
                     @enderror
                 </div>
 
@@ -67,13 +61,13 @@
                 </div>
             </div>
 
-            @if($youtube_id)
+            @if($this->previewEmbedUrl)
                 <div class="pt-6 border-t border-slate-50">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-4">Preview do
-                        YouTube</span>
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-4">Preview
+                        ({{ $previewProvider === 'vimeo' ? 'Vimeo' : 'YouTube' }})</span>
                     <div
                         class="aspect-video w-full max-w-xl mx-auto rounded-3xl overflow-hidden shadow-2xl bg-black border border-slate-100">
-                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/{{ $youtube_id }}" frameborder="0"
+                        <iframe class="w-full h-full" src="{{ $this->previewEmbedUrl }}" frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
