@@ -19,8 +19,27 @@
 
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Slug (URL)</label>
-                        <input wire:model="slug" type="text" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary text-slate-500">
+                        <div class="flex gap-2">
+                            <input wire:model="slug" type="text" readonly
+                                class="flex-1 bg-slate-100 border-slate-200 rounded-lg text-slate-500 cursor-not-allowed">
+                            <button type="button" wire:click="regenerateSlug"
+                                class="px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center"
+                                title="Regenerar a partir do título">
+                                <span class="material-symbols-outlined text-base">autorenew</span>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-1">Gerado automaticamente a partir do título (não editável).</p>
                         @error('slug') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Link externo (opcional)</label>
+                        <input wire:model="external_url" type="url"
+                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary @error('external_url') border-red-500 @enderror"
+                            placeholder="https://site-externo.com.br/materia">
+                        <p class="text-xs text-slate-400 mt-1">Se preenchido, o card desta notícia leva direto para este
+                            endereço (em nova aba), em vez da página interna. Ideal para republicar matérias de outros sites.</p>
+                        @error('external_url') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
                     </div>
 
                     <div>

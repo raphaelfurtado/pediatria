@@ -30,6 +30,8 @@ class Form extends Component
 
     public $image;
 
+    public $external_url;
+
     public $tags;
 
     public $is_featured = false;
@@ -49,6 +51,7 @@ class Form extends Component
             $this->status = $post->published_at ? 'published' : 'draft';
             $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : null;
             $this->existingImage = $post->image_path;
+            $this->external_url = $post->external_url;
             $this->tags = $post->tags;
             $this->is_featured = (bool) $post->is_featured;
         } else {
@@ -63,14 +66,28 @@ class Form extends Component
         }
     }
 
+    /**
+     * Regenera o slug a partir do título (usado pelo botão, já que o campo é somente-leitura).
+     */
+    public function regenerateSlug()
+    {
+        $this->slug = Str::slug($this->title);
+    }
+
     public function save($exit = false)
     {
+        // Garante que o slug seja sempre um slug válido (nunca uma URL).
+        $this->slug = Str::slug($this->slug);
+
         $this->validate([
             'title' => 'required',
             'slug' => 'required|unique:posts,slug,'.$this->postId,
             'content' => 'required',
             'category' => 'required',
             'published_at' => 'required_if:status,published',
+            'external_url' => 'nullable|url',
+        ], [
+            'external_url.url' => 'O link externo deve ser um endereço válido (começando com https://).',
         ]);
 
         $data = [
@@ -79,6 +96,7 @@ class Form extends Component
             'excerpt' => $this->excerpt,
             'content' => $this->content,
             'category' => $this->category,
+            'external_url' => $this->external_url ?: null,
             'tags' => $this->tags,
             'is_featured' => (bool) $this->is_featured,
             'published_at' => $this->status === 'published' ? $this->published_at : null,

@@ -65,7 +65,7 @@
                             @endif
                         </div>
                         <div class="flex-1 min-w-0">
-                            <a href="{{ $post->published_at ? route('posts.show', $post->slug) : route('admin.posts.edit', $post->id) }}"
+                            <a href="{{ $post->published_at ? $post->link() : route('admin.posts.edit', $post->id) }}"
                                 @if($post->published_at) target="_blank" @endif
                                 class="block text-sm font-bold text-slate-700 truncate hover:text-primary transition-colors">
                                 {{ $post->title }}</a>

@@ -62,7 +62,7 @@
                 @php $mainPost = $featuredPost ?? ($latestPosts->isNotEmpty() ? $latestPosts->shift() : null); @endphp
                 @if($mainPost)
                     <article
-                        class="lg:col-span-1 bg-white rounded-3xl shadow-lg hover:shadow-hover border border-slate-100 overflow-hidden group cursor-pointer flex flex-col h-full">
+                        class="relative lg:col-span-1 bg-white rounded-3xl shadow-lg hover:shadow-hover border border-slate-100 overflow-hidden group cursor-pointer flex flex-col h-full">
                         <div class="relative h-64 lg:h-1/2 overflow-hidden">
                             <x-content-image :src="$mainPost->image_path" :alt="$mainPost->title"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -78,16 +78,20 @@
                             </div>
                             <h3
                                 class="text-2xl font-heading font-bold text-secondary mb-4 leading-tight group-hover:text-primary transition-colors">
-                                <a href="{{ route('posts.show', $mainPost->slug) }}">{{ $mainPost->title }}</a>
+                                {{ $mainPost->title }}
                             </h3>
                             <p class="text-gray-500 text-sm line-clamp-3 mb-6 flex-1">
                                 {{ $mainPost->excerpt }}
                             </p>
-                            <a href="{{ route('posts.show', $mainPost->slug) }}"
+                            <span
                                 class="text-tertiary font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-                                Ler artigo <span class="material-symbols-outlined">arrow_right_alt</span>
-                            </a>
+                                {{ $mainPost->isExternal() ? 'Acessar matéria' : 'Ler artigo' }}
+                                <span class="material-symbols-outlined">{{ $mainPost->isExternal() ? 'open_in_new' : 'arrow_right_alt' }}</span>
+                            </span>
                         </div>
+                        <a href="{{ $mainPost->link() }}"
+                            @if($mainPost->isExternal()) target="_blank" rel="noopener noreferrer" @endif
+                            class="absolute inset-0 z-10" aria-label="{{ $mainPost->title }}"></a>
                     </article>
                 @endif
 
@@ -95,7 +99,7 @@
                 <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
                     @foreach($latestPosts as $post)
                         <article
-                            class="bg-white rounded-3xl shadow-md hover:shadow-lg border border-slate-100 p-6 group cursor-pointer">
+                            class="relative bg-white rounded-3xl shadow-md hover:shadow-lg border border-slate-100 p-6 group cursor-pointer">
                             <div class="flex items-start gap-4 mb-4">
                                 <div class="relative w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0">
                                     <x-content-image :src="$post->image_path" :alt="$post->title" :label="false"
@@ -108,12 +112,18 @@
                                 </div>
                             </div>
                             <h4
-                                class="font-heading font-bold text-secondary text-lg leading-snug mb-3 group-hover:text-primary transition-colors">
-                                <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+                                class="font-heading font-bold text-secondary text-lg leading-snug mb-3 group-hover:text-primary transition-colors flex items-center gap-1">
+                                {{ $post->title }}
+                                @if($post->isExternal())
+                                    <span class="material-symbols-outlined text-sm text-slate-300">open_in_new</span>
+                                @endif
                             </h4>
                             <p class="text-gray-500 text-sm line-clamp-2">
                                 {{ Str::limit($post->excerpt, 80) }}
                             </p>
+                            <a href="{{ $post->link() }}"
+                                @if($post->isExternal()) target="_blank" rel="noopener noreferrer" @endif
+                                class="absolute inset-0 z-10" aria-label="{{ $post->title }}"></a>
                         </article>
                     @endforeach
 

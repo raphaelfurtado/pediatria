@@ -117,7 +117,7 @@
                                     </button>
                                 @else
                                     @if($post->published_at && $post->published_at->isPast())
-                                        <a href="{{ route('posts.show', $post->slug) }}" target="_blank"
+                                        <a href="{{ $post->link() }}" target="_blank"
                                             class="text-slate-400 hover:text-primary transition-colors" title="Ver matéria">
                                             <span class="material-symbols-outlined text-lg">visibility</span>
                                         </a>

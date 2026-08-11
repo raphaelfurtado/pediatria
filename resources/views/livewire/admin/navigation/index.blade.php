@@ -74,7 +74,8 @@
                                                 class="text-blue-300 hover:text-blue-500 transition-colors scale-75">
                                                 <span class="material-symbols-outlined">edit</span>
                                             </a>
-                                            <button wire:click="delete({{ $child->id }})"
+                                            <button wire:confirm="Excluir este item de submenu?"
+                                                wire:click="delete({{ $child->id }})"
                                                 class="text-red-300 hover:text-red-500 transition-colors scale-75">
                                                 <span class="material-symbols-outlined">delete</span>
                                             </button>

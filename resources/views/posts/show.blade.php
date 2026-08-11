@@ -337,7 +337,7 @@
                     <!-- Navigation -->
                     <div class="mt-12 flex justify-between border-t border-gray-100 pt-8">
                         @if($prev = $post->getPrevious())
-                            <a href="{{ route('posts.show', $prev->slug) }}"
+                            <a href="{{ $prev->link() }}"
                                 class="group flex flex-col p-4 rounded-lg hover:bg-white hover:shadow-md transition w-1/2 mr-4 border border-transparent hover:border-gray-100">
                                 <span
                                     class="text-xs font-bold text-gray-400 group-hover:text-sopape-blue uppercase tracking-wide mb-1">←
@@ -350,7 +350,7 @@
                         @endif
 
                         @if($next = $post->getNext())
-                            <a href="{{ route('posts.show', $next->slug) }}"
+                            <a href="{{ $next->link() }}"
                                 class="group flex flex-col p-4 rounded-lg hover:bg-white hover:shadow-md transition w-1/2 ml-4 text-right border border-transparent hover:border-gray-100">
                                 <span
                                     class="text-xs font-bold text-gray-400 group-hover:text-sopape-blue uppercase tracking-wide mb-1">Próximo
@@ -400,7 +400,7 @@
                                             class="text-[10px] font-bold text-sopape-blue uppercase">{{ $rel->category }}</span>
                                         <h5
                                             class="text-sm font-bold text-gray-800 leading-snug group-hover:text-sopape-blue transition mb-1 line-clamp-2">
-                                            <a href="{{ route('posts.show', $rel->slug) }}">{{ $rel->title }}</a>
+                                            <a href="{{ $rel->link() }}" @if($rel->isExternal()) target="_blank" rel="noopener noreferrer" @endif>{{ $rel->title }}</a>
                                         </h5>
                                         <span
                                             class="text-xs text-gray-400">{{ $rel->published_at->translatedFormat('d M, Y') }}</span>

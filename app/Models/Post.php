@@ -18,6 +18,7 @@ class Post extends Model
         'excerpt',
         'content',
         'image_path',
+        'external_url',
         'category',
         'author_id',
         'published_at',
@@ -62,6 +63,22 @@ class Post extends Model
     public function getTagsArrayAttribute(): array
     {
         return $this->tags ? array_map('trim', explode(',', $this->tags)) : [];
+    }
+
+    /**
+     * Whether this news item points to an external article.
+     */
+    public function isExternal(): bool
+    {
+        return ! empty($this->external_url);
+    }
+
+    /**
+     * Destination link: the external article when set, otherwise the internal page.
+     */
+    public function link(): string
+    {
+        return $this->isExternal() ? $this->external_url : route('posts.show', $this->slug);
     }
 
     public function scopePublished(Builder $query): Builder
