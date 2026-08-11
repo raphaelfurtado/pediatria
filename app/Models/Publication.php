@@ -18,9 +18,21 @@ class Publication extends Model
         'file_path',
         'external_link',
         'year',
+        'order',
     ];
 
     protected $casts = [
         'year' => 'integer',
+        'order' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        // Nova publicação entra no fim da ordenação.
+        static::creating(function (Publication $publication) {
+            if (is_null($publication->order)) {
+                $publication->order = (static::max('order') ?? 0) + 1;
+            }
+        });
+    }
 }

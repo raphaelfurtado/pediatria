@@ -31,7 +31,7 @@ class HomeController extends Controller
             ->orderBy('date_start')
             ->take(5)
             ->get();
-        $publications = Publication::latest()->take(4)->get();
+        $publications = Publication::orderBy('order')->orderBy('id')->take(4)->get();
         $featuredVideos = Video::where('is_active', true)
             ->where('is_featured', true)
             ->latest()
