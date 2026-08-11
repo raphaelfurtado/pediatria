@@ -28,7 +28,7 @@
                             <span class="material-symbols-outlined text-base">autorenew</span>
                         </button>
                     </div>
-                    <p class="text-xs text-slate-400 mt-1">Endereço final: <span class="font-mono">/institucional/{{ $slug ?: 'slug' }}</span></p>
+                    <p class="text-xs text-slate-400 mt-1">Endereço final: <span class="font-mono">{{ url('/'.($slug ?: 'slug')) }}</span></p>
                     @error('slug') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
                 </div>
 

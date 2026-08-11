@@ -47,9 +47,19 @@ class Form extends Component
     {
         $this->slug = Str::slug($this->slug);
 
+        // Slugs que colidem com rotas existentes (ficariam inacessíveis).
+        $reserved = [
+            'admin', 'noticias', 'biblioteca', 'eventos', 'galeria', 'videos', 'sobre',
+            'contato', 'login', 'esqueci-senha', 'redefinir-senha', 'area-do-socio',
+            'politica-de-privacidade', 'termos-de-uso', 'feed', 'sitemap', 'robots',
+            'up', 'livewire', 'storage', 'institucional',
+        ];
+
         $this->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|unique:pages,slug,'.$this->pageId,
+            'slug' => ['required', 'unique:pages,slug,'.$this->pageId, \Illuminate\Validation\Rule::notIn($reserved)],
+        ], [
+            'slug.not_in' => 'Este endereço é reservado pelo sistema. Ajuste o título/slug.',
         ]);
 
         $data = [

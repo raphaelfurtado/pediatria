@@ -12,11 +12,16 @@ class PageController extends Controller
     }
 
     /**
-     * Renderiza uma página dinâmica criada no admin (/institucional/{slug}).
+     * Renderiza uma página dinâmica criada no admin, na raiz (/{slug}).
+     * Resiliente: se a tabela ainda não existir, responde 404 em vez de 500.
      */
     public function dynamic($slug)
     {
-        $page = Page::active()->where('slug', $slug)->firstOrFail();
+        $page = \Illuminate\Support\Facades\Schema::hasTable('pages')
+            ? Page::active()->where('slug', $slug)->first()
+            : null;
+
+        abort_if(! $page, 404);
 
         return view('pages.dynamic', compact('page'));
     }

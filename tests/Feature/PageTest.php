@@ -29,8 +29,9 @@ class PageTest extends TestCase
             'is_active' => true,
         ]);
 
-        $response = $this->get('/institucional/'.$page->slug);
+        $response = $this->get(route('pages.dynamic', $page->slug));
 
+        $this->assertSame(url('/nossa-diretoria'), route('pages.dynamic', $page->slug));
         $response->assertOk();
         $response->assertSee('Nossa Diretoria');
         $response->assertSee('Conteúdo institucional.', false);
@@ -44,7 +45,25 @@ class PageTest extends TestCase
             'is_active' => false,
         ]);
 
-        $this->get('/institucional/'.$page->slug)->assertNotFound();
+        $this->get(route('pages.dynamic', $page->slug))->assertNotFound();
+    }
+
+    public function test_catch_all_does_not_shadow_existing_routes(): void
+    {
+        $this->get('/noticias')->assertOk();
+        $this->get('/login')->assertOk();
+        $this->get('/biblioteca')->assertOk();
+    }
+
+    public function test_reserved_slug_is_rejected(): void
+    {
+        $this->actingAs(User::factory()->create(['role' => 'admin']));
+
+        Livewire::test(PageForm::class)
+            ->set('title', 'Notícias')
+            ->set('content', 'x')
+            ->call('save')
+            ->assertHasErrors(['slug']);
     }
 
     public function test_admin_can_create_a_page(): void
