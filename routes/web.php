@@ -25,7 +25,6 @@ Route::get('/sobre', [App\Http\Controllers\PageController::class, 'about'])->nam
 Route::get('/politica-de-privacidade', [App\Http\Controllers\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/termos-de-uso', [App\Http\Controllers\PageController::class, 'terms'])->name('pages.terms');
 Route::get('/contato', \App\Livewire\Contact\Form::class)->name('pages.contact');
-Route::get('/institucional/{slug}', [App\Http\Controllers\PageController::class, 'dynamic'])->name('pages.dynamic');
 
 // SEO / descoberta de conteúdo
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
@@ -97,3 +96,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/navegacao/novo', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.create');
     Route::get('/navegacao/editar/{id}', \App\Livewire\Admin\Navigation\Form::class)->name('navigation.edit');
 });
+
+/*
+| Páginas dinâmicas na raiz (estilo WordPress): /{slug}.
+| DEVE ser a última rota — só captura o que nenhuma outra rota atendeu.
+*/
+Route::get('/{slug}', [App\Http\Controllers\PageController::class, 'dynamic'])
+    ->where('slug', '[A-Za-z0-9\-]+')
+    ->name('pages.dynamic');

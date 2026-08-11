@@ -25,7 +25,7 @@
                 @forelse($pages as $page)
                     <tr class="hover:bg-slate-50 transition-colors">
                         <td class="px-6 py-4 font-bold text-slate-700">{{ $page->title }}</td>
-                        <td class="px-6 py-4 text-slate-400 font-mono text-xs">/institucional/{{ $page->slug }}</td>
+                        <td class="px-6 py-4 text-slate-400 font-mono text-xs">/{{ $page->slug }}</td>
                         <td class="px-6 py-4">
                             @if($page->is_active)
                                 <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold">Ativa</span>
@@ -80,6 +80,7 @@
     <div class="bg-blue-50 border border-blue-100 rounded-2xl p-4 flex gap-3 text-sm text-slate-600">
         <span class="material-symbols-outlined text-primary">tips_and_updates</span>
         <p>Para exibir uma página no site, vá em <strong>Menu e Navegação</strong> e crie um item (ex.: dentro de
-            "Institucional") apontando para <span class="font-mono">/institucional/o-slug-da-pagina</span>.</p>
+            "Institucional") apontando para <span class="font-mono">/o-slug-da-pagina</span> (ex.: <span
+                class="font-mono">/diretoria</span>).</p>
     </div>
 </div>
