@@ -51,7 +51,18 @@
     </div>
 </div>
 
-{{-- VLibras (tradução para Libras) — o botão de acesso fica acima do WhatsApp, à direita --}}
+{{-- Botão próprio de Libras: fechado (só ícone) e expande ao passar o mouse.
+     O clique dispara o widget do VLibras (cujo botão padrão fica oculto). --}}
+<button type="button" onclick="var b=document.querySelector('[vw-access-button]'); if (b) { b.click(); }"
+    aria-label="Tradução em Libras (VLibras)" title="Tradução em Libras"
+    class="group fixed right-6 bottom-24 z-[70] h-12 rounded-full bg-primary text-white shadow-2xl ring-2 ring-white flex items-center overflow-hidden w-12 hover:w-40 focus:w-40 transition-all duration-300 print:hidden">
+    <span class="w-12 h-12 flex items-center justify-center flex-shrink-0">
+        <span class="material-symbols-outlined">sign_language</span>
+    </span>
+    <span class="whitespace-nowrap font-bold text-sm pr-4 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">Libras</span>
+</button>
+
+{{-- VLibras (tradução para Libras) — botão padrão oculto via CSS; acionado pelo botão acima --}}
 <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>

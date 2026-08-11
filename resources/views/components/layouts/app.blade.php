@@ -146,11 +146,16 @@
                 scroll-behavior: auto !important;
             }
         }
-        /* VLibras: botão de acesso acima do WhatsApp (canto direito) */
+        /* VLibras: escondemos o botão padrão (que abre sozinho) e usamos o nosso,
+           que fica fechado e expande no hover. O clique dispara o VLibras. */
         div[vw-access-button] {
-            bottom: 96px !important;
-            right: 18px !important;
-            top: auto !important;
+            position: fixed !important;
+            left: -9999px !important;
+            top: -9999px !important;
+            width: 1px !important;
+            height: 1px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
     </style>
 </head>

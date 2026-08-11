@@ -1,6 +1,9 @@
 <div class="space-y-6">
     <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-headings font-bold text-secondary">Gerenciamento de Publicações</h1>
+        <div>
+            <h1 class="text-2xl font-headings font-bold text-secondary">Gerenciamento de Publicações</h1>
+            <p class="text-slate-500 text-sm">Use as setas ↑↓ para reordenar — a ordem aqui é a mesma exibida no site.</p>
+        </div>
         <div class="flex gap-4">
             <input wire:model.live.debounce.300ms="search" type="text" placeholder="Buscar publicação..."
                 class="bg-white border-slate-200 rounded-full px-4 py-2 text-sm focus:ring-primary focus:border-primary w-64">
@@ -56,6 +59,14 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-2">
+                                <button wire:click="moveUp({{ $pub->id }})"
+                                    class="text-slate-400 hover:text-primary transition-colors" title="Mover para cima">
+                                    <span class="material-symbols-outlined text-lg">keyboard_arrow_up</span>
+                                </button>
+                                <button wire:click="moveDown({{ $pub->id }})"
+                                    class="text-slate-400 hover:text-primary transition-colors" title="Mover para baixo">
+                                    <span class="material-symbols-outlined text-lg">keyboard_arrow_down</span>
+                                </button>
                                 <a href="{{ route('admin.publications.edit', $pub->id) }}"
                                     class="text-blue-400 hover:text-blue-600 transition-colors" title="Editar">
                                     <span class="material-symbols-outlined text-lg">edit</span>

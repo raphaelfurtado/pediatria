@@ -8,7 +8,7 @@ class PublicationController extends Controller
 {
     public function index()
     {
-        $publications = Publication::latest()->get()->groupBy('type');
+        $publications = Publication::orderBy('order')->orderBy('id')->get()->groupBy('type');
 
         return view('publications.index', compact('publications'));
     }
