@@ -55,7 +55,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($posts as $post)
                     <article
-                        class="bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col h-full hover:-translate-y-1">
+                        class="relative bg-white rounded-[2rem] p-4 shadow-sm hover:shadow-hover border border-slate-100 transition-all duration-300 group flex flex-col h-full hover:-translate-y-1">
                         <div class="relative h-60 rounded-[1.5rem] overflow-hidden mb-5">
                             <x-content-image :src="$post->image_path" :alt="$post->title"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -73,18 +73,21 @@
                             </div>
                             <h3
                                 class="text-xl font-heading font-bold text-secondary mb-3 leading-snug group-hover:text-primary transition-colors">
-                                <a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+                                {{ $post->title }}
                             </h3>
                             <p class="text-slate-500 text-sm mb-6 line-clamp-3 leading-relaxed flex-1">
                                 {{ $post->excerpt }}
                             </p>
                             <div class="mt-auto pt-4 border-t border-slate-50">
-                                <a class="inline-flex items-center gap-2 text-secondary hover:text-accent font-bold text-sm group-hover:gap-3 transition-all"
-                                    href="{{ route('posts.show', $post->slug) }}">
-                                    Ler artigo completo <span class="material-symbols-outlined text-lg">arrow_forward</span>
-                                </a>
+                                <span class="inline-flex items-center gap-2 text-secondary group-hover:text-accent font-bold text-sm group-hover:gap-3 transition-all">
+                                    {{ $post->isExternal() ? 'Acessar matéria' : 'Ler artigo completo' }}
+                                    <span class="material-symbols-outlined text-lg">{{ $post->isExternal() ? 'open_in_new' : 'arrow_forward' }}</span>
+                                </span>
                             </div>
                         </div>
+                        <a href="{{ $post->link() }}"
+                            @if($post->isExternal()) target="_blank" rel="noopener noreferrer" @endif
+                            class="absolute inset-0 z-10" aria-label="{{ $post->title }}"></a>
                     </article>
                 @endforeach
             </div>

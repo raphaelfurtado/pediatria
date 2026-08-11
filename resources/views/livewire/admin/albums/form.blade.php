@@ -98,7 +98,7 @@
                                         <img src="{{ $photo->image_path }}" class="w-full h-full object-cover">
                                         <div
                                             class="absolute inset-0 bg-black/40 opacity-0 group-hover/photo:opacity-100 transition-opacity flex items-center justify-center">
-                                            <button type="button" wire:click="deletePhoto({{ $photo->id }})"
+                                            <button type="button" wire:confirm="Excluir esta foto?" wire:click="deletePhoto({{ $photo->id }})"
                                                 wire:confirm="Excluir esta foto?"
                                                 class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors">
                                                 <span class="material-symbols-outlined text-sm">delete</span>
