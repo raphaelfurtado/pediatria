@@ -33,16 +33,6 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Link externo (opcional)</label>
-                        <input wire:model="external_url" type="url"
-                            class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary @error('external_url') border-red-500 @enderror"
-                            placeholder="https://site-externo.com.br/materia">
-                        <p class="text-xs text-slate-400 mt-1">Se preenchido, o card desta notícia leva direto para este
-                            endereço (em nova aba), em vez da página interna. Ideal para republicar matérias de outros sites.</p>
-                        @error('external_url') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Resumo</label>
                         <textarea wire:model="excerpt" rows="3" class="w-full bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary"></textarea>
                         @error('excerpt') <span class="text-xs text-red-500 font-bold block mt-1">{{ $message }}</span> @enderror

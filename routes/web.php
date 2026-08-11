@@ -25,6 +25,7 @@ Route::get('/sobre', [App\Http\Controllers\PageController::class, 'about'])->nam
 Route::get('/politica-de-privacidade', [App\Http\Controllers\PageController::class, 'privacy'])->name('pages.privacy');
 Route::get('/termos-de-uso', [App\Http\Controllers\PageController::class, 'terms'])->name('pages.terms');
 Route::get('/contato', \App\Livewire\Contact\Form::class)->name('pages.contact');
+Route::get('/institucional/{slug}', [App\Http\Controllers\PageController::class, 'dynamic'])->name('pages.dynamic');
 
 // SEO / descoberta de conteúdo
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
@@ -80,6 +81,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin,editor']
     Route::get('/videos/{id}/edit', \App\Livewire\Admin\Videos\Form::class)->name('videos.edit');
     Route::get('/settings', App\Livewire\Admin\Settings\Form::class)->name('settings');
     Route::get('/pagina-sobre', \App\Livewire\Admin\About\Form::class)->name('about');
+    Route::get('/paginas', \App\Livewire\Admin\Pages\Index::class)->name('pages.index');
+    Route::get('/paginas/nova', \App\Livewire\Admin\Pages\Form::class)->name('pages.create');
+    Route::get('/paginas/{id}/editar', \App\Livewire\Admin\Pages\Form::class)->name('pages.edit');
     Route::get('/mensagens', \App\Livewire\Admin\Messages\Index::class)->name('messages.index');
     Route::get('/manual', \App\Livewire\Admin\Manual::class)->name('manual');
     Route::get('/perfil', \App\Livewire\Profile\Edit::class)->name('profile');

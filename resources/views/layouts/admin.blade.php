@@ -65,6 +65,11 @@
                     <span class="material-symbols-outlined">info</span>
                     <span class="font-medium">Página Sobre</span>
                 </a>
+                <a href="{{ route('admin.pages.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.pages.*') ? 'active-nav' : '' }}">
+                    <span class="material-symbols-outlined">description</span>
+                    <span class="font-medium">Páginas</span>
+                </a>
                 <a href="{{ route('admin.messages.index') }}"
                     class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors {{ request()->routeIs('admin.messages.*') ? 'active-nav' : '' }}">
                     <span class="material-symbols-outlined">forum</span>
