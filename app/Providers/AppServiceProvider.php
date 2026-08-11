@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
             \App\Models\ServiceCard::class,
             \App\Models\Slide::class,
             \App\Models\PhotoAlbum::class,
+            \App\Models\Page::class,
         ];
 
         foreach ($observed as $model) {
