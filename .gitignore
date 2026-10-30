@@ -50,3 +50,11 @@ logs/
 # (To lock the team standard, uncomment the line below to keep the project config.)
 .aiox-core/*
 # !.aiox-core/core-config.yaml
+
+# Configs de ferramentas de IA (AIOX) — locais, não versionadas
+/.gemini/
+/.codex/
+/.cursor/
+/.kimi/
+/.antigravity/
+/.github/agents/
