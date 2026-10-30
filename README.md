@@ -1,6 +1,6 @@
-# Site da PEDIATRIA,
+# Site da PEDIATRIA
 
-Por fora é o site da instituição: notícias, eventos, biblioteca de publicações, galeria de fotos, vídeos e contato. Por dentro tem um painel onde a equipe da SOPAPE atualiza tudo sozinha, sem depender de programador para trocar um banner ou publicar uma nota.
+Site da instituição: notícias, eventos, biblioteca de publicações, galeria de fotos, vídeos e contato. Por dentro tem um painel onde a equipe da SOPAPE atualiza tudo sozinha, sem depender de programador para trocar um banner ou publicar uma nota.
 
 ## O que tem no site
 
