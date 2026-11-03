@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\SiteSetting;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RuntimeException;
@@ -17,6 +19,12 @@ use RuntimeException;
  */
 class DatabaseBackup
 {
+    /** Acima disso não anexamos (o Gmail recusa anexos de mais de 25MB). */
+    public const MAX_ATTACHMENT_BYTES = 20 * 1024 * 1024;
+
+    /** Configuração (SiteSetting) com o e-mail que recebe a cópia de cada backup. */
+    public const EMAIL_SETTING = 'backup_email';
+
     public function __construct(
         protected string $disk = 'local',
         protected string $directory = 'backups',
@@ -64,6 +72,48 @@ class DatabaseBackup
             ->sortByDesc('name')
             ->values()
             ->all();
+    }
+
+    /**
+     * Envia uma cópia do backup por e-mail — a cópia "fora do servidor", que
+     * sobrevive se a hospedagem perder os arquivos. Lança exceção se o envio falhar.
+     */
+    public function emailTo(string $name, string $to): void
+    {
+        $path = $this->pathFor($name);
+        $attach = filesize($path) <= self::MAX_ATTACHMENT_BYTES;
+        $date = Carbon::now()->translatedFormat('d/m/Y \à\s H:i');
+
+        $body = "Backup automático do banco de dados do site da SOPAPE, gerado em {$date}.\n\n"
+            .($attach
+                ? "O arquivo segue em anexo ({$name}). Guarde este e-mail: ele é a cópia de segurança fora do servidor.\n\n"
+                : "O arquivo ficou grande demais para anexar. Baixe-o no painel em Sistema > Backups ({$name}).\n\n")
+            .'Atenção: o arquivo contém todos os dados do site, inclusive cadastros de usuários. Não encaminhe.';
+
+        Mail::raw($body, function ($mail) use ($to, $path, $name, $attach) {
+            $mail->to($to)->subject('Backup do site SOPAPE — '.Carbon::now()->format('d/m/Y'));
+
+            if ($attach) {
+                $mail->attach($path, ['as' => $name, 'mime' => 'application/gzip']);
+            }
+        });
+    }
+
+    /**
+     * Envia a cópia ao e-mail configurado no painel. Retorna o destinatário, ou
+     * null quando não há e-mail configurado ou o servidor não envia e-mails.
+     */
+    public function emailToConfigured(string $name): ?string
+    {
+        $to = SiteSetting::get(self::EMAIL_SETTING);
+
+        if (! $to || ! MailStatus::configured()) {
+            return null;
+        }
+
+        $this->emailTo($name, $to);
+
+        return $to;
     }
 
     /**
