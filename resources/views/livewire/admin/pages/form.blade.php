@@ -7,6 +7,8 @@
         </a>
     </div>
 
+    <x-admin.draft-autosave :key="'page:'.($pageId ?? 'new')" :fields="['title', 'content']" />
+
     <form wire:submit="save" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div class="lg:col-span-2 space-y-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">

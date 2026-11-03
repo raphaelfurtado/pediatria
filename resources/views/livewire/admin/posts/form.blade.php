@@ -6,6 +6,8 @@
         </a>
     </div>
 
+    <x-admin.draft-autosave :key="'post:'.($postId ?? 'new')" :fields="['title', 'excerpt', 'content', 'category', 'tags']" />
+
     <form wire:submit="save" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Main Content -->
         <div class="lg:col-span-2 space-y-6">
