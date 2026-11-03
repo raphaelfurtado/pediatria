@@ -7,10 +7,14 @@ use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class Form extends Component
 {
+    /** Envio mais rápido que isso (desde a abertura da página) é tratado como robô. */
+    public const MIN_SECONDS_TO_SUBMIT = 3;
+
     public $name = '';
 
     public $email = '';
@@ -20,6 +24,17 @@ class Form extends Component
     public $message = '';
 
     public $sent = false;
+
+    /** Campo-isca: escondido de pessoas, mas robôs costumam preenchê-lo. */
+    public $website = '';
+
+    #[Locked]
+    public $startedAt;
+
+    public function mount()
+    {
+        $this->startedAt = now()->timestamp;
+    }
 
     public function submit()
     {
@@ -39,6 +54,14 @@ class Form extends Component
         ]);
 
         RateLimiter::hit($key, 60);
+
+        // Robô: finge que enviou (para não ensinar o bot a contornar) e descarta.
+        if ($this->looksLikeBot()) {
+            $this->reset(['name', 'email', 'subject', 'message', 'website']);
+            $this->sent = true;
+
+            return;
+        }
 
         $contact = ContactMessage::create($data);
 
@@ -65,6 +88,12 @@ class Form extends Component
 
         $this->reset(['name', 'email', 'subject', 'message']);
         $this->sent = true;
+    }
+
+    protected function looksLikeBot(): bool
+    {
+        return filled($this->website)
+            || now()->timestamp - (int) $this->startedAt < self::MIN_SECONDS_TO_SUBMIT;
     }
 
     public function render()

@@ -47,6 +47,10 @@
                     </div>
                 @else
                     <form wire:submit="submit" class="space-y-5">
+                        {{-- Campo-isca anti-spam: invisível para pessoas; robôs preenchem. --}}
+                        <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
+                            <label>Website <input wire:model="website" type="text" name="website" tabindex="-1" autocomplete="off"></label>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
                                 <label class="block text-sm font-bold text-slate-700 mb-2">Nome</label>

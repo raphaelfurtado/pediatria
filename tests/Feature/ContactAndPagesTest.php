@@ -30,18 +30,54 @@ class ContactAndPagesTest extends TestCase
 
     public function test_contact_form_saves_message(): void
     {
-        Livewire::test(ContactForm::class)
+        $form = Livewire::test(ContactForm::class)
             ->set('name', 'Fulano de Tal')
             ->set('email', 'fulano@example.com')
             ->set('subject', 'Dúvida')
-            ->set('message', 'Olá, tenho uma dúvida sobre a associação.')
-            ->call('submit')
-            ->assertSet('sent', true);
+            ->set('message', 'Olá, tenho uma dúvida sobre a associação.');
+
+        $this->travel(10)->seconds();
+
+        $form->call('submit')->assertSet('sent', true);
 
         $this->assertDatabaseHas('contact_messages', [
             'email' => 'fulano@example.com',
             'is_read' => false,
         ]);
+    }
+
+    public function test_contact_form_discards_bot_filling_honeypot(): void
+    {
+        $form = Livewire::test(ContactForm::class)
+            ->set('name', 'vHhUfYxeeRKGUBjJXDCLp')
+            ->set('email', 'iq.a.x.eso.43.7@gmail.com')
+            ->set('message', 'cxrAsOmvvDQqAeUC')
+            ->set('website', 'http://spam.example');
+
+        $this->travel(10)->seconds();
+
+        $form->call('submit')->assertSet('sent', true);
+
+        $this->assertDatabaseCount('contact_messages', 0);
+    }
+
+    public function test_contact_form_discards_submission_faster_than_a_human(): void
+    {
+        Livewire::test(ContactForm::class)
+            ->set('name', 'Robô Apressado')
+            ->set('email', 'robo@example.com')
+            ->set('message', 'Enviado no mesmo segundo em que a página abriu.')
+            ->call('submit')
+            ->assertSet('sent', true);
+
+        $this->assertDatabaseCount('contact_messages', 0);
+    }
+
+    public function test_contact_form_start_time_cannot_be_tampered(): void
+    {
+        $this->expectException(\Livewire\Features\SupportLockedProperties\CannotUpdateLockedPropertyException::class);
+
+        Livewire::test(ContactForm::class)->set('startedAt', 0);
     }
 
     public function test_contact_form_requires_message(): void

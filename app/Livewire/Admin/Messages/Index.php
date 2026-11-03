@@ -11,6 +11,34 @@ class Index extends Component
 {
     use WithPagination;
 
+    protected const PER_PAGE = 15;
+
+    /** IDs marcados para exclusão em lote. */
+    public array $selected = [];
+
+    public function togglePageSelection()
+    {
+        $pageIds = $this->pageIds();
+
+        $this->selected = array_diff($pageIds, $this->selected)
+            ? array_values(array_unique([...$this->selected, ...$pageIds]))
+            : array_values(array_diff($this->selected, $pageIds));
+    }
+
+    protected function pageIds(): array
+    {
+        return ContactMessage::latest()->forPage($this->getPage(), self::PER_PAGE)
+            ->pluck('id')->map(fn ($id) => (string) $id)->all();
+    }
+
+    public function deleteSelected()
+    {
+        $count = ContactMessage::whereIn('id', $this->selected)->delete();
+        $this->selected = [];
+
+        $this->dispatch('notify', $count === 1 ? '1 mensagem excluída.' : "{$count} mensagens excluídas.");
+    }
+
     public function toggleRead($id)
     {
         $message = ContactMessage::findOrFail($id);
@@ -26,8 +54,12 @@ class Index extends Component
     #[Layout('layouts.admin')]
     public function render()
     {
+        $messages = ContactMessage::latest()->paginate(self::PER_PAGE);
+        $pageIds = $messages->pluck('id')->map(fn ($id) => (string) $id)->all();
+
         return view('livewire.admin.messages.index', [
-            'messages' => ContactMessage::latest()->paginate(15),
+            'messages' => $messages,
+            'pageAllSelected' => $pageIds && ! array_diff($pageIds, $this->selected),
         ]);
     }
 }

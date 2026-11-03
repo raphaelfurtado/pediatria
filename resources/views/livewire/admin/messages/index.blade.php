@@ -4,12 +4,34 @@
         <p class="text-slate-500 text-sm">Mensagens enviadas pelo formulário público de contato.</p>
     </div>
 
+    @if($messages->isNotEmpty())
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <label class="flex items-center gap-2 text-sm font-bold text-slate-600 cursor-pointer">
+                <input type="checkbox" class="rounded border-slate-300 text-primary focus:ring-primary"
+                    @checked($pageAllSelected) wire:click="togglePageSelection">
+                Selecionar todas desta página
+            </label>
+            @if(count($selected))
+                <button wire:click="deleteSelected"
+                    wire:confirm="Excluir {{ count($selected) }} {{ count($selected) === 1 ? 'mensagem' : 'mensagens' }}? Esta ação não pode ser desfeita."
+                    class="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-full transition-colors">
+                    <span class="material-symbols-outlined text-lg">delete</span>
+                    Excluir selecionadas ({{ count($selected) }})
+                </button>
+            @endif
+        </div>
+    @endif
+
     <div class="space-y-4">
         @forelse($messages as $msg)
             <div
                 class="bg-white rounded-2xl shadow-sm border {{ $msg->is_read ? 'border-slate-100' : 'border-primary/30 bg-primary/5' }} p-5">
                 <div class="flex items-start justify-between gap-4">
-                    <div class="min-w-0">
+                    <div class="min-w-0 flex items-start gap-3">
+                        <input type="checkbox" wire:model.live="selected" value="{{ $msg->id }}"
+                            class="mt-1 rounded border-slate-300 text-primary focus:ring-primary cursor-pointer"
+                            aria-label="Selecionar mensagem de {{ $msg->name }}">
+                        <div class="min-w-0">
                         <div class="flex items-center gap-2 flex-wrap">
                             <span class="font-bold text-secondary">{{ $msg->name }}</span>
                             @unless($msg->is_read)
@@ -20,6 +42,7 @@
                         <div class="text-xs text-slate-400">
                             <a href="mailto:{{ $msg->email }}" class="hover:text-primary">{{ $msg->email }}</a>
                             &middot; {{ $msg->created_at->translatedFormat('d \d\e F \d\e Y, H:i') }}
+                        </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-2 flex-shrink-0">
