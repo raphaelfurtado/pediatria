@@ -75,7 +75,7 @@
                                 <div class="text-sm text-slate-500">
                                     <span class="font-bold text-primary">Clique para upload</span> ou arraste a
                                     imagem<br>
-                                    <span class="text-xs">PNG, JPG ou WEBP (Max. 2MB)</span>
+                                    <span class="text-xs">PNG, JPG, WEBP ou HEIC (Max. 2MB)</span>
                                 </div>
                             </div>
                         </div>

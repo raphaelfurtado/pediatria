@@ -78,7 +78,7 @@
                                     class="material-symbols-outlined text-2xl text-slate-300 group-hover:text-primary transition-colors">image</span>
                                 <div class="text-xs text-slate-500">
                                     <span class="font-bold text-primary">Upload Capa</span><br>
-                                    PNG, JPG (Max. 2MB)
+                                    PNG, JPG, WEBP ou HEIC (Max. 2MB)
                                 </div>
                             </div>
                         </div>
