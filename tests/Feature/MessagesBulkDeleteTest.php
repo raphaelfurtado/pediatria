@@ -55,6 +55,39 @@ class MessagesBulkDeleteTest extends TestCase
         $component->call('togglePageSelection')->assertSet('selected', []);
     }
 
+    public function test_single_delete_removes_message_from_selection(): void
+    {
+        $a = $this->makeMessage('Aaa');
+        $b = $this->makeMessage('Bbb');
+
+        // Cenário do bug: duas marcadas e uma apagada individualmente — o contador não pode ficar em 2.
+        Livewire::test(MessagesIndex::class)
+            ->set('selected', [(string) $a->id, (string) $b->id])
+            ->call('delete', $a->id)
+            ->assertSet('selected', [(string) $b->id])
+            ->assertSee('Excluir selecionadas (1)');
+    }
+
+    public function test_selection_drops_messages_that_no_longer_exist(): void
+    {
+        $a = $this->makeMessage('Aaa');
+
+        Livewire::test(MessagesIndex::class)
+            ->set('selected', [(string) $a->id, '999'])
+            ->assertSet('selected', [(string) $a->id])
+            ->assertSee('Excluir selecionadas (1)');
+    }
+
+    public function test_individual_trash_is_hidden_while_selecting(): void
+    {
+        $a = $this->makeMessage('Aaa');
+
+        Livewire::test(MessagesIndex::class)
+            ->assertSeeHtml('title="Excluir"')
+            ->set('selected', [(string) $a->id])
+            ->assertDontSeeHtml('title="Excluir"');
+    }
+
     public function test_messages_page_renders(): void
     {
         $this->makeMessage('Fulano');

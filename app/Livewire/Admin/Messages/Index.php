@@ -48,12 +48,19 @@ class Index extends Component
     public function delete($id)
     {
         ContactMessage::findOrFail($id)->delete();
+        $this->selected = array_values(array_diff($this->selected, [(string) $id]));
         $this->dispatch('notify', 'Mensagem excluída.');
     }
 
     #[Layout('layouts.admin')]
     public function render()
     {
+        // Mantém a seleção só com mensagens que ainda existem, para a contagem do botão bater.
+        if ($this->selected) {
+            $this->selected = ContactMessage::whereIn('id', $this->selected)
+                ->pluck('id')->map(fn ($id) => (string) $id)->values()->all();
+        }
+
         $messages = ContactMessage::latest()->paginate(self::PER_PAGE);
         $pageIds = $messages->pluck('id')->map(fn ($id) => (string) $id)->all();
 

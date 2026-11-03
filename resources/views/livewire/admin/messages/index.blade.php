@@ -24,7 +24,7 @@
 
     <div class="space-y-4">
         @forelse($messages as $msg)
-            <div
+            <div wire:key="message-{{ $msg->id }}"
                 class="bg-white rounded-2xl shadow-sm border {{ $msg->is_read ? 'border-slate-100' : 'border-primary/30 bg-primary/5' }} p-5">
                 <div class="flex items-start justify-between gap-4">
                     <div class="min-w-0 flex items-start gap-3">
@@ -67,10 +67,13 @@
                             title="Responder pelo Gmail ({{ $replyFrom }})">
                             <span class="material-symbols-outlined text-lg">reply</span>
                         </a>
-                        <button wire:confirm="Excluir esta mensagem?" wire:click="delete({{ $msg->id }})"
-                            class="text-red-400 hover:text-red-600 transition-colors" title="Excluir">
-                            <span class="material-symbols-outlined text-lg">delete</span>
-                        </button>
+                        {{-- Com mensagens marcadas, só o botão "Excluir selecionadas" fica visível, para não confundir. --}}
+                        @unless(count($selected))
+                            <button wire:confirm="Excluir esta mensagem?" wire:click="delete({{ $msg->id }})"
+                                class="text-red-400 hover:text-red-600 transition-colors" title="Excluir">
+                                <span class="material-symbols-outlined text-lg">delete</span>
+                            </button>
+                        @endunless
                     </div>
                 </div>
                 @if($msg->subject)
