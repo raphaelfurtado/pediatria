@@ -182,6 +182,10 @@
                 <x-admin.route-help />
                 {{ $slot }}
             </div>
+
+            <footer class="container mx-auto px-6 pb-6 text-right text-xs text-slate-400">
+                PHP {{ PHP_VERSION }}
+            </footer>
         </main>
     </div>
 
