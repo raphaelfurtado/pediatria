@@ -82,12 +82,14 @@
                     </div>
 
                     <div class="w-full md:w-1/2">
-                        @if($image)
+                        @if($image && $image->isPreviewable())
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Preview</span>
                                 <img src="{{ $image->temporaryUrl() }}"
                                     class="w-full h-40 object-cover rounded-2xl shadow-lg border border-slate-100">
                             </div>
+                        @elseif($image)
+                            <x-admin.unsupported-image />
                         @elseif($existingImage)
                             <div class="space-y-2">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Imagem Atual</span>

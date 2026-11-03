@@ -80,8 +80,16 @@
                             @foreach($photos as $index => $photo)
                                 <div
                                     class="relative aspect-square rounded-xl overflow-hidden shadow-sm border border-slate-200 animate-fade-in">
-                                    <img src="{{ $photo->temporaryUrl() }}" class="w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-black/20"></div>
+                                    @if($photo->isPreviewable())
+                                        <img src="{{ $photo->temporaryUrl() }}" class="w-full h-full object-cover">
+                                        <div class="absolute inset-0 bg-black/20"></div>
+                                    @else
+                                        <div class="flex h-full w-full flex-col items-center justify-center bg-amber-50 p-1 text-center text-[10px] font-bold text-amber-800"
+                                            title="Formato não suportado. Envie JPG, PNG ou WebP.">
+                                            <span class="material-symbols-outlined">warning</span>
+                                            Formato não suportado
+                                        </div>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
@@ -120,8 +128,10 @@
                         class="relative aspect-[3/4] border-2 border-dashed border-slate-200 rounded-3xl overflow-hidden hover:border-primary transition-colors group cursor-pointer">
                         <input type="file" wire:model="cover"
                             class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
-                        @if($cover)
+                        @if($cover && $cover->isPreviewable())
                             <img src="{{ $cover->temporaryUrl() }}" class="absolute inset-0 w-full h-full object-cover">
+                        @elseif($cover)
+                            <x-admin.unsupported-image class="absolute inset-x-3 top-3 z-10" />
                         @elseif($existingCover)
                             <img src="{{ $existingCover }}" class="absolute inset-0 w-full h-full object-cover">
                         @else

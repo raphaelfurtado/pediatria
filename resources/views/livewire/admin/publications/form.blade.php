@@ -82,9 +82,11 @@
                                 </div>
                             </div>
                         </div>
-                        @if($cover)
+                        @if($cover && $cover->isPreviewable())
                             <img src="{{ $cover->temporaryUrl() }}"
                                 class="w-24 h-32 object-cover rounded-lg shadow-md border border-slate-100 mx-auto">
+                        @elseif($cover)
+                            <x-admin.unsupported-image />
                         @elseif($existingCover)
                             <img src="{{ $existingCover }}"
                                 class="w-24 h-32 object-cover rounded-lg shadow-md border border-slate-100 mx-auto">

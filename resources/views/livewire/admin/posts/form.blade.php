@@ -199,8 +199,10 @@
                 <div class="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center hover:border-primary hover:bg-blue-50 transition-colors cursor-pointer relative">
                     <input type="file" wire:model="image" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                     <div class="py-4">
-                         @if ($image)
+                         @if ($image && $image->isPreviewable())
                             <img src="{{ $image->temporaryUrl() }}" class="max-h-32 mx-auto rounded-lg shadow-sm">
+                        @elseif($image)
+                            <x-admin.unsupported-image />
                         @elseif($existingImage)
                              <img src="{{ $existingImage }}" class="max-h-32 mx-auto rounded-lg shadow-sm">
                         @else
